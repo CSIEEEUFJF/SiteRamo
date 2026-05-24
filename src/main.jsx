@@ -151,13 +151,17 @@ const projects = [
     id: 'entense',
     name: 'ENTENSE',
     url: 'https://entense.ieeeufjf.com.br',
-    domain: 'entense.ieeeufjf.com.br',
+    displayUrl: 'entense.ieeeufjf.com.br',
+    description: 'Encontro de Tecnologias e Engenharia',
+    preview: '/assets/projects/entense-preview.png',
   },
   {
     id: 'helpieee',
     name: 'HELPIEEE',
     url: 'https://help.ieeeufjf.com.br',
-    domain: 'help.ieeeufjf.com.br',
+    displayUrl: 'help.ieeeufjf.com.br',
+    description: 'Guia do Calouro',
+    preview: '/assets/projects/helpieee-preview.png',
   },
 ];
 
@@ -373,7 +377,7 @@ function App() {
         </div>
 
         <div className="projects-grid">
-          {projects.map(({ id, name, url, domain }) => (
+          {projects.map(({ id, name, url, description, preview }) => (
             <a
               className={`project-card project-card--${id}`}
               href={url}
@@ -382,21 +386,17 @@ function App() {
               key={id}
               aria-label={`Abrir projeto ${name}`}
             >
-              <div className="project-card__preview" aria-hidden="true">
-                <div className="project-card__browser">
-                  <span />
-                  <span />
-                  <span />
-                </div>
-                <div className="project-card__screen">
-                  <strong>{name}</strong>
-                  <span>{domain}</span>
-                </div>
+              <div className="project-card__preview">
+                <img
+                  className="project-card__image"
+                  src={preview}
+                  alt={`Preview do projeto ${name}`}
+                  loading="eager"
+                />
               </div>
               <div className="project-card__copy">
-                <span>{domain}</span>
                 <strong>{name}</strong>
-                <p>Abrir projeto</p>
+                <p>{description}</p>
               </div>
               <ExternalLink className="project-card__icon" aria-hidden="true" size={20} />
             </a>
@@ -412,7 +412,7 @@ function App() {
 
         <div className="contact__layout">
           <div className="contact__copy">
-            <span>Ramo Estudantil IEEE UFJF</span>
+            <span>Nossa localização</span>
             <h2>Faculdade de Engenharia - Universidade Federal de Juiz de Fora</h2>
             <a
               className="contact__instagram"

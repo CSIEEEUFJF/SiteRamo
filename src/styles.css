@@ -560,10 +560,16 @@ a {
     transform 180ms ease;
 }
 
-.project-card:hover {
+.project-card:hover,
+.project-card:focus-visible {
   border-color: rgba(0, 98, 155, 0.35);
   box-shadow: 0 16px 36px rgba(18, 32, 47, 0.08);
   transform: translateY(-3px);
+}
+
+.project-card:focus-visible {
+  outline: 3px solid rgba(0, 98, 155, 0.28);
+  outline-offset: 4px;
 }
 
 .project-card__preview {
@@ -572,46 +578,12 @@ a {
   background: #f4f9fc;
 }
 
-.project-card__browser {
-  height: 2.1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0 0.75rem;
-  border-bottom: 1px solid var(--line);
-  background: #fff;
-}
-
-.project-card__browser span {
-  width: 0.52rem;
-  height: 0.52rem;
-  border-radius: 999px;
-  background: #b8c7d6;
-}
-
-.project-card__screen {
-  min-height: 150px;
-  display: grid;
-  align-content: center;
-  gap: 0.45rem;
-  padding: 1.25rem;
-  color: #fff;
-  background: var(--ieee-blue);
-}
-
-.project-card--helpieee .project-card__screen {
-  background: #1f7a5c;
-}
-
-.project-card__screen strong {
-  font-size: clamp(1.75rem, 4vw, 2.65rem);
-  line-height: 1;
-}
-
-.project-card__screen span {
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 0.9rem;
-  font-weight: 700;
+.project-card__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
 }
 
 .project-card__copy {
