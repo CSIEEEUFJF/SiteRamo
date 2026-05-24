@@ -359,7 +359,7 @@ function App() {
         <div className="contact__layout">
           <div className="contact__copy">
             <span>Ramo Estudantil IEEE UFJF</span>
-            <h3>Universidade Federal de Juiz de Fora</h3>
+            <h2>Faculdade de Engenharia - Universidade Federal de Juiz de Fora</h2>
             <a
               className="contact__instagram"
               href="https://instagram.com/ieeeufjf"
