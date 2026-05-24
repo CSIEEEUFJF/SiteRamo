@@ -80,7 +80,7 @@ const chapters = [
     descricao:
       'Capítulo voltado à energia elétrica, sistemas de potência, geração, transmissão, distribuição e transição energética.',
     instagram: 'https://www.instagram.com/ieeepesufjf/',
-    president: { nome: 'Pedro Temponi', foto: '' },
+    president: { nome: 'Pedro Temponi', foto: '/assets/presidents/pedro-temponi.jpg' },
   },
   {
     id: 'ras',
