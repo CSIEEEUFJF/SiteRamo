@@ -8,7 +8,7 @@ const chapters = [
     id: 'aess',
     sigla: 'AESS',
     nome: 'Aerospace and Electronic Systems Society',
-    logo: '/assets/chapters/aess.png',
+    logo: '/assets/chapters/aess.svg',
     descricao:
       'Capitulo voltado a sistemas aeroespaciais, aviacao, eletronica embarcada e tecnologias aplicadas a ambientes complexos.',
     instagram: '',
@@ -18,7 +18,7 @@ const chapters = [
     id: 'aps',
     sigla: 'AP-S',
     nome: 'Antennas and Propagation Society',
-    logo: '/assets/chapters/aps.png',
+    logo: '/assets/chapters/aps.svg',
     descricao:
       'Capitulo dedicado ao estudo de antenas, propagacao eletromagnetica, radiofrequencia e comunicacoes sem fio.',
     instagram: '',
@@ -28,7 +28,7 @@ const chapters = [
     id: 'comsoc',
     sigla: 'ComSoc',
     nome: 'Communications Society',
-    logo: '/assets/chapters/comsoc.png',
+    logo: '/assets/chapters/comsoc.svg',
     descricao:
       'Capitulo focado em redes, telecomunicacoes, conectividade, protocolos e tecnologias que sustentam sistemas de comunicacao.',
     instagram: '',
@@ -38,7 +38,7 @@ const chapters = [
     id: 'cs',
     sigla: 'CS',
     nome: 'Computer Society',
-    logo: '/assets/chapters/cs.png',
+    logo: '/assets/chapters/cs.jpg',
     descricao:
       'Capitulo dedicado a computacao, software, inteligencia artificial, seguranca, sistemas e formacao tecnica em tecnologia.',
     instagram: '',
@@ -79,7 +79,7 @@ const chapters = [
     id: 'ras',
     sigla: 'RAS',
     nome: 'Robotics and Automation Society',
-    logo: '/assets/chapters/ras.png',
+    logo: '/assets/chapters/ras.jpg',
     descricao:
       'Capitulo focado em robotica, automacao, sistemas embarcados, controle, percepcao e projetos praticos multidisciplinares.',
     instagram: '',
@@ -100,7 +100,7 @@ const chapters = [
     id: 'vts',
     sigla: 'VTS',
     nome: 'Vehicular Technology Society',
-    logo: '',
+    logo: '/assets/chapters/vts.svg',
     descricao:
       'Capitulo dedicado a mobilidade, sistemas veiculares, transporte inteligente, comunicacao veicular e tecnologias automotivas.',
     instagram: '',
@@ -181,18 +181,15 @@ function App() {
               onClick={() => setSelectedChapterId(id)}
               aria-expanded={selectedChapterId === id}
               aria-controls="chapter-detail"
+              aria-label={`Abrir detalhes de ${nome}`}
             >
               {logo ? (
-                <img className="chapter-card__logo" src={logo} alt={`Logo ${sigla}`} />
+                <img className="chapter-card__logo" src={logo} alt={`Logo ${nome}`} />
               ) : (
                 <span className="chapter-card__placeholder" aria-hidden="true">
                   {sigla}
                 </span>
               )}
-              <div>
-                <h3>{sigla}</h3>
-                <p>{nome}</p>
-              </div>
             </button>
           ))}
         </div>

@@ -231,24 +231,22 @@ a {
   width: min(100%, 1120px);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 1px;
   border: 1px solid var(--line);
   background: var(--line);
 }
 
 .chapter-card {
-  min-height: 168px;
-  padding: 1.35rem;
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
+  min-height: 156px;
+  padding: 1.5rem;
+  display: grid;
+  place-items: center;
   border: 0;
   background: #fff;
   color: inherit;
   cursor: pointer;
   font: inherit;
-  text-align: left;
   transition:
     background 180ms ease,
     box-shadow 180ms ease,
@@ -267,9 +265,8 @@ a {
 
 .chapter-card__logo,
 .chapter-card__placeholder {
-  width: 4rem;
-  height: 4rem;
-  flex: 0 0 auto;
+  width: min(100%, 164px);
+  height: 86px;
 }
 
 .chapter-card__logo {
@@ -285,20 +282,6 @@ a {
   color: var(--ieee-blue);
   font-size: 1rem;
   font-weight: 900;
-}
-
-.chapter-card h3 {
-  margin: 0;
-  color: var(--ieee-blue);
-  font-size: 1.35rem;
-  line-height: 1;
-}
-
-.chapter-card p {
-  margin: 0.75rem 0 0;
-  color: var(--muted);
-  font-size: 0.98rem;
-  line-height: 1.5;
 }
 
 .chapter-detail {
@@ -534,7 +517,7 @@ a {
   }
 
   .chapter-card {
-    min-height: 142px;
+    min-height: 132px;
   }
 
   .chapter-detail,
