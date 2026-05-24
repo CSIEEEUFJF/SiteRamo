@@ -102,7 +102,7 @@ const chapters = [
     nome: 'Vehicular Technology Society',
     logo: '/assets/chapters/vts.svg',
     descricao:
-      'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas.',
+      'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas. No Ramo Estudantil IEEE UFJF, é uma parceria com a equipe RAMPAGE BAJA.',
     instagram: 'https://www.instagram.com/rampagebaja/',
     president: { nome: 'Matheus Nery', foto: '' },
   },
@@ -145,6 +145,9 @@ const boardMembers = [
     photo: '/assets/presidents/fabricio-prata.png',
   },
 ];
+
+const mapsEmbedUrl =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4558.946106024073!2d-43.37522762383733!3d-21.778392998521973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x989ba3d97601f7%3A0xcf9f2fb389a7f742!2sRamo%20Estudantil%20IEEE%20UFJF!5e1!3m2!1sen!2sbr!4v1779591238371!5m2!1sen!2sbr';
 
 function App() {
   const [selectedChapterId, setSelectedChapterId] = useState(null);
@@ -347,8 +350,40 @@ function App() {
         </div>
       </section>
 
-      <section className="contact-strip" id="contato" aria-label="Contato">
-        <p>Ramo Estudantil IEEE UFJF</p>
+      <section className="contact" id="contato" aria-labelledby="contato-title">
+        <div className="section-heading">
+          <span>Contato</span>
+          <h2 id="contato-title">Fale com o Ramo</h2>
+        </div>
+
+        <div className="contact__layout">
+          <div className="contact__copy">
+            <span>Ramo Estudantil IEEE UFJF</span>
+            <h3>Universidade Federal de Juiz de Fora</h3>
+            <a
+              className="contact__instagram"
+              href="https://instagram.com/ieeeufjf"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Instagram aria-hidden="true" size={18} />
+              @ieeeufjf
+            </a>
+          </div>
+
+          <div className="contact__map" aria-label="Mapa do Ramo Estudantil IEEE UFJF">
+            <iframe
+              src={mapsEmbedUrl}
+              title="Mapa do Ramo Estudantil IEEE UFJF"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </div>
       </section>
     </main>
   );
