@@ -103,7 +103,7 @@ const chapters = [
     logo: '/assets/chapters/vts.svg',
     descricao:
       'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas.',
-    instagram: '',
+    instagram: 'https://www.instagram.com/rampagebaja/',
     president: { nome: 'Matheus Nery', foto: '' },
   },
   {
