@@ -308,6 +308,11 @@ a {
   background: #fff;
 }
 
+.chapter-detail:focus {
+  outline: 3px solid rgba(0, 98, 155, 0.28);
+  outline-offset: 4px;
+}
+
 .chapter-detail__close {
   width: 2.4rem;
   height: 2.4rem;

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ArrowDown, Github, Instagram, X } from 'lucide-react';
 import './styles.css';
@@ -10,9 +10,9 @@ const chapters = [
     nome: 'Aerospace and Electronic Systems Society',
     logo: '/assets/chapters/aess.svg',
     descricao:
-      'Capitulo voltado a sistemas aeroespaciais, aviacao, eletronica embarcada e tecnologias aplicadas a ambientes complexos.',
+      'Capítulo voltado a sistemas aeroespaciais, aviação, eletrônica embarcada e tecnologias aplicadas a ambientes complexos.',
     instagram: '',
-    president: { nome: 'A definir', foto: '' },
+    president: { nome: 'Brendo Almeida', foto: '' },
   },
   {
     id: 'aps',
@@ -20,9 +20,9 @@ const chapters = [
     nome: 'Antennas and Propagation Society',
     logo: '/assets/chapters/aps.svg',
     descricao:
-      'Capitulo dedicado ao estudo de antenas, propagacao eletromagnetica, radiofrequencia e comunicacoes sem fio.',
+      'Capítulo dedicado ao estudo de antenas, propagação eletromagnética, radiofrequência e comunicações sem fio.',
     instagram: '',
-    president: { nome: 'A definir', foto: '' },
+    president: { nome: 'Pedro Fuzimoto', foto: '' },
   },
   {
     id: 'comsoc',
@@ -30,9 +30,9 @@ const chapters = [
     nome: 'Communications Society',
     logo: '/assets/chapters/comsoc.png',
     descricao:
-      'Capitulo focado em redes, telecomunicacoes, conectividade, protocolos e tecnologias que sustentam sistemas de comunicacao.',
+      'Capítulo focado em redes, telecomunicações, conectividade, protocolos e tecnologias que sustentam sistemas de comunicação.',
     instagram: '',
-    president: { nome: 'A definir', foto: '' },
+    president: { nome: 'Pedro Fuzimoto', foto: '' },
   },
   {
     id: 'cs',
@@ -40,10 +40,10 @@ const chapters = [
     nome: 'Computer Society',
     logo: '/assets/chapters/cs.jpg',
     descricao:
-      'Capitulo dedicado a computacao, software, inteligencia artificial, seguranca, sistemas e formacao tecnica em tecnologia.',
+      'Capítulo dedicado à computação, software, inteligência artificial, segurança, sistemas e formação técnica em tecnologia.',
     instagram: '',
     github: '',
-    president: { nome: 'A definir', foto: '' },
+    president: { nome: 'Rafael Lago', foto: '' },
   },
   {
     id: 'edsoc',
@@ -51,9 +51,9 @@ const chapters = [
     nome: 'Education Society',
     logo: '/assets/chapters/edsoc.png',
     descricao:
-      'Capitulo voltado a educacao em engenharia, aprendizagem, metodologias de ensino e iniciativas de capacitacao tecnica.',
+      'Capítulo voltado à educação em engenharia, aprendizagem, metodologias de ensino e iniciativas de capacitação técnica.',
     instagram: '',
-    president: { nome: 'A definir', foto: '' },
+    president: { nome: 'Fabrício Prata', foto: '' },
   },
   {
     id: 'ias',
@@ -61,9 +61,9 @@ const chapters = [
     nome: 'Industry Applications Society',
     logo: '/assets/chapters/ias.png',
     descricao:
-      'Capitulo que conecta aplicacoes industriais, automacao, maquinas eletricas, processos produtivos e tecnologia aplicada.',
+      'Capítulo que conecta aplicações industriais, automação, máquinas elétricas, processos produtivos e tecnologia aplicada.',
     instagram: '',
-    president: { nome: 'A definir', foto: '' },
+    president: { nome: 'Lauro Abdallah', foto: '' },
   },
   {
     id: 'pes',
@@ -71,9 +71,9 @@ const chapters = [
     nome: 'Power & Energy Society',
     logo: '/assets/chapters/pes.png',
     descricao:
-      'Capitulo voltado a energia eletrica, sistemas de potencia, geracao, transmissao, distribuicao e transicao energetica.',
+      'Capítulo voltado à energia elétrica, sistemas de potência, geração, transmissão, distribuição e transição energética.',
     instagram: '',
-    president: { nome: 'A definir', foto: '' },
+    president: { nome: 'Pedro Temponi', foto: '' },
   },
   {
     id: 'ras',
@@ -81,10 +81,10 @@ const chapters = [
     nome: 'Robotics and Automation Society',
     logo: '/assets/chapters/ras.jpg',
     descricao:
-      'Capitulo focado em robotica, automacao, sistemas embarcados, controle, percepcao e projetos praticos multidisciplinares.',
+      'Capítulo focado em robótica, automação, sistemas embarcados, controle, percepção e projetos práticos multidisciplinares.',
     instagram: '',
     github: '',
-    president: { nome: 'A definir', foto: '' },
+    president: { nome: 'Endhel Andrade', foto: '' },
   },
   {
     id: 'sight',
@@ -92,9 +92,9 @@ const chapters = [
     nome: 'Special Interest Group on Humanitarian Technology',
     logo: '/assets/chapters/sight.png',
     descricao:
-      'Grupo voltado a tecnologia humanitaria, impacto social, acessibilidade, sustentabilidade e solucoes para comunidades.',
+      'Grupo voltado à tecnologia humanitária, impacto social, acessibilidade, sustentabilidade e soluções para comunidades.',
     instagram: '',
-    president: { nome: 'A definir', foto: '' },
+    president: { nome: 'Carlos Alexandre', foto: '' },
   },
   {
     id: 'vts',
@@ -102,9 +102,9 @@ const chapters = [
     nome: 'Vehicular Technology Society',
     logo: '/assets/chapters/vts.svg',
     descricao:
-      'Capitulo dedicado a mobilidade, sistemas veiculares, transporte inteligente, comunicacao veicular e tecnologias automotivas.',
+      'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas.',
     instagram: '',
-    president: { nome: 'A definir', foto: '' },
+    president: { nome: 'Matheus Nery', foto: '' },
   },
   {
     id: 'wie',
@@ -112,24 +112,41 @@ const chapters = [
     nome: 'Women in Engineering',
     logo: '/assets/chapters/wie.png',
     descricao:
-      'Grupo de afinidade dedicado a fortalecer a presenca, permanencia e lideranca de mulheres nas engenharias e tecnologia.',
+      'Grupo de afinidade dedicado a fortalecer a presença, permanência e liderança de mulheres nas engenharias e tecnologia.',
     instagram: '',
-    president: { nome: 'A definir', foto: '' },
+    president: { nome: 'Camila Porto', foto: '' },
   },
 ];
 
 function App() {
   const [selectedChapterId, setSelectedChapterId] = useState(null);
+  const detailRef = useRef(null);
   const selectedChapter = useMemo(
     () => chapters.find((chapter) => chapter.id === selectedChapterId),
     [selectedChapterId],
   );
 
+  useEffect(() => {
+    if (!selectedChapter || !detailRef.current) {
+      return undefined;
+    }
+
+    const focusTimer = window.setTimeout(() => {
+      detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      detailRef.current?.focus({ preventScroll: true });
+    }, 80);
+
+    return () => window.clearTimeout(focusTimer);
+  }, [selectedChapter]);
+
   return (
     <main>
       <section className="hero" id="topo" aria-label="Ramo Estudantil IEEE UFJF">
         <div className="hero__content">
-          <div className="hero-brand" aria-label="Universidade Federal de Juiz de Fora IEEE Student Branch">
+          <div
+            className="hero-brand"
+            aria-label="Universidade Federal de Juiz de Fora IEEE Student Branch"
+          >
             <img
               className="hero-brand__mark"
               src="/assets/ramo-ieee-ufjf.svg"
@@ -145,14 +162,14 @@ function App() {
               <p>IEEE Student Branch</p>
             </div>
           </div>
-          <a className="hero__scroll" href="#navegacao" aria-label="Ir para a navegacao">
+          <a className="hero__scroll" href="#navegacao" aria-label="Ir para a navegação">
             <ArrowDown aria-hidden="true" size={22} />
           </a>
         </div>
       </section>
 
       <div className="nav-anchor" id="navegacao" aria-hidden="true" />
-      <nav className="mini-nav" aria-label="Navegacao principal">
+      <nav className="mini-nav" aria-label="Navegação principal">
         <a className="mini-nav__brand" href="#topo" aria-label="Voltar ao topo">
           <span className="mini-nav__mark" aria-hidden="true" />
           <span className="mini-nav__brand-text">
@@ -161,14 +178,14 @@ function App() {
           </span>
         </a>
         <div className="mini-nav__links">
-          <a href="#capitulos">Capitulos</a>
+          <a href="#capitulos">Capítulos</a>
           <a href="#contato">Contato</a>
         </div>
       </nav>
 
       <section className="chapters" id="capitulos" aria-labelledby="capitulos-title">
         <div className="section-heading">
-          <span>Capitulos e Grupos de Afinidade</span>
+          <span>Capítulos e Grupos de Afinidade</span>
           <h2 id="capitulos-title">Nossos capítulos</h2>
         </div>
 
@@ -201,12 +218,19 @@ function App() {
         </div>
 
         {selectedChapter && (
-          <article className="chapter-detail" id="chapter-detail" aria-live="polite">
+          <article
+            className="chapter-detail"
+            id="chapter-detail"
+            ref={detailRef}
+            tabIndex={-1}
+            aria-labelledby="chapter-detail-title"
+            aria-live="polite"
+          >
             <button
               className="chapter-detail__close"
               type="button"
               onClick={() => setSelectedChapterId(null)}
-              aria-label="Fechar detalhes do capitulo"
+              aria-label="Fechar detalhes do capítulo"
             >
               <X aria-hidden="true" size={20} />
             </button>
@@ -226,10 +250,10 @@ function App() {
 
               <div className="chapter-detail__copy">
                 <span>{selectedChapter.nome}</span>
-                <h3>{selectedChapter.sigla}</h3>
+                <h3 id="chapter-detail-title">{selectedChapter.sigla}</h3>
                 <p>{selectedChapter.descricao}</p>
 
-                <div className="chapter-detail__links" aria-label="Links do capitulo">
+                <div className="chapter-detail__links" aria-label="Links do capítulo">
                   <ChapterLink
                     href={selectedChapter.instagram}
                     icon={<Instagram aria-hidden="true" size={18} />}
@@ -246,7 +270,7 @@ function App() {
               </div>
             </div>
 
-            <aside className="president-card" aria-label={`Presidencia ${selectedChapter.sigla}`}>
+            <aside className="president-card" aria-label={`Presidente ${selectedChapter.sigla}`}>
               {selectedChapter.president.foto ? (
                 <img
                   className="president-card__photo"
@@ -259,7 +283,7 @@ function App() {
                 </div>
               )}
               <div>
-                <span>Presidencia</span>
+                <span>Presidência</span>
                 <strong>{selectedChapter.president.nome}</strong>
               </div>
             </aside>
