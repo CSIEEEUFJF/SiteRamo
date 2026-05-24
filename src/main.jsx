@@ -42,7 +42,7 @@ const chapters = [
     descricao:
       'Capítulo dedicado à computação, software, inteligência artificial, segurança, sistemas e formação técnica em tecnologia.',
     instagram: '',
-    github: '',
+    github: 'https://github.com/CSIEEEUFJF',
     president: { nome: 'Rafael Lago', foto: '/assets/presidents/rafael-lago.png' },
   },
   {
@@ -62,7 +62,7 @@ const chapters = [
     logo: '/assets/chapters/ias.png',
     descricao:
       'Capítulo que conecta aplicações industriais, automação, máquinas elétricas, processos produtivos e tecnologia aplicada.',
-    instagram: '',
+    instagram: 'https://www.instagram.com/ieeeiasufjf/',
     president: { nome: 'Lauro Abdallah', foto: '/assets/presidents/lauro-abdallah.png' },
   },
   {
@@ -72,7 +72,7 @@ const chapters = [
     logo: '/assets/chapters/pes.png',
     descricao:
       'Capítulo voltado à energia elétrica, sistemas de potência, geração, transmissão, distribuição e transição energética.',
-    instagram: '',
+    instagram: 'https://www.instagram.com/ieeepesufjf/',
     president: { nome: 'Pedro Temponi', foto: '' },
   },
   {
@@ -83,7 +83,7 @@ const chapters = [
     descricao:
       'Capítulo focado em robótica, automação, sistemas embarcados, controle, percepção e projetos práticos multidisciplinares.',
     instagram: '',
-    github: '',
+    github: 'https://github.com/RASIEEEUFJF',
     president: { nome: 'Endhel Andrade', foto: '' },
   },
   {
