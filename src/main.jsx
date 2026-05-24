@@ -28,7 +28,7 @@ const chapters = [
     id: 'comsoc',
     sigla: 'ComSoc',
     nome: 'Communications Society',
-    logo: '/assets/chapters/comsoc.svg',
+    logo: '/assets/chapters/comsoc.png',
     descricao:
       'Capitulo focado em redes, telecomunicacoes, conectividade, protocolos e tecnologias que sustentam sistemas de comunicacao.',
     instagram: '',
@@ -175,7 +175,9 @@ function App() {
         <div className="chapter-grid">
           {chapters.map(({ id, sigla, nome, logo }) => (
             <button
-              className={`chapter-card ${selectedChapterId === id ? 'chapter-card--active' : ''}`}
+              className={`chapter-card chapter-card--${id} ${
+                selectedChapterId === id ? 'chapter-card--active' : ''
+              }`}
               key={id}
               type="button"
               onClick={() => setSelectedChapterId(id)}
@@ -184,7 +186,11 @@ function App() {
               aria-label={`Abrir detalhes de ${nome}`}
             >
               {logo ? (
-                <img className="chapter-card__logo" src={logo} alt={`Logo ${nome}`} />
+                <img
+                  className={`chapter-card__logo chapter-card__logo--${id}`}
+                  src={logo}
+                  alt={`Logo ${nome}`}
+                />
               ) : (
                 <span className="chapter-card__placeholder" aria-hidden="true">
                   {sigla}

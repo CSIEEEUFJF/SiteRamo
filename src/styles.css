@@ -232,9 +232,8 @@ a {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 1px;
-  border: 1px solid var(--line);
-  background: var(--line);
+  gap: 0;
+  background: transparent;
 }
 
 .chapter-card {
@@ -242,7 +241,8 @@ a {
   padding: 1.5rem;
   display: grid;
   place-items: center;
-  border: 0;
+  border: 1px solid var(--line);
+  margin: 0 -1px -1px 0;
   background: #fff;
   color: inherit;
   cursor: pointer;
@@ -272,6 +272,12 @@ a {
 .chapter-card__logo {
   display: block;
   object-fit: contain;
+  object-position: center;
+}
+
+.chapter-card__logo--wie {
+  width: 112px;
+  height: 112px;
 }
 
 .chapter-card__placeholder {
@@ -282,6 +288,12 @@ a {
   color: var(--ieee-blue);
   font-size: 1rem;
   font-weight: 900;
+}
+
+@media (min-width: 1080px) {
+  .chapter-card--wie {
+    grid-column: 3;
+  }
 }
 
 .chapter-detail {
