@@ -92,7 +92,7 @@ const chapters = [
       'Capítulo focado em robótica, automação, sistemas embarcados, controle, percepção e projetos práticos multidisciplinares.',
     instagram: 'https://www.instagram.com/ras.ieee.ufjf/',
     github: 'https://github.com/RASIEEEUFJF',
-    president: { nome: 'Endhel Andrade', foto: '' },
+    president: { nome: 'Endhel Andrade', foto: '/assets/presidents/endhel-andrade.jpg' },
   },
   {
     id: 'sight',
@@ -147,7 +147,7 @@ const boardMembers = [
   {
     role: 'Webmaster',
     name: 'Endhel Andrade',
-    photo: '',
+    photo: '/assets/presidents/endhel-andrade.jpg',
   },
   {
     role: 'Secretário',
