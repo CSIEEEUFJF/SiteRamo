@@ -22,7 +22,7 @@ const chapters = [
     descricao:
       'Capítulo dedicado ao estudo de antenas, propagação eletromagnética, radiofrequência e comunicações sem fio.',
     instagram: '',
-    president: { nome: 'Pedro Fuzimoto', foto: '' },
+    president: { nome: 'Pedro Fuzimoto', foto: '/assets/presidents/pedro-fuzimoto.png' },
   },
   {
     id: 'comsoc',
@@ -32,7 +32,7 @@ const chapters = [
     descricao:
       'Capítulo focado em redes, telecomunicações, conectividade, protocolos e tecnologias que sustentam sistemas de comunicação.',
     instagram: '',
-    president: { nome: 'Pedro Fuzimoto', foto: '' },
+    president: { nome: 'Pedro Fuzimoto', foto: '/assets/presidents/pedro-fuzimoto.png' },
   },
   {
     id: 'cs',
@@ -43,7 +43,7 @@ const chapters = [
       'Capítulo dedicado à computação, software, inteligência artificial, segurança, sistemas e formação técnica em tecnologia.',
     instagram: '',
     github: '',
-    president: { nome: 'Rafael Lago', foto: '' },
+    president: { nome: 'Rafael Lago', foto: '/assets/presidents/rafael-lago.png' },
   },
   {
     id: 'edsoc',
@@ -53,7 +53,7 @@ const chapters = [
     descricao:
       'Capítulo voltado à educação em engenharia, aprendizagem, metodologias de ensino e iniciativas de capacitação técnica.',
     instagram: '',
-    president: { nome: 'Fabrício Prata', foto: '' },
+    president: { nome: 'Fabrício Prata', foto: '/assets/presidents/fabricio-prata.png' },
   },
   {
     id: 'ias',
@@ -63,7 +63,7 @@ const chapters = [
     descricao:
       'Capítulo que conecta aplicações industriais, automação, máquinas elétricas, processos produtivos e tecnologia aplicada.',
     instagram: '',
-    president: { nome: 'Lauro Abdallah', foto: '' },
+    president: { nome: 'Lauro Abdallah', foto: '/assets/presidents/lauro-abdallah.png' },
   },
   {
     id: 'pes',
@@ -94,7 +94,7 @@ const chapters = [
     descricao:
       'Grupo voltado à tecnologia humanitária, impacto social, acessibilidade, sustentabilidade e soluções para comunidades.',
     instagram: '',
-    president: { nome: 'Carlos Alexandre', foto: '' },
+    president: { nome: 'Carlos Alexandre', foto: '/assets/presidents/carlos-alexandre.png' },
   },
   {
     id: 'vts',
@@ -283,7 +283,7 @@ function App() {
                 </div>
               )}
               <div>
-                <span>Presidência</span>
+                <span>Presidente</span>
                 <strong>{selectedChapter.president.nome}</strong>
               </div>
             </aside>
