@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowDown, Github, Instagram, X } from 'lucide-react';
+import { ArrowDown, ExternalLink, Github, Instagram, X } from 'lucide-react';
 import './styles.css';
 
 const chapters = [
@@ -146,6 +146,21 @@ const boardMembers = [
   },
 ];
 
+const projects = [
+  {
+    id: 'entense',
+    name: 'ENTENSE',
+    url: 'https://entense.ieeeufjf.com.br',
+    domain: 'entense.ieeeufjf.com.br',
+  },
+  {
+    id: 'helpieee',
+    name: 'HELPIEEE',
+    url: 'https://help.ieeeufjf.com.br',
+    domain: 'help.ieeeufjf.com.br',
+  },
+];
+
 const mapsEmbedUrl =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4558.946106024073!2d-43.37522762383733!3d-21.778392998521973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x989ba3d97601f7%3A0xcf9f2fb389a7f742!2sRamo%20Estudantil%20IEEE%20UFJF!5e1!3m2!1sen!2sbr!4v1779591238371!5m2!1sen!2sbr';
 
@@ -211,6 +226,7 @@ function App() {
         <div className="mini-nav__links">
           <a href="#capitulos">Capítulos</a>
           <a href="#diretoria">Diretoria</a>
+          <a href="#projetos">Projetos</a>
           <a href="#contato">Contato</a>
         </div>
       </nav>
@@ -346,6 +362,44 @@ function App() {
                 <strong>{name}</strong>
               </div>
             </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="projects" id="projetos" aria-labelledby="projetos-title">
+        <div className="section-heading">
+          <span>Projetos</span>
+          <h2 id="projetos-title">Projetos do Ramo</h2>
+        </div>
+
+        <div className="projects-grid">
+          {projects.map(({ id, name, url, domain }) => (
+            <a
+              className={`project-card project-card--${id}`}
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              key={id}
+              aria-label={`Abrir projeto ${name}`}
+            >
+              <div className="project-card__preview" aria-hidden="true">
+                <div className="project-card__browser">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <div className="project-card__screen">
+                  <strong>{name}</strong>
+                  <span>{domain}</span>
+                </div>
+              </div>
+              <div className="project-card__copy">
+                <span>{domain}</span>
+                <strong>{name}</strong>
+                <p>Abrir projeto</p>
+              </div>
+              <ExternalLink className="project-card__icon" aria-hidden="true" size={20} />
+            </a>
           ))}
         </div>
       </section>
