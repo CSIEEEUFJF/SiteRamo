@@ -148,7 +148,7 @@ const boardMembers = [
   {
     role: 'Secretário',
     name: 'Raul Moraes',
-    photo: '',
+    photo: '/assets/presidents/raul-moraes.jpg',
   },
   {
     role: 'Tesoureiro',
