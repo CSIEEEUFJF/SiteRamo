@@ -118,6 +118,34 @@ const chapters = [
   },
 ];
 
+const boardMembers = [
+  {
+    role: 'Presidente',
+    name: 'Camila Porto',
+    photo: '',
+  },
+  {
+    role: 'Vice-Presidente',
+    name: 'Pedro Fuzimoto',
+    photo: '/assets/presidents/pedro-fuzimoto.png',
+  },
+  {
+    role: 'Webmaster',
+    name: 'Endhel Andrade',
+    photo: '',
+  },
+  {
+    role: 'Secretário',
+    name: 'Raul Moraes',
+    photo: '',
+  },
+  {
+    role: 'Tesoureiro',
+    name: 'Fabrício Prata',
+    photo: '/assets/presidents/fabricio-prata.png',
+  },
+];
+
 function App() {
   const [selectedChapterId, setSelectedChapterId] = useState(null);
   const detailRef = useRef(null);
@@ -179,6 +207,7 @@ function App() {
         </a>
         <div className="mini-nav__links">
           <a href="#capitulos">Capítulos</a>
+          <a href="#diretoria">Diretoria</a>
           <a href="#contato">Contato</a>
         </div>
       </nav>
@@ -291,6 +320,33 @@ function App() {
         )}
       </section>
 
+      <section className="board" id="diretoria" aria-labelledby="diretoria-title">
+        <div className="section-heading">
+          <span>Diretoria do Ramo</span>
+          <h2 id="diretoria-title">Nossa diretoria</h2>
+        </div>
+
+        <div className="board-grid">
+          {boardMembers.map(({ role, name, photo }) => (
+            <article className="board-card" key={`${role}-${name}`}>
+              <div className="board-card__photo-wrap">
+                {photo ? (
+                  <img className="board-card__photo" src={photo} alt={`Foto de ${name}`} />
+                ) : (
+                  <div className="board-card__placeholder" aria-hidden="true">
+                    {getInitials(name)}
+                  </div>
+                )}
+              </div>
+              <div className="board-card__copy">
+                <span>{role}</span>
+                <strong>{name}</strong>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="contact-strip" id="contato" aria-label="Contato">
         <p>Ramo Estudantil IEEE UFJF</p>
       </section>
@@ -314,6 +370,16 @@ function ChapterLink({ href, icon, label }) {
       {label}
     </a>
   );
+}
+
+function getInitials(name) {
+  return name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase();
 }
 
 createRoot(document.getElementById('root')).render(<App />);
