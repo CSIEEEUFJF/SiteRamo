@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowDown, ExternalLink, Github, Instagram, X } from 'lucide-react';
+import { ArrowDown, ExternalLink, Github, Instagram, Moon, X } from 'lucide-react';
 import './styles.css';
 
 const chapters = [
@@ -170,6 +170,13 @@ const mapsEmbedUrl =
 
 function App() {
   const [selectedChapterId, setSelectedChapterId] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    return window.localStorage.getItem('theme') === 'dark';
+  });
   const detailRef = useRef(null);
   const selectedChapter = useMemo(
     () => chapters.find((chapter) => chapter.id === selectedChapterId),
@@ -188,6 +195,11 @@ function App() {
 
     return () => window.clearTimeout(focusTimer);
   }, [selectedChapter]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = isDarkMode ? 'dark' : 'light';
+    window.localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   return (
     <main>
@@ -232,6 +244,15 @@ function App() {
           <a href="#diretoria">Diretoria</a>
           <a href="#projetos">Projetos</a>
           <a href="#contato">Contato</a>
+          <button
+            className="mini-nav__theme"
+            type="button"
+            onClick={() => setIsDarkMode((currentTheme) => !currentTheme)}
+            aria-label={isDarkMode ? 'Desativar modo escuro' : 'Ativar modo escuro'}
+            aria-pressed={isDarkMode}
+          >
+            <Moon aria-hidden="true" size={18} />
+          </button>
         </div>
       </nav>
 
@@ -373,7 +394,7 @@ function App() {
       <section className="projects" id="projetos" aria-labelledby="projetos-title">
         <div className="section-heading">
           <span>Projetos</span>
-          <h2 id="projetos-title">Projetos do Ramo</h2>
+          <h2 id="projetos-title">Nossos projetos</h2>
         </div>
 
         <div className="projects-grid">
