@@ -9,6 +9,7 @@ const chapters = [
     sigla: 'AESS',
     nome: 'Aerospace and Electronic Systems Society',
     logo: '/assets/chapters/aess.svg',
+    darkLogo: '/assets/chapters/dark/aess.svg',
     descricao:
       'Capítulo voltado a sistemas aeroespaciais, aviação, eletrônica embarcada e tecnologias aplicadas a ambientes complexos.',
     instagram: '',
@@ -19,6 +20,7 @@ const chapters = [
     sigla: 'AP-S',
     nome: 'Antennas and Propagation Society',
     logo: '/assets/chapters/aps.svg',
+    darkLogo: '/assets/chapters/dark/aps.svg',
     descricao:
       'Capítulo dedicado ao estudo de antenas, propagação eletromagnética, radiofrequência e comunicações sem fio.',
     instagram: '',
@@ -29,6 +31,7 @@ const chapters = [
     sigla: 'ComSoc',
     nome: 'Communications Society',
     logo: '/assets/chapters/comsoc.png',
+    darkLogo: '/assets/chapters/dark/comsoc.png',
     descricao:
       'Capítulo focado em redes, telecomunicações, conectividade, protocolos e tecnologias que sustentam sistemas de comunicação.',
     instagram: '',
@@ -39,6 +42,7 @@ const chapters = [
     sigla: 'CS',
     nome: 'Computer Society',
     logo: '/assets/chapters/cs.jpg',
+    darkLogo: '/assets/chapters/dark/cs.png',
     descricao:
       'Capítulo dedicado à computação, software, inteligência artificial, segurança, sistemas e formação técnica em tecnologia.',
     instagram: '',
@@ -50,6 +54,7 @@ const chapters = [
     sigla: 'EdSoc',
     nome: 'Education Society',
     logo: '/assets/chapters/edsoc.png',
+    darkLogo: '/assets/chapters/dark/edsoc.png',
     descricao:
       'Capítulo voltado à educação em engenharia, aprendizagem, metodologias de ensino e iniciativas de capacitação técnica.',
     instagram: '',
@@ -60,6 +65,7 @@ const chapters = [
     sigla: 'IAS',
     nome: 'Industry Applications Society',
     logo: '/assets/chapters/ias.png',
+    darkLogo: '/assets/chapters/dark/ias.png',
     descricao:
       'Capítulo que conecta aplicações industriais, automação, máquinas elétricas, processos produtivos e tecnologia aplicada.',
     instagram: 'https://www.instagram.com/ieeeiasufjf/',
@@ -70,6 +76,7 @@ const chapters = [
     sigla: 'PES',
     nome: 'Power & Energy Society',
     logo: '/assets/chapters/pes.png',
+    darkLogo: '/assets/chapters/dark/pes.png',
     descricao:
       'Capítulo voltado à energia elétrica, sistemas de potência, geração, transmissão, distribuição e transição energética.',
     instagram: 'https://www.instagram.com/ieeepesufjf/',
@@ -80,6 +87,7 @@ const chapters = [
     sigla: 'RAS',
     nome: 'Robotics and Automation Society',
     logo: '/assets/chapters/ras.jpg',
+    darkLogo: '/assets/chapters/dark/ras.png',
     descricao:
       'Capítulo focado em robótica, automação, sistemas embarcados, controle, percepção e projetos práticos multidisciplinares.',
     instagram: '',
@@ -91,6 +99,7 @@ const chapters = [
     sigla: 'SIGHT',
     nome: 'Special Interest Group on Humanitarian Technology',
     logo: '/assets/chapters/sight.png',
+    darkLogo: '/assets/chapters/dark/sight.png',
     descricao:
       'Grupo voltado à tecnologia humanitária, impacto social, acessibilidade, sustentabilidade e soluções para comunidades.',
     instagram: '',
@@ -101,6 +110,7 @@ const chapters = [
     sigla: 'VTS',
     nome: 'Vehicular Technology Society',
     logo: '/assets/chapters/vts.svg',
+    darkLogo: '/assets/chapters/dark/vts.svg',
     descricao:
       'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas. No Ramo Estudantil IEEE UFJF, é uma parceria com a equipe RAMPAGE BAJA.',
     instagram: 'https://www.instagram.com/rampagebaja/',
@@ -111,6 +121,7 @@ const chapters = [
     sigla: 'WIE',
     nome: 'Women in Engineering',
     logo: '/assets/chapters/wie.png',
+    darkLogo: '/assets/chapters/dark/wie.png',
     descricao:
       'Grupo de afinidade dedicado a fortalecer a presença, permanência e liderança de mulheres nas engenharias e tecnologia.',
     instagram: '',
@@ -263,7 +274,7 @@ function App() {
         </div>
 
         <div className="chapter-grid">
-          {chapters.map(({ id, sigla, nome, logo }) => (
+          {chapters.map(({ id, sigla, nome, logo, darkLogo }) => (
             <button
               className={`chapter-card chapter-card--${id} ${
                 selectedChapterId === id ? 'chapter-card--active' : ''
@@ -278,7 +289,7 @@ function App() {
               {logo ? (
                 <img
                   className={`chapter-card__logo chapter-card__logo--${id}`}
-                  src={logo}
+                  src={isDarkMode && darkLogo ? darkLogo : logo}
                   alt={`Logo ${nome}`}
                 />
               ) : (
@@ -313,7 +324,11 @@ function App() {
                 {selectedChapter.logo ? (
                   <img
                     className="chapter-detail__logo"
-                    src={selectedChapter.logo}
+                    src={
+                      isDarkMode && selectedChapter.darkLogo
+                        ? selectedChapter.darkLogo
+                        : selectedChapter.logo
+                    }
                     alt={`Logo ${selectedChapter.sigla}`}
                   />
                 ) : (
