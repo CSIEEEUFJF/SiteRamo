@@ -225,6 +225,8 @@ function App() {
               src="/assets/ramo-ieee-ufjf.svg"
               alt=""
               aria-hidden="true"
+              decoding="async"
+              fetchPriority="high"
             />
             <div className="hero-brand__text">
               <h1>
@@ -291,6 +293,8 @@ function App() {
                   className={`chapter-card__logo chapter-card__logo--${id}`}
                   src={isDarkMode && darkLogo ? darkLogo : logo}
                   alt={`Logo ${nome}`}
+                  loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <span className="chapter-card__placeholder" aria-hidden="true">
@@ -330,6 +334,8 @@ function App() {
                         : selectedChapter.logo
                     }
                     alt={`Logo ${selectedChapter.sigla}`}
+                    loading="lazy"
+                    decoding="async"
                   />
                 ) : (
                   <span className="chapter-detail__placeholder">{selectedChapter.sigla}</span>
@@ -364,6 +370,8 @@ function App() {
                   className="president-card__photo"
                   src={selectedChapter.president.foto}
                   alt={`Foto de ${selectedChapter.president.nome}`}
+                  loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <div className="president-card__photo president-card__photo--empty">
@@ -390,7 +398,13 @@ function App() {
             <article className="board-card" key={`${role}-${name}`}>
               <div className="board-card__photo-wrap">
                 {photo ? (
-                  <img className="board-card__photo" src={photo} alt={`Foto de ${name}`} />
+                  <img
+                    className="board-card__photo"
+                    src={photo}
+                    alt={`Foto de ${name}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 ) : (
                   <div className="board-card__placeholder" aria-hidden="true">
                     {getInitials(name)}
@@ -427,7 +441,8 @@ function App() {
                   className="project-card__image"
                   src={preview}
                   alt={`Preview do projeto ${name}`}
-                  loading="eager"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="project-card__copy">
