@@ -8,19 +8,19 @@ const chapters = [
     id: 'aess',
     sigla: 'AESS',
     nome: 'Aerospace and Electronic Systems Society',
-    logo: '/assets/chapters/aess.svg',
-    darkLogo: '/assets/chapters/dark/aess.svg',
+    logo: '/assets/chapters/aess.png',
+    darkLogo: '/assets/chapters/dark/aess.png',
     descricao:
       'Capítulo voltado a sistemas aeroespaciais, aviação, eletrônica embarcada e tecnologias aplicadas a ambientes complexos.',
     instagram: '',
-    president: { nome: 'Brendo Almeida', foto: '' },
+    president: { nome: 'Brendo Almeida', foto: '/assets/presidents/brendo-almeida.jpg' },
   },
   {
     id: 'aps',
     sigla: 'AP-S',
     nome: 'Antennas and Propagation Society',
-    logo: '/assets/chapters/aps.svg',
-    darkLogo: '/assets/chapters/dark/aps.svg',
+    logo: '/assets/chapters/aps.png',
+    darkLogo: '/assets/chapters/dark/aps.png',
     descricao:
       'Capítulo dedicado ao estudo de antenas, propagação eletromagnética, radiofrequência e comunicações sem fio.',
     instagram: '',
@@ -41,7 +41,7 @@ const chapters = [
     id: 'cs',
     sigla: 'CS',
     nome: 'Computer Society',
-    logo: '/assets/chapters/cs.jpg',
+    logo: '/assets/chapters/cs.png',
     darkLogo: '/assets/chapters/dark/cs.png',
     descricao:
       'Capítulo dedicado à computação, software, inteligência artificial, segurança, sistemas e formação técnica em tecnologia.',
@@ -90,7 +90,7 @@ const chapters = [
     darkLogo: '/assets/chapters/dark/ras.png',
     descricao:
       'Capítulo focado em robótica, automação, sistemas embarcados, controle, percepção e projetos práticos multidisciplinares.',
-    instagram: '',
+    instagram: 'https://www.instagram.com/ras.ieee.ufjf/',
     github: 'https://github.com/RASIEEEUFJF',
     president: { nome: 'Endhel Andrade', foto: '' },
   },
@@ -102,19 +102,23 @@ const chapters = [
     darkLogo: '/assets/chapters/dark/sight.png',
     descricao:
       'Grupo voltado à tecnologia humanitária, impacto social, acessibilidade, sustentabilidade e soluções para comunidades.',
-    instagram: '',
+    instagram: 'https://www.instagram.com/ieeesightufjf/',
     president: { nome: 'Carlos Alexandre', foto: '/assets/presidents/carlos-alexandre.png' },
   },
   {
     id: 'vts',
     sigla: 'VTS',
     nome: 'Vehicular Technology Society',
-    logo: '/assets/chapters/vts.svg',
-    darkLogo: '/assets/chapters/dark/vts.svg',
+    logo: '/assets/chapters/vts.webp',
+    darkLogo: '/assets/chapters/dark/vts.png',
     descricao:
       'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas. No Ramo Estudantil IEEE UFJF, é uma parceria com a equipe RAMPAGE BAJA.',
     instagram: 'https://www.instagram.com/rampagebaja/',
-    president: { nome: 'Matheus Nery', foto: '' },
+    president: {
+      nome: 'RAMPAGE BAJA',
+      foto: '/assets/presidents/rampage-baja.png',
+      label: 'Equipe parceira',
+    },
   },
   {
     id: 'wie',
@@ -124,8 +128,8 @@ const chapters = [
     darkLogo: '/assets/chapters/dark/wie.png',
     descricao:
       'Grupo de afinidade dedicado a fortalecer a presença, permanência e liderança de mulheres nas engenharias e tecnologia.',
-    instagram: '',
-    president: { nome: 'Camila Porto', foto: '' },
+    instagram: 'https://www.instagram.com/ieeewieufjf/',
+    president: { nome: 'Camila Porto', foto: '/assets/presidents/camila-porto.png' },
   },
 ];
 
@@ -133,7 +137,7 @@ const boardMembers = [
   {
     role: 'Presidente',
     name: 'Camila Porto',
-    photo: '',
+    photo: '/assets/presidents/camila-porto.png',
   },
   {
     role: 'Vice-Presidente',
@@ -253,6 +257,7 @@ function App() {
           </span>
         </a>
         <div className="mini-nav__links">
+          <a href="#o-ieee">O IEEE</a>
           <a href="#capitulos">Capítulos</a>
           <a href="#diretoria">Diretoria</a>
           <a href="#projetos">Projetos</a>
@@ -268,6 +273,34 @@ function App() {
           </button>
         </div>
       </nav>
+
+      <section className="about-ieee" id="o-ieee" aria-labelledby="o-ieee-title">
+        <div className="section-heading">
+          <span>O IEEE</span>
+          <div className="about-ieee__title-row">
+            <h2 id="o-ieee-title">Advancing Technology for Humanity</h2>
+            <img
+              className="about-ieee__logo"
+              src={isDarkMode ? '/assets/chapters/dark/ieee.png' : '/assets/chapters/ieee.webp'}
+              alt="Logo IEEE"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+
+        <div className="about-ieee__layout">
+          <div className="about-ieee__copy">
+            <p>
+              Fundado em 1963, o Instituto de Engenheiros Eletricistas e Eletrônicos é a maior organização profissional do mundo dedicada ao avanço da tecnologia em beneficio da humanidade. Com origens no final do século XIX, o IEEE atualmente tem cerca de 500 mil membros ativos, divididos em 349 seções, que estão espalhadas por 10 regiões.
+            </p>
+            <p>
+              Na Universidade Federal de Juiz de Fora, o IEEE tem presença forte desde a década de 1980, e com Ramo Estudantil formado em 1991. Atualmente, o Ramo tem 9 capítulos técnicos ativos, além dos grupos de afinidade 
+              Wie(Women in Engineering) e SIGHT(Special Interest Group in Humanitarian Technology).
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section className="chapters" id="capitulos" aria-labelledby="capitulos-title">
         <div className="section-heading">
@@ -364,7 +397,12 @@ function App() {
               </div>
             </div>
 
-            <aside className="president-card" aria-label={`Presidente ${selectedChapter.sigla}`}>
+            <aside
+              className="president-card"
+              aria-label={`${selectedChapter.president.label || 'Presidente'} ${
+                selectedChapter.sigla
+              }`}
+            >
               {selectedChapter.president.foto ? (
                 <img
                   className="president-card__photo"
@@ -379,7 +417,7 @@ function App() {
                 </div>
               )}
               <div>
-                <span>Presidente</span>
+                <span>{selectedChapter.president.label || 'Presidente'}</span>
                 <strong>{selectedChapter.president.nome}</strong>
               </div>
             </aside>

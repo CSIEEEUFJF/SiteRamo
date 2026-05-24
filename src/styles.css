@@ -283,6 +283,81 @@ a {
   outline-offset: 3px;
 }
 
+.about-ieee {
+  scroll-margin-top: var(--nav-height);
+  min-height: calc(100svh - var(--nav-height));
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem);
+  background: var(--section-alt);
+  border-bottom: 1px solid var(--line);
+}
+
+.about-ieee__layout {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.about-ieee__title-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 4vw, 3rem);
+}
+
+.about-ieee__title-row h2 {
+  flex: 1 1 0;
+}
+
+.about-ieee__logo {
+  width: clamp(220px, 28vw, 360px);
+  height: auto;
+  flex: 0 0 auto;
+  display: block;
+}
+
+.about-ieee__copy {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.about-ieee__copy p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1.8vw, 1.28rem);
+  line-height: 1.72;
+}
+
+.about-ieee__highlights {
+  display: grid;
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+
+.about-ieee__highlight {
+  display: grid;
+  gap: 0.65rem;
+  padding: clamp(1.15rem, 2.2vw, 1.55rem);
+  background: var(--surface);
+}
+
+.about-ieee__highlight span {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.about-ieee__highlight strong {
+  color: var(--ink);
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  line-height: 1.25;
+}
+
 .chapters {
   scroll-margin-top: var(--nav-height);
   min-height: calc(100svh - var(--nav-height));
@@ -414,23 +489,21 @@ a {
 
 .chapter-detail__main {
   display: grid;
-  grid-template-columns: 170px minmax(0, 1fr);
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
   gap: clamp(1.25rem, 3vw, 2rem);
   align-items: center;
 }
 
 .chapter-detail__logo-wrap {
-  min-height: 170px;
+  min-height: 220px;
   display: grid;
   place-items: center;
-  border: 1px solid var(--line);
-  background: var(--surface-soft);
 }
 
 .chapter-detail__logo {
-  width: min(80%, 140px);
+  width: min(100%, 260px);
   height: auto;
-  max-height: 140px;
+  max-height: 210px;
   object-fit: contain;
 }
 
@@ -826,12 +899,19 @@ a {
 
   .mini-nav__links {
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 0.45rem;
     flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .mini-nav__links::-webkit-scrollbar {
+    display: none;
   }
 
   .mini-nav__links a {
+    flex: 0 0 auto;
     font-size: 0.8rem;
   }
 
@@ -857,6 +937,24 @@ a {
     min-height: 132px;
   }
 
+  .about-ieee__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .about-ieee__title-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .about-ieee__logo {
+    width: min(100%, 260px);
+  }
+
+  .about-ieee__copy p {
+    font-size: 1rem;
+  }
+
   .chapter-detail,
   .chapter-detail__main {
     grid-template-columns: 1fr;
@@ -867,7 +965,13 @@ a {
   }
 
   .chapter-detail__logo-wrap {
-    min-height: 140px;
+    min-height: 180px;
+    justify-items: start;
+  }
+
+  .chapter-detail__logo {
+    width: min(100%, 240px);
+    max-height: 180px;
   }
 
   .president-card {
