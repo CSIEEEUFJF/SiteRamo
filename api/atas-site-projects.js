@@ -1,4 +1,4 @@
-const ATAS_ORIGIN = process.env.ATAS_API_ORIGIN || 'https://atas.ieeeufjf.com.br';
+const ATAS_ORIGIN = process.env.ATAS_API_ORIGIN || 'https://interno.ieeeufjf.com.br';
 const SESSION_COOKIE = 'atas_ieee_session';
 const MAX_JSON_BODY_BYTES = 64 * 1024;
 
@@ -8,8 +8,8 @@ export default async function handler(request, response) {
   try {
     if (request.method === 'GET') {
       const targetPath = getSessionCookieHeader(request.headers.cookie)
-        ? '/api/site-members/manage'
-        : '/api/site-members';
+        ? '/api/site-projects/manage'
+        : '/api/site-projects';
 
       return proxyJson(request, response, targetPath, { method: 'GET' });
     }
@@ -20,7 +20,7 @@ export default async function handler(request, response) {
       }
 
       const body = await readJson(request);
-      return proxyJson(request, response, '/api/site-members/manage', {
+      return proxyJson(request, response, '/api/site-projects/manage', {
         body: JSON.stringify(body),
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
@@ -32,13 +32,13 @@ export default async function handler(request, response) {
         return response.status(403).json({ detail: 'Origem invalida.' });
       }
 
-      const memberId = getMemberId(request);
-      if (!memberId) {
-        return response.status(400).json({ detail: 'Membro invalido.' });
+      const projectId = getProjectId(request);
+      if (!projectId) {
+        return response.status(400).json({ detail: 'Projeto invalido.' });
       }
 
       const body = await readJson(request);
-      return proxyJson(request, response, `/api/site-members/manage/${encodeURIComponent(memberId)}`, {
+      return proxyJson(request, response, `/api/site-projects/manage/${encodeURIComponent(projectId)}`, {
         body: JSON.stringify(body),
         headers: { 'Content-Type': 'application/json' },
         method: 'PATCH',
@@ -50,12 +50,12 @@ export default async function handler(request, response) {
         return response.status(403).json({ detail: 'Origem invalida.' });
       }
 
-      const memberId = getMemberId(request);
-      if (!memberId) {
-        return response.status(400).json({ detail: 'Membro invalido.' });
+      const projectId = getProjectId(request);
+      if (!projectId) {
+        return response.status(400).json({ detail: 'Projeto invalido.' });
       }
 
-      return proxyJson(request, response, `/api/site-members/manage/${encodeURIComponent(memberId)}`, {
+      return proxyJson(request, response, `/api/site-projects/manage/${encodeURIComponent(projectId)}`, {
         method: 'DELETE',
       });
     }
@@ -87,7 +87,7 @@ async function proxyJson(request, response, pathname, init) {
   return response.send(text);
 }
 
-function getMemberId(request) {
+function getProjectId(request) {
   const url = new URL(request.url, 'http://localhost');
   return url.searchParams.get('id');
 }

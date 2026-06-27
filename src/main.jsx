@@ -178,32 +178,24 @@ const boardMembers = [
       pt: 'Presidente',
       en: 'President',
     },
-    name: 'Camila Porto',
-    photo: '/assets/presidents/camila-porto.png',
+    name: 'Pedro Fuzimoto',
+    photo: '/assets/presidents/pedro-fuzimoto.png',
   },
   {
     role: {
       pt: 'Vice-Presidente',
       en: 'Vice President',
     },
-    name: 'Pedro Fuzimoto',
-    photo: '/assets/presidents/pedro-fuzimoto.png',
-  },
-  {
-    role: {
-      pt: 'Webmaster',
-      en: 'Webmaster',
-    },
-    name: 'Endhel Andrade',
-    photo: '/assets/presidents/endhel-andrade.jpg',
+    name: 'Lauro Abdallah',
+    photo: '/assets/presidents/lauro-abdallah.png',
   },
   {
     role: {
       pt: 'Secretário',
       en: 'Secretary',
     },
-    name: 'Raul Moraes',
-    photo: '/assets/presidents/raul-moraes.jpg',
+    name: 'Pedro Temponi',
+    photo: '/assets/presidents/pedro-temponi.jpg',
   },
   {
     role: {
@@ -211,14 +203,29 @@ const boardMembers = [
       en: 'Treasurer',
     },
     name: 'Fabrício Prata',
+    memberName: 'Fabrício',
     photo: '/assets/presidents/fabricio-prata.png',
   },
 ];
 
 const projects = [
   {
+    id: 'atas',
+    name: 'Sistema Interno',
+    chapter: 'Ramo',
+    url: 'https://atas.ieeeufjf.com.br',
+    displayUrl: 'atas.ieeeufjf.com.br',
+    description: {
+      pt: 'Atas, tarefas, calendario e membros do Ramo',
+      en: 'Minutes, tasks, calendar, and Branch members',
+    },
+    preview: '/assets/ramo-ieee-ufjf-blue.svg',
+    previewDark: '/assets/ramo-ieee-ufjf.svg',
+  },
+  {
     id: 'entense',
     name: 'ENTENSE',
+    chapter: 'Ramo',
     url: 'https://entense.ieeeufjf.com.br',
     displayUrl: 'entense.ieeeufjf.com.br',
     description: {
@@ -230,6 +237,7 @@ const projects = [
   {
     id: 'helpieee',
     name: 'HELPIEEE',
+    chapter: 'Ramo',
     url: 'https://help.ieeeufjf.com.br',
     displayUrl: 'help.ieeeufjf.com.br',
     description: {
@@ -240,7 +248,15 @@ const projects = [
   },
 ];
 
-const ATAS_MEMBERS_API_URL = 'https://atas.ieeeufjf.com.br/api/site-members';
+const ATAS_MEMBERS_API_URLS = [
+  '/api/atas-site-members',
+  'https://interno.ieeeufjf.com.br/api/site-members',
+];
+
+const ATAS_PROJECTS_API_URLS = [
+  '/api/atas-site-projects',
+  'https://interno.ieeeufjf.com.br/api/site-projects',
+];
 
 const chapterOptions = [
   { key: 'AESS', label: 'Aerospace and Electronic Systems Society' },
@@ -414,6 +430,7 @@ const copy = {
       board: 'Diretoria',
       projects: 'Projetos',
       members: 'Membros',
+      internal: 'Atas',
       contact: 'Contato',
       enableDark: 'Ativar modo escuro',
       disableDark: 'Desativar modo escuro',
@@ -543,6 +560,7 @@ const copy = {
       board: 'Board',
       projects: 'Projects',
       members: 'Members',
+      internal: 'Minutes',
       contact: 'Contact',
       enableDark: 'Enable dark mode',
       disableDark: 'Disable dark mode',
@@ -668,7 +686,8 @@ function App() {
 
     return window.location.pathname;
   });
-  const [publishedMembers, setPublishedMembers] = useState(ramoMembers);
+  const [publishedMembers, setPublishedMembers] = useState([]);
+  const [publishedProjects, setPublishedProjects] = useState(projects);
   const [language, setLanguage] = useState(() => {
     if (typeof window === 'undefined') {
       return 'pt';
@@ -693,6 +712,22 @@ function App() {
     () => publishedMembers.find((member) => member.id === selectedMemberId),
     [publishedMembers, selectedMemberId],
   );
+  const visibleBoardMembers = useMemo(
+    () =>
+      boardMembers.map((boardMember) => {
+        const publishedMember = findPublishedMemberByName(
+          publishedMembers,
+          boardMember.memberName || boardMember.name,
+        );
+
+        return {
+          ...boardMember,
+          member: publishedMember,
+          photo: publishedMember?.photoUrl || boardMember.photo,
+        };
+      }),
+    [publishedMembers],
+  );
   const t = copy[language];
 
   useEffect(() => {
@@ -701,7 +736,7 @@ function App() {
     }
 
     const focusTimer = window.setTimeout(() => {
-      chapterDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      chapterDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       chapterDetailRef.current?.focus({ preventScroll: true });
     }, 80);
 
@@ -714,7 +749,7 @@ function App() {
     }
 
     const focusTimer = window.setTimeout(() => {
-      memberDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      memberDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       memberDetailRef.current?.focus({ preventScroll: true });
     }, 80);
 
@@ -749,15 +784,24 @@ function App() {
 
     async function loadMembers() {
       try {
-        const response = await fetch(ATAS_MEMBERS_API_URL, { cache: 'no-store' });
-        if (!response.ok) {
-          throw new Error('members-api-unavailable');
-        }
+        let remoteMembers = [];
 
-        const payload = await response.json();
-        const remoteMembers = Array.isArray(payload.members)
-          ? payload.members.map(normalizeRemoteMember).filter(Boolean)
-          : [];
+        for (const endpoint of ATAS_MEMBERS_API_URLS) {
+          try {
+            const response = await fetch(endpoint, { cache: 'no-store' });
+            if (!response.ok) {
+              throw new Error('members-api-unavailable');
+            }
+
+            const payload = await response.json();
+            remoteMembers = Array.isArray(payload.members)
+              ? payload.members.map(normalizeRemoteMember).filter(Boolean)
+              : [];
+            break;
+          } catch {
+            remoteMembers = [];
+          }
+        }
 
         if (!active) {
           return;
@@ -766,12 +810,46 @@ function App() {
         setPublishedMembers(remoteMembers);
       } catch {
         if (active) {
-          setPublishedMembers(ramoMembers);
+          setPublishedMembers([]);
         }
       }
     }
 
     loadMembers();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadProjects() {
+      let remoteProjects = [];
+
+      for (const endpoint of ATAS_PROJECTS_API_URLS) {
+        try {
+          const response = await fetch(endpoint, { cache: 'no-store' });
+          if (!response.ok) {
+            throw new Error('projects-api-unavailable');
+          }
+
+          const payload = await response.json();
+          remoteProjects = Array.isArray(payload.projects)
+            ? payload.projects.map(normalizeRemoteProject).filter(Boolean)
+            : [];
+          break;
+        } catch {
+          remoteProjects = [];
+        }
+      }
+
+      if (active && remoteProjects.length) {
+        setPublishedProjects(remoteProjects);
+      }
+    }
+
+    loadProjects();
     return () => {
       active = false;
     };
@@ -833,6 +911,9 @@ function App() {
             <a href="#diretoria">{t.nav.board}</a>
             <a href="#projetos">{t.nav.projects}</a>
             <a href="#membros">{t.nav.members}</a>
+            <a href="https://atas.ieeeufjf.com.br" target="_blank" rel="noreferrer">
+              {t.nav.internal}
+            </a>
             <a href="#contato">{t.nav.contact}</a>
           </div>
           <div className="mini-nav__actions">
@@ -1026,7 +1107,7 @@ function App() {
         </div>
 
         <div className="board-grid">
-          {boardMembers.map(({ role, name, photo }) => (
+          {visibleBoardMembers.map(({ role, name, photo, member }) => (
             <article className="board-card" key={`${role.pt}-${name}`}>
               <div className="board-card__photo-wrap">
                 {photo ? (
@@ -1034,6 +1115,7 @@ function App() {
                     className="board-card__photo"
                     src={photo}
                     alt={t.board.photoAlt(name)}
+                    style={member ? getMemberPhotoStyle(member) : undefined}
                     loading="lazy"
                     decoding="async"
                   />
@@ -1059,31 +1141,38 @@ function App() {
         </div>
 
         <div className="projects-grid">
-          {projects.map(({ id, name, url, description, preview }) => (
-            <a
-              className={`project-card project-card--${id}`}
-              href={url}
-              target="_blank"
-              rel="noreferrer"
-              key={id}
-              aria-label={t.projects.open(name)}
-            >
-              <div className="project-card__preview">
-                <img
-                  className="project-card__image"
-                  src={preview}
-                  alt={t.projects.previewAlt(name)}
-                  loading="lazy"
-                  decoding="async"
+          {publishedProjects.map(({ id, name, chapter, url, description, preview, previewDark }) => {
+            const previewSrc = (isDarkMode && previewDark ? previewDark : preview) || '/assets/ramo-ieee-ufjf-blue.svg';
+            const ProjectCardTag = url ? 'a' : 'article';
+            const linkProps = url
+              ? { href: url, rel: 'noreferrer', target: '_blank' }
+              : {};
+
+            return (
+              <ProjectCardTag
+                className={`project-card project-card--${id}`}
+                key={id}
+                aria-label={t.projects.open(name)}
+                {...linkProps}
+              >
+                <div className="project-card__preview">
+                  <img
+                    className="project-card__image"
+                    src={previewSrc}
+                    alt={t.projects.previewAlt(name)}
+                    loading="lazy"
+                    decoding="async"
                 />
               </div>
               <div className="project-card__copy">
-                <strong>{name}</strong>
-                <p>{description[language]}</p>
-              </div>
-              <ExternalLink className="project-card__icon" aria-hidden="true" size={20} />
-            </a>
-          ))}
+                  <span className="project-card__tag">{chapter}</span>
+                  <strong>{name}</strong>
+                  <p>{description[language]}</p>
+                </div>
+                {url ? <ExternalLink className="project-card__icon" aria-hidden="true" size={20} /> : null}
+              </ProjectCardTag>
+            );
+          })}
         </div>
       </section>
 
@@ -1217,8 +1306,11 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
   const [auth, setAuth] = useState({ checking: true, user: null });
   const [loginForm, setLoginForm] = useState({ password: '', username: '' });
   const [memberForm, setMemberForm] = useState(createAdminMemberForm);
+  const [projectForm, setProjectForm] = useState(createAdminProjectForm);
   const [editingMemberId, setEditingMemberId] = useState(null);
+  const [editingProjectId, setEditingProjectId] = useState(null);
   const [siteMembers, setSiteMembers] = useState([]);
+  const [siteProjects, setSiteProjects] = useState([]);
   const [draggedMemberId, setDraggedMemberId] = useState(null);
   const [status, setStatus] = useState({ tone: 'loading', text: t.admin.statusChecking });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -1249,6 +1341,7 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
 
       if (user?.canManageMembers) {
         await loadSiteMembers();
+        await loadSiteProjects();
       }
     } catch (error) {
       setAuth({ checking: false, user: null });
@@ -1303,8 +1396,10 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
       });
       if (payload.user?.canManageMembers) {
         await loadSiteMembers();
+        await loadSiteProjects();
       } else {
         setSiteMembers([]);
+        setSiteProjects([]);
       }
     } catch (error) {
       setStatus({ tone: 'error', text: error.message || t.admin.statusError });
@@ -1317,6 +1412,7 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
     await fetch('/api/atas-auth', { method: 'DELETE' });
     setAuth({ checking: false, user: null });
     setSiteMembers([]);
+    setSiteProjects([]);
     setStatus({ tone: 'idle', text: t.admin.statusIdle });
   }
 
@@ -1483,6 +1579,102 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
 
       setStatus({ tone: 'success', text: t.admin.statusRemoved });
       await loadSiteMembers();
+    } catch (error) {
+      setStatus({ tone: 'error', text: error.message || t.admin.statusError });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  function updateProjectForm(field, value) {
+    setProjectForm((current) => ({ ...current, [field]: value }));
+  }
+
+  function resetProjectForm() {
+    setEditingProjectId(null);
+    setProjectForm(createAdminProjectForm());
+  }
+
+  function startEditProject(project) {
+    setEditingProjectId(project.id);
+    setProjectForm(createAdminProjectForm(project));
+    setStatus({
+      tone: 'idle',
+      text: language === 'en' ? `Editing ${project.title}.` : `Editando ${project.title}.`,
+    });
+  }
+
+  async function loadSiteProjects() {
+    try {
+      const response = await fetch('/api/atas-site-projects', { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(await readAdminApiError(response, t.admin.statusError));
+      }
+
+      const payload = await readAdminJson(response, t.admin.proxyHint);
+      const normalizedProjects = Array.isArray(payload.projects)
+        ? payload.projects.map(normalizeAdminProject).filter(Boolean)
+        : [];
+      setSiteProjects(normalizedProjects);
+    } catch (error) {
+      setStatus({ tone: 'error', text: error.message || t.admin.statusError });
+    }
+  }
+
+  async function handleSaveProject(event) {
+    event.preventDefault();
+    const isEditing = Boolean(editingProjectId);
+    const nextPosition = isEditing
+      ? projectForm.position
+      : siteProjects.reduce((maxPosition, project) => Math.max(maxPosition, Number(project.position) || 0), -1) + 1;
+    setIsSubmitting(true);
+    setStatus({ tone: 'loading', text: isEditing ? t.admin.updating : t.admin.creating });
+
+    try {
+      const response = await fetch(
+        isEditing
+          ? `/api/atas-site-projects?id=${encodeURIComponent(editingProjectId)}`
+          : '/api/atas-site-projects',
+        {
+          body: JSON.stringify(buildAdminProjectPayload(projectForm, { position: nextPosition })),
+          headers: { 'Content-Type': 'application/json' },
+          method: isEditing ? 'PATCH' : 'POST',
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(await readAdminApiError(response, t.admin.statusError));
+      }
+
+      resetProjectForm();
+      setStatus({ tone: 'success', text: isEditing ? t.admin.statusUpdated : t.admin.statusCreated });
+      await loadSiteProjects();
+    } catch (error) {
+      setStatus({ tone: 'error', text: error.message || t.admin.statusError });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  async function handleRemoveProject(project) {
+    setIsSubmitting(true);
+    setStatus({ tone: 'loading', text: t.admin.updating });
+
+    try {
+      const response = await fetch(`/api/atas-site-projects?id=${encodeURIComponent(project.id)}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error(await readAdminApiError(response, t.admin.statusError));
+      }
+
+      if (editingProjectId === project.id) {
+        resetProjectForm();
+      }
+
+      setStatus({ tone: 'success', text: t.admin.statusRemoved });
+      await loadSiteProjects();
     } catch (error) {
       setStatus({ tone: 'error', text: error.message || t.admin.statusError });
     } finally {
@@ -1851,6 +2043,142 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
             )}
           </div>
         </article>
+
+        <article className="admin-panel admin-panel--wide">
+          <div className="admin-panel__heading">
+            <ExternalLink aria-hidden="true" size={22} />
+            <div>
+              <span>
+                {editingProjectId
+                  ? language === 'en' ? 'Edit project' : 'Editar projeto'
+                  : language === 'en' ? 'New project' : 'Novo projeto'}
+              </span>
+              <p>
+                {language === 'en'
+                  ? 'Create project cards shown on the public website.'
+                  : 'Cadastre os cards de projetos exibidos no site público.'}
+              </p>
+            </div>
+          </div>
+
+          <form className="admin-member-form" onSubmit={handleSaveProject}>
+            <label>
+              <span>{language === 'en' ? 'Title' : 'Título'}</span>
+              <input
+                value={projectForm.title}
+                onChange={(event) => updateProjectForm('title', event.target.value)}
+                disabled={!canManage}
+                required
+              />
+            </label>
+            <label>
+              <span>{language === 'en' ? 'Chapter' : 'Capítulo'}</span>
+              <select
+                value={projectForm.chapter}
+                onChange={(event) => updateProjectForm('chapter', event.target.value)}
+                disabled={!canManage}
+              >
+                {adminChapterOptions.map((chapter) => (
+                  <option key={chapter.key} value={chapter.key}>
+                    {chapter.key}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="admin-member-form__span">
+              <span>{language === 'en' ? 'Subtitle' : 'Subtítulo'}</span>
+              <input
+                value={projectForm.subtitle}
+                onChange={(event) => updateProjectForm('subtitle', event.target.value)}
+                disabled={!canManage}
+              />
+            </label>
+            <label className="admin-member-form__span">
+              <span>{language === 'en' ? 'Small image URL' : 'URL da imagem pequena'}</span>
+              <input
+                value={projectForm.imageUrl}
+                onChange={(event) => updateProjectForm('imageUrl', event.target.value)}
+                disabled={!canManage}
+                placeholder="https://..."
+              />
+            </label>
+            <label className="admin-member-form__span">
+              <span>{language === 'en' ? 'Click link' : 'Link ao clicar'}</span>
+              <input
+                value={projectForm.linkUrl}
+                onChange={(event) => updateProjectForm('linkUrl', event.target.value)}
+                disabled={!canManage}
+                placeholder="https://..."
+              />
+            </label>
+            <label className="admin-checkbox">
+              <input
+                type="checkbox"
+                checked={projectForm.isPublic}
+                onChange={(event) => updateProjectForm('isPublic', event.target.checked)}
+                disabled={!canManage}
+              />
+              <span>{t.admin.publish}</span>
+            </label>
+            <div className="admin-form-actions">
+              <button className="admin-primary-button" disabled={!canManage || isSubmitting}>
+                <Plus aria-hidden="true" size={18} />
+                {editingProjectId
+                  ? language === 'en' ? 'Update project' : 'Atualizar projeto'
+                  : language === 'en' ? 'Create project' : 'Criar projeto'}
+              </button>
+              {editingProjectId ? (
+                <button
+                  className="admin-soft-button"
+                  type="button"
+                  onClick={resetProjectForm}
+                  disabled={isSubmitting}
+                >
+                  {t.admin.cancelEdit}
+                </button>
+              ) : null}
+            </div>
+          </form>
+
+          <div className="admin-users-list">
+            {siteProjects.length ? (
+              siteProjects.map((project) => (
+                <div className="admin-user-row" key={project.id}>
+                  <div className="admin-user-row__content">
+                    <strong>{project.title}</strong>
+                    <span>{project.subtitle}</span>
+                  </div>
+                  <div className="admin-user-row__meta">
+                    <span>{project.chapter}</span>
+                    <span>{project.isPublic ? t.admin.published : t.admin.hidden}</span>
+                  </div>
+                  <div className="admin-user-row__actions">
+                    <button
+                      className="admin-soft-button"
+                      type="button"
+                      onClick={() => startEditProject(project)}
+                      disabled={!canManage || isSubmitting}
+                    >
+                      {t.admin.edit}
+                    </button>
+                    <button
+                      className="admin-danger-button"
+                      type="button"
+                      onClick={() => handleRemoveProject(project)}
+                      disabled={!canManage || isSubmitting}
+                    >
+                      {t.admin.removeFromSite}
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="admin-empty">
+                {language === 'en' ? 'No projects registered yet.' : 'Nenhum projeto cadastrado ainda.'}
+              </p>
+            )}
+          </div>
+        </article>
       </section>
     </main>
   );
@@ -1942,6 +2270,44 @@ function normalizeImageUrl(value) {
   return cleanValue;
 }
 
+function normalizeLinkUrl(value) {
+  const cleanValue = String(value || '').trim();
+  if (!cleanValue) {
+    return '';
+  }
+
+  try {
+    const url = new URL(cleanValue);
+    return ['http:', 'https:'].includes(url.protocol) ? url.toString() : '';
+  } catch {
+    return cleanValue.startsWith('/') ? cleanValue : '';
+  }
+}
+
+function normalizeSearchText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLowerCase();
+}
+
+function findPublishedMemberByName(members, name) {
+  const targetName = normalizeSearchText(name);
+  if (!targetName) {
+    return null;
+  }
+
+  return (
+    members.find((member) => normalizeSearchText(member.name) === targetName) ||
+    members.find((member) => {
+      const memberName = normalizeSearchText(member.name);
+      return memberName.includes(targetName) || targetName.includes(memberName);
+    }) ||
+    null
+  );
+}
+
 function clampPercentage(value, fallback = 50) {
   const numberValue = Number(value);
   if (!Number.isFinite(numberValue)) {
@@ -1996,6 +2362,29 @@ function normalizeRemoteMember(member) {
   };
 }
 
+function normalizeRemoteProject(project) {
+  if (!project?.title) {
+    return null;
+  }
+
+  const subtitle = project.subtitle || '';
+
+  return {
+    chapter: project.chapter || 'Ramo',
+    description: {
+      en: subtitle,
+      pt: subtitle,
+    },
+    id: `project-${project.id || project.title}`,
+    isPublic: Boolean(project.isPublic),
+    name: project.title,
+    position: Number.isFinite(Number(project.position)) ? Number(project.position) : 0,
+    preview: normalizeImageUrl(project.imageUrl),
+    subtitle,
+    url: normalizeLinkUrl(project.linkUrl),
+  };
+}
+
 function normalizeAdminMember(member) {
   if (!member?.name) {
     return null;
@@ -2011,6 +2400,23 @@ function normalizeAdminMember(member) {
     photoZoom: clampPhotoZoom(member.photoZoom),
     position: Number.isFinite(Number(member.position)) ? Number(member.position) : 0,
     role: member.role || 'Membro',
+  };
+}
+
+function normalizeAdminProject(project) {
+  if (!project?.title) {
+    return null;
+  }
+
+  return {
+    chapter: project.chapter || 'Ramo',
+    id: project.id,
+    imageUrl: normalizeImageUrl(project.imageUrl),
+    isPublic: Boolean(project.isPublic),
+    linkUrl: normalizeLinkUrl(project.linkUrl),
+    position: Number.isFinite(Number(project.position)) ? Number(project.position) : 0,
+    subtitle: project.subtitle || '',
+    title: project.title,
   };
 }
 
@@ -2046,6 +2452,18 @@ function createAdminMemberForm(user) {
   };
 }
 
+function createAdminProjectForm(project) {
+  return {
+    chapter: project?.chapter || 'Ramo',
+    imageUrl: project?.imageUrl || '',
+    isPublic: typeof project?.isPublic === 'boolean' ? project.isPublic : true,
+    linkUrl: project?.linkUrl || '',
+    position: Number.isFinite(Number(project?.position)) ? Number(project.position) : 0,
+    subtitle: project?.subtitle || '',
+    title: project?.title || '',
+  };
+}
+
 function buildAdminMemberPayload(form, overrides = {}) {
   const selectedChapters = Array.isArray(form.chapters) && form.chapters.length
     ? form.chapters
@@ -2063,6 +2481,21 @@ function buildAdminMemberPayload(form, overrides = {}) {
       ? Number(overrides.position ?? form.position)
       : 0,
     role: form.cargo,
+  };
+}
+
+function buildAdminProjectPayload(form, overrides = {}) {
+  return {
+    chapter: form.chapter || 'Ramo',
+    imageUrl: normalizeImageUrl(form.imageUrl),
+    isPublic: Boolean(form.isPublic),
+    linkUrl: normalizeLinkUrl(form.linkUrl),
+    position: Number.isFinite(Number(overrides.position ?? form.position))
+      ? Number(overrides.position ?? form.position)
+      : 0,
+    subtitle: String(form.subtitle || '').trim(),
+    title: String(form.title || '').trim(),
+    ...overrides,
   };
 }
 
