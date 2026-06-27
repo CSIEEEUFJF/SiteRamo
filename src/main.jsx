@@ -1,6 +1,20 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowDown, ExternalLink, Github, Instagram, Moon, X } from 'lucide-react';
+import {
+  ArrowDown,
+  ArrowLeft,
+  ExternalLink,
+  Github,
+  Instagram,
+  Languages,
+  LockKeyhole,
+  Moon,
+  Plus,
+  RefreshCw,
+  ShieldCheck,
+  UserPlus,
+  X,
+} from 'lucide-react';
 import './styles.css';
 
 const chapters = [
@@ -10,8 +24,10 @@ const chapters = [
     nome: 'Aerospace and Electronic Systems Society',
     logo: '/assets/chapters/aess.png',
     darkLogo: '/assets/chapters/dark/aess.png',
-    descricao:
-      'Capítulo voltado a sistemas aeroespaciais, aviação, eletrônica embarcada e tecnologias aplicadas a ambientes complexos.',
+    descricao: {
+      pt: 'Capítulo voltado a sistemas aeroespaciais, aviação, eletrônica embarcada e tecnologias aplicadas a ambientes complexos.',
+      en: 'Chapter focused on aerospace systems, aviation, embedded electronics, and technologies applied to complex environments.',
+    },
     instagram: '',
     president: { nome: 'Brendo Almeida', foto: '/assets/presidents/brendo-almeida.jpg' },
   },
@@ -21,8 +37,10 @@ const chapters = [
     nome: 'Antennas and Propagation Society',
     logo: '/assets/chapters/aps.png',
     darkLogo: '/assets/chapters/dark/aps.png',
-    descricao:
-      'Capítulo dedicado ao estudo de antenas, propagação eletromagnética, radiofrequência e comunicações sem fio.',
+    descricao: {
+      pt: 'Capítulo dedicado ao estudo de antenas, propagação eletromagnética, radiofrequência e comunicações sem fio.',
+      en: 'Chapter dedicated to antennas, electromagnetic propagation, radio frequency, and wireless communications.',
+    },
     instagram: '',
     president: { nome: 'Pedro Fuzimoto', foto: '/assets/presidents/pedro-fuzimoto.png' },
   },
@@ -32,8 +50,10 @@ const chapters = [
     nome: 'Communications Society',
     logo: '/assets/chapters/comsoc.png',
     darkLogo: '/assets/chapters/dark/comsoc.png',
-    descricao:
-      'Capítulo focado em redes, telecomunicações, conectividade, protocolos e tecnologias que sustentam sistemas de comunicação.',
+    descricao: {
+      pt: 'Capítulo focado em redes, telecomunicações, conectividade, protocolos e tecnologias que sustentam sistemas de comunicação.',
+      en: 'Chapter focused on networks, telecommunications, connectivity, protocols, and the technologies behind communication systems.',
+    },
     instagram: '',
     president: { nome: 'Pedro Fuzimoto', foto: '/assets/presidents/pedro-fuzimoto.png' },
   },
@@ -43,8 +63,10 @@ const chapters = [
     nome: 'Computer Society',
     logo: '/assets/chapters/cs.png',
     darkLogo: '/assets/chapters/dark/cs.png',
-    descricao:
-      'Capítulo dedicado à computação, software, inteligência artificial, segurança, sistemas e formação técnica em tecnologia.',
+    descricao: {
+      pt: 'Capítulo dedicado à computação, software, inteligência artificial, segurança, sistemas e formação técnica em tecnologia.',
+      en: 'Chapter dedicated to computing, software, artificial intelligence, security, systems, and technical training in technology.',
+    },
     instagram: '',
     github: 'https://github.com/CSIEEEUFJF',
     president: { nome: 'Rafael Lago', foto: '/assets/presidents/rafael-lago.png' },
@@ -55,8 +77,10 @@ const chapters = [
     nome: 'Education Society',
     logo: '/assets/chapters/edsoc.png',
     darkLogo: '/assets/chapters/dark/edsoc.png',
-    descricao:
-      'Capítulo voltado à educação em engenharia, aprendizagem, metodologias de ensino e iniciativas de capacitação técnica.',
+    descricao: {
+      pt: 'Capítulo voltado à educação em engenharia, aprendizagem, metodologias de ensino e iniciativas de capacitação técnica.',
+      en: 'Chapter focused on engineering education, learning, teaching methodologies, and technical training initiatives.',
+    },
     instagram: '',
     president: { nome: 'Fabrício Prata', foto: '/assets/presidents/fabricio-prata.png' },
   },
@@ -66,8 +90,10 @@ const chapters = [
     nome: 'Industry Applications Society',
     logo: '/assets/chapters/ias.png',
     darkLogo: '/assets/chapters/dark/ias.png',
-    descricao:
-      'Capítulo que conecta aplicações industriais, automação, máquinas elétricas, processos produtivos e tecnologia aplicada.',
+    descricao: {
+      pt: 'Capítulo que conecta aplicações industriais, automação, máquinas elétricas, processos produtivos e tecnologia aplicada.',
+      en: 'Chapter that connects industrial applications, automation, electric machines, production processes, and applied technology.',
+    },
     instagram: 'https://www.instagram.com/ieeeiasufjf/',
     president: { nome: 'Lauro Abdallah', foto: '/assets/presidents/lauro-abdallah.png' },
   },
@@ -77,8 +103,10 @@ const chapters = [
     nome: 'Power & Energy Society',
     logo: '/assets/chapters/pes.png',
     darkLogo: '/assets/chapters/dark/pes.png',
-    descricao:
-      'Capítulo voltado à energia elétrica, sistemas de potência, geração, transmissão, distribuição e transição energética.',
+    descricao: {
+      pt: 'Capítulo voltado à energia elétrica, sistemas de potência, geração, transmissão, distribuição e transição energética.',
+      en: 'Chapter focused on electric energy, power systems, generation, transmission, distribution, and the energy transition.',
+    },
     instagram: 'https://www.instagram.com/ieeepesufjf/',
     president: { nome: 'Pedro Temponi', foto: '/assets/presidents/pedro-temponi.jpg' },
   },
@@ -88,8 +116,10 @@ const chapters = [
     nome: 'Robotics and Automation Society',
     logo: '/assets/chapters/ras.jpg',
     darkLogo: '/assets/chapters/dark/ras.png',
-    descricao:
-      'Capítulo focado em robótica, automação, sistemas embarcados, controle, percepção e projetos práticos multidisciplinares.',
+    descricao: {
+      pt: 'Capítulo focado em robótica, automação, sistemas embarcados, controle, percepção e projetos práticos multidisciplinares.',
+      en: 'Chapter focused on robotics, automation, embedded systems, control, perception, and practical multidisciplinary projects.',
+    },
     instagram: 'https://www.instagram.com/ras.ieee.ufjf/',
     github: 'https://github.com/RASIEEEUFJF',
     president: { nome: 'Endhel Andrade', foto: '/assets/presidents/endhel-andrade.jpg' },
@@ -100,8 +130,10 @@ const chapters = [
     nome: 'Special Interest Group on Humanitarian Technology',
     logo: '/assets/chapters/sight.png',
     darkLogo: '/assets/chapters/dark/sight.png',
-    descricao:
-      'Grupo voltado à tecnologia humanitária, impacto social, acessibilidade, sustentabilidade e soluções para comunidades.',
+    descricao: {
+      pt: 'Grupo voltado à tecnologia humanitária, impacto social, acessibilidade, sustentabilidade e soluções para comunidades.',
+      en: 'Group focused on humanitarian technology, social impact, accessibility, sustainability, and solutions for communities.',
+    },
     instagram: 'https://www.instagram.com/ieeesightufjf/',
     president: { nome: 'Carlos Alexandre', foto: '/assets/presidents/carlos-alexandre.png' },
   },
@@ -111,13 +143,18 @@ const chapters = [
     nome: 'Vehicular Technology Society',
     logo: '/assets/chapters/vts.webp',
     darkLogo: '/assets/chapters/dark/vts.png',
-    descricao:
-      'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas. No Ramo Estudantil IEEE UFJF, é uma parceria com a equipe RAMPAGE BAJA.',
+    descricao: {
+      pt: 'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas. No Ramo Estudantil IEEE UFJF, é uma parceria com a equipe RAMPAGE BAJA.',
+      en: 'Chapter dedicated to mobility, vehicular systems, intelligent transportation, vehicular communication, and automotive technologies. At the IEEE UFJF Student Branch, it is a partnership with the RAMPAGE BAJA team.',
+    },
     instagram: 'https://www.instagram.com/rampagebaja/',
     president: {
       nome: 'RAMPAGE BAJA',
       foto: '/assets/presidents/rampage-baja.png',
-      label: 'Equipe parceira',
+      label: {
+        pt: 'Equipe parceira',
+        en: 'Partner team',
+      },
     },
   },
   {
@@ -126,8 +163,10 @@ const chapters = [
     nome: 'Women in Engineering',
     logo: '/assets/chapters/wie.png',
     darkLogo: '/assets/chapters/dark/wie.png',
-    descricao:
-      'Grupo de afinidade dedicado a fortalecer a presença, permanência e liderança de mulheres nas engenharias e tecnologia.',
+    descricao: {
+      pt: 'Grupo de afinidade dedicado a fortalecer a presença, permanência e liderança de mulheres nas engenharias e tecnologia.',
+      en: 'Affinity group dedicated to strengthening the presence, retention, and leadership of women in engineering and technology.',
+    },
     instagram: 'https://www.instagram.com/ieeewieufjf/',
     president: { nome: 'Camila Porto', foto: '/assets/presidents/camila-porto.png' },
   },
@@ -135,27 +174,42 @@ const chapters = [
 
 const boardMembers = [
   {
-    role: 'Presidente',
+    role: {
+      pt: 'Presidente',
+      en: 'President',
+    },
     name: 'Camila Porto',
     photo: '/assets/presidents/camila-porto.png',
   },
   {
-    role: 'Vice-Presidente',
+    role: {
+      pt: 'Vice-Presidente',
+      en: 'Vice President',
+    },
     name: 'Pedro Fuzimoto',
     photo: '/assets/presidents/pedro-fuzimoto.png',
   },
   {
-    role: 'Webmaster',
+    role: {
+      pt: 'Webmaster',
+      en: 'Webmaster',
+    },
     name: 'Endhel Andrade',
     photo: '/assets/presidents/endhel-andrade.jpg',
   },
   {
-    role: 'Secretário',
+    role: {
+      pt: 'Secretário',
+      en: 'Secretary',
+    },
     name: 'Raul Moraes',
     photo: '/assets/presidents/raul-moraes.jpg',
   },
   {
-    role: 'Tesoureiro',
+    role: {
+      pt: 'Tesoureiro',
+      en: 'Treasurer',
+    },
     name: 'Fabrício Prata',
     photo: '/assets/presidents/fabricio-prata.png',
   },
@@ -167,7 +221,10 @@ const projects = [
     name: 'ENTENSE',
     url: 'https://entense.ieeeufjf.com.br',
     displayUrl: 'entense.ieeeufjf.com.br',
-    description: 'Encontro de Tecnologias e Engenharia',
+    description: {
+      pt: 'Encontro de Tecnologias e Engenharia',
+      en: 'Technology and Engineering Meeting',
+    },
     preview: '/assets/projects/entense-preview.png',
   },
   {
@@ -175,16 +232,450 @@ const projects = [
     name: 'HELPIEEE',
     url: 'https://help.ieeeufjf.com.br',
     displayUrl: 'help.ieeeufjf.com.br',
-    description: 'Guia do Calouro',
+    description: {
+      pt: 'Guia do Calouro',
+      en: 'Freshman Guide',
+    },
     preview: '/assets/projects/helpieee-preview.png',
   },
 ];
+
+const ATAS_MEMBERS_API_URL = 'https://atas.ieeeufjf.com.br/api/site-members';
+
+const chapterOptions = [
+  { key: 'AESS', label: 'Aerospace and Electronic Systems Society' },
+  { key: 'APS', label: 'Antennas and Propagation Society' },
+  { key: 'CS', label: 'Computer Society' },
+  { key: 'EdSoc', label: 'Education Society' },
+  { key: 'IAS', label: 'Industry Applications Society' },
+  { key: 'MTTS', label: 'Microwave Theory and Technology Society' },
+  { key: 'PES', label: 'Power & Energy Society' },
+  { key: 'RAS', label: 'Robotics and Automation Society' },
+  { key: 'Ramo', label: 'Ramo Estudantil IEEE UFJF' },
+  { key: 'SIGHT', label: 'Special Interest Group on Humanitarian Technology' },
+  { key: 'VTS', label: 'Vehicular Technology Society' },
+  { key: 'WIE', label: 'Women in Engineering' },
+];
+
+const adminChapterOptions = chapterOptions.filter(
+  ({ key }) => !['SIGHT', 'WIE'].includes(key),
+);
+
+const roleOptions = [
+  'Membro',
+  'Presidente',
+  'Vice-Presidente',
+  'Tesoureiro',
+  'Webmaster',
+  'Secretário',
+  'Conselheiro',
+];
+
+const roleTranslations = {
+  Conselheiro: 'Advisor',
+  Membro: 'Member',
+  Presidente: 'President',
+  Secretário: 'Secretary',
+  Tesoureiro: 'Treasurer',
+  'Vice-Presidente': 'Vice President',
+  Webmaster: 'Webmaster',
+};
+
+const ramoMembers = [
+  {
+    id: 'camila-porto',
+    name: 'Camila Porto',
+    role: { pt: 'Presidente do Ramo', en: 'Student Branch President' },
+    chapters: ['Ramo', 'WIE'],
+    photoUrl: '/assets/presidents/camila-porto.png',
+    bio: {
+      pt: 'Lidera a articulação geral do Ramo, acompanha os grupos técnicos e fortalece iniciativas de acolhimento, representatividade e formação de novas lideranças.',
+      en: 'Leads the Student Branch, supports the technical groups, and strengthens initiatives around welcoming new members, representation, and leadership development.',
+    },
+  },
+  {
+    id: 'pedro-fuzimoto',
+    name: 'Pedro Fuzimoto',
+    role: { pt: 'Vice-Presidente', en: 'Vice President' },
+    chapters: ['Ramo', 'APS', 'ComSoc'],
+    photoUrl: '/assets/presidents/pedro-fuzimoto.png',
+    bio: {
+      pt: 'Apoia a coordenação executiva do Ramo e atua em frentes ligadas a antenas, propagação, comunicações e integração entre capítulos.',
+      en: 'Supports Student Branch coordination and contributes to initiatives connected to antennas, propagation, communications, and chapter integration.',
+    },
+  },
+  {
+    id: 'endhel-andrade',
+    name: 'Endhel Andrade',
+    role: { pt: 'Webmaster e Presidente RAS', en: 'Webmaster and RAS President' },
+    chapters: ['Ramo', 'RAS'],
+    photoUrl: '/assets/presidents/endhel-andrade.jpg',
+    bio: {
+      pt: 'Cuida da presença digital do Ramo e lidera projetos de robótica, automação e sistemas embarcados com foco em prototipagem prática.',
+      en: 'Maintains the Branch digital presence and leads robotics, automation, and embedded systems projects with a hands-on prototyping focus.',
+    },
+  },
+  {
+    id: 'raul-moraes',
+    name: 'Raul Moraes',
+    role: { pt: 'Secretário', en: 'Secretary' },
+    chapters: ['Ramo'],
+    photoUrl: '/assets/presidents/raul-moraes.jpg',
+    bio: {
+      pt: 'Organiza registros, documentos e rotinas administrativas para manter as atividades do Ramo alinhadas e bem acompanhadas.',
+      en: 'Organizes records, documents, and administrative routines so the Branch activities stay aligned and easy to follow.',
+    },
+  },
+  {
+    id: 'fabricio-prata',
+    name: 'Fabrício Prata',
+    role: { pt: 'Tesoureiro e Presidente EdSoc', en: 'Treasurer and EdSoc President' },
+    chapters: ['Ramo', 'EdSoc'],
+    photoUrl: '/assets/presidents/fabricio-prata.png',
+    bio: {
+      pt: 'Acompanha a gestão financeira e impulsiona ações de educação em engenharia, capacitação técnica e compartilhamento de conhecimento.',
+      en: 'Supports financial management and drives engineering education, technical training, and knowledge-sharing initiatives.',
+    },
+  },
+  {
+    id: 'brendo-almeida',
+    name: 'Brendo Almeida',
+    role: { pt: 'Presidente AESS', en: 'AESS President' },
+    chapters: ['AESS'],
+    photoUrl: '/assets/presidents/brendo-almeida.jpg',
+    bio: {
+      pt: 'Conduz atividades sobre sistemas aeroespaciais, eletrônica embarcada e tecnologias aplicadas a ambientes complexos.',
+      en: 'Leads activities around aerospace systems, embedded electronics, and technologies applied to complex environments.',
+    },
+  },
+  {
+    id: 'rafael-lago',
+    name: 'Rafael Lago',
+    role: { pt: 'Presidente CS', en: 'CS President' },
+    chapters: ['CS'],
+    photoUrl: '/assets/presidents/rafael-lago.png',
+    bio: {
+      pt: 'Coordena iniciativas de computação, software, inteligência artificial e formação técnica para estudantes interessados em tecnologia.',
+      en: 'Coordinates computing, software, artificial intelligence, and technical training initiatives for students interested in technology.',
+    },
+  },
+  {
+    id: 'lauro-abdallah',
+    name: 'Lauro Abdallah',
+    role: { pt: 'Presidente IAS', en: 'IAS President' },
+    chapters: ['IAS'],
+    photoUrl: '/assets/presidents/lauro-abdallah.png',
+    bio: {
+      pt: 'Aproxima o Ramo de aplicações industriais, automação, máquinas elétricas e tecnologia aplicada a processos produtivos.',
+      en: 'Connects the Branch with industrial applications, automation, electric machines, and technology applied to production processes.',
+    },
+  },
+  {
+    id: 'pedro-temponi',
+    name: 'Pedro Temponi',
+    role: { pt: 'Presidente PES', en: 'PES President' },
+    chapters: ['PES'],
+    photoUrl: '/assets/presidents/pedro-temponi.jpg',
+    bio: {
+      pt: 'Promove estudos e projetos sobre energia elétrica, sistemas de potência, distribuição e transição energética.',
+      en: 'Promotes studies and projects on electric energy, power systems, distribution, and the energy transition.',
+    },
+  },
+  {
+    id: 'carlos-alexandre',
+    name: 'Carlos Alexandre',
+    role: { pt: 'Presidente SIGHT', en: 'SIGHT President' },
+    chapters: ['SIGHT'],
+    photoUrl: '/assets/presidents/carlos-alexandre.png',
+    bio: {
+      pt: 'Lidera ações de tecnologia humanitária, impacto social, acessibilidade e soluções voltadas a comunidades.',
+      en: 'Leads humanitarian technology, social impact, accessibility, and community-oriented solution initiatives.',
+    },
+  },
+];
+
+const copy = {
+  pt: {
+    lang: 'pt-BR',
+    hero: {
+      aria: 'Ramo Estudantil IEEE UFJF',
+      brandAria: 'Universidade Federal de Juiz de Fora IEEE Student Branch',
+      universityDesktop: 'Universidade Federal de Juiz de Fora',
+      universityMobileFirst: 'Universidade Federal',
+      universityMobileSecond: 'de Juiz de Fora',
+      branch: 'IEEE Student Branch',
+      scroll: 'Ir para a navegação',
+    },
+    nav: {
+      aria: 'Navegação principal',
+      top: 'Voltar ao topo',
+      about: 'O IEEE',
+      chapters: 'Capítulos',
+      board: 'Diretoria',
+      projects: 'Projetos',
+      members: 'Membros',
+      contact: 'Contato',
+      enableDark: 'Ativar modo escuro',
+      disableDark: 'Desativar modo escuro',
+      languageButton: 'EN',
+      languageLabel: 'Alterar texto para inglês',
+    },
+    about: {
+      eyebrow: 'O IEEE',
+      title: 'Advancing Technology for Humanity',
+      logoAlt: 'Logo IEEE',
+      paragraphs: [
+        'Fundado em 1963, o Instituto de Engenheiros Eletricistas e Eletrônicos é a maior organização profissional do mundo dedicada ao avanço da tecnologia em benefício da humanidade. Com origens no final do século XIX, o IEEE atualmente tem cerca de 500 mil membros ativos, divididos em 349 seções, que estão espalhadas por 10 regiões.',
+        'Na Universidade Federal de Juiz de Fora, o IEEE tem presença forte desde a década de 1980, com Ramo Estudantil formado em 1991. Atualmente, o Ramo tem 9 capítulos técnicos ativos, além dos grupos de afinidade WIE (Women in Engineering) e SIGHT (Special Interest Group in Humanitarian Technology).',
+      ],
+    },
+    chapters: {
+      eyebrow: 'Capítulos e Grupos de Afinidade',
+      title: 'Nossos capítulos',
+      detailsId: 'chapter-detail-title',
+      openDetails: (name) => `Abrir detalhes de ${name}`,
+      close: 'Fechar detalhes do capítulo',
+      linksLabel: 'Links do capítulo',
+      comingSoon: 'em breve',
+      presidentFallback: 'Presidente',
+      logoAlt: (name) => `Logo ${name}`,
+      photoAlt: (name) => `Foto de ${name}`,
+    },
+    board: {
+      eyebrow: 'Diretoria do Ramo',
+      title: 'Nossa diretoria',
+      photoAlt: (name) => `Foto de ${name}`,
+    },
+    projects: {
+      eyebrow: 'Projetos',
+      title: 'Nossos projetos',
+      open: (name) => `Abrir projeto ${name}`,
+      previewAlt: (name) => `Preview do projeto ${name}`,
+    },
+    members: {
+      eyebrow: 'Membros do Ramo',
+      title: 'Quem faz o Ramo acontecer',
+      description:
+        'Conheça as pessoas que mantêm capítulos, projetos, eventos e rotinas internas em movimento no Ramo Estudantil IEEE UFJF.',
+      openDetails: (name) => `Abrir detalhes de ${name}`,
+      close: 'Fechar detalhes do membro',
+      empty: 'Nenhum membro cadastrado no site ainda.',
+      photoAlt: (name) => `Foto de ${name}`,
+    },
+    admin: {
+      eyebrow: 'Rota oculta',
+      title: 'Administração de membros',
+      description:
+        'Use a autenticação do sistema de atas para gerenciar apenas os membros que aparecem no site. Estes registros são separados dos usuários do Atas.',
+      back: 'Voltar ao site',
+      loginTitle: 'Entrar com o sistema de atas',
+      loginDescription: 'Use o mesmo usuário do painel de atas IEEE.',
+      username: 'Nome de usuário',
+      password: 'Senha',
+      login: 'Entrar',
+      logout: 'Sair',
+      statusIdle: 'Aguardando autenticação.',
+      statusChecking: 'Verificando sessão do sistema de atas.',
+      statusLogged: (name) => `Sessão ativa como ${name}.`,
+      statusCreated: 'Membro do site cadastrado. Se publicado, ele aparecerá na página pública.',
+      statusUpdated: 'Membro do site atualizado.',
+      statusRemoved: 'Membro removido do site.',
+      statusError: 'Não foi possível concluir a ação.',
+      formTitle: 'Adicionar membro ao site',
+      editFormTitle: 'Editar membro do site',
+      formDescription:
+        'Use este painel para adicionar membros na página pública, atualizar foto, cargo e biografia, ou remover perfis da área de membros.',
+      fullName: 'Nome completo',
+      role: 'Cargo / função',
+      chapters: 'Capítulos vinculados',
+      photoUrl: 'URL da foto',
+      photoCrop: 'Recorte da foto',
+      photoCropHorizontal: 'Horizontal',
+      photoCropVertical: 'Vertical',
+      photoCropZoom: 'Zoom',
+      photoCropCenter: 'Centralizar foto',
+      photoPreview: 'Prévia da foto',
+      photoPreviewEmpty: 'Adicione uma URL para visualizar o recorte.',
+      bio: 'Mini biografia',
+      publish: 'Publicar no site',
+      create: 'Cadastrar membro',
+      creating: 'Cadastrando...',
+      update: 'Salvar alterações',
+      updating: 'Salvando...',
+      cancelEdit: 'Cancelar edição',
+      edit: 'Editar',
+      removeFromSite: 'Remover da página',
+      reorderPreviewTitle: 'Prévia da ordem',
+      dragMember: (name) => `Reordenar ${name}`,
+      refresh: 'Atualizar membros',
+      usersTitle: 'Membros cadastrados no site',
+      noUsers: 'Nenhum membro do site carregado ainda.',
+      published: 'Publicado',
+      hidden: 'Oculto',
+      proxyHint:
+        'Ambiente local conectado ao sistema de atas publicado em atas.ieeeufjf.com.br apenas para autenticação e armazenamento dos membros do site.',
+    },
+    contact: {
+      eyebrow: 'Contato',
+      title: 'Fale com o Ramo',
+      locationLabel: 'Nossa localização',
+      location: 'Faculdade de Engenharia - Universidade Federal de Juiz de Fora',
+      mapLabel: 'Mapa do Ramo Estudantil IEEE UFJF',
+      mapTitle: 'Mapa do Ramo Estudantil IEEE UFJF',
+    },
+  },
+  en: {
+    lang: 'en',
+    hero: {
+      aria: 'IEEE UFJF Student Branch',
+      brandAria: 'Federal University of Juiz de Fora IEEE Student Branch',
+      universityDesktop: 'Federal University of Juiz de Fora',
+      universityMobileFirst: 'Federal University',
+      universityMobileSecond: 'of Juiz de Fora',
+      branch: 'IEEE Student Branch',
+      scroll: 'Go to navigation',
+    },
+    nav: {
+      aria: 'Main navigation',
+      top: 'Back to top',
+      about: 'IEEE',
+      chapters: 'Chapters',
+      board: 'Board',
+      projects: 'Projects',
+      members: 'Members',
+      contact: 'Contact',
+      enableDark: 'Enable dark mode',
+      disableDark: 'Disable dark mode',
+      languageButton: 'PT',
+      languageLabel: 'Change text to Portuguese',
+    },
+    about: {
+      eyebrow: 'IEEE',
+      title: 'Advancing Technology for Humanity',
+      logoAlt: 'IEEE logo',
+      paragraphs: [
+        'Founded in 1963, the Institute of Electrical and Electronics Engineers is the world’s largest professional organization dedicated to advancing technology for humanity. With origins in the late 19th century, IEEE currently has around 500,000 active members across 349 sections in 10 regions.',
+        'At the Federal University of Juiz de Fora, IEEE has had a strong presence since the 1980s, with its Student Branch founded in 1991. Today, the Branch has 9 active technical chapters, in addition to the WIE (Women in Engineering) and SIGHT (Special Interest Group in Humanitarian Technology) affinity groups.',
+      ],
+    },
+    chapters: {
+      eyebrow: 'Chapters and Affinity Groups',
+      title: 'Our chapters',
+      detailsId: 'chapter-detail-title',
+      openDetails: (name) => `Open details for ${name}`,
+      close: 'Close chapter details',
+      linksLabel: 'Chapter links',
+      comingSoon: 'coming soon',
+      presidentFallback: 'President',
+      logoAlt: (name) => `${name} logo`,
+      photoAlt: (name) => `Photo of ${name}`,
+    },
+    board: {
+      eyebrow: 'Student Branch Board',
+      title: 'Our board',
+      photoAlt: (name) => `Photo of ${name}`,
+    },
+    projects: {
+      eyebrow: 'Projects',
+      title: 'Our projects',
+      open: (name) => `Open ${name} project`,
+      previewAlt: (name) => `${name} project preview`,
+    },
+    members: {
+      eyebrow: 'Branch members',
+      title: 'The people behind the Branch',
+      description:
+        'Meet the people keeping chapters, projects, events, and internal routines moving at the IEEE UFJF Student Branch.',
+      openDetails: (name) => `Open details for ${name}`,
+      close: 'Close member details',
+      empty: 'No members registered on the site yet.',
+      photoAlt: (name) => `Photo of ${name}`,
+    },
+    admin: {
+      eyebrow: 'Hidden route',
+      title: 'Member administration',
+      description:
+        'Use the minutes system authentication to manage only the members shown on the site. These records are separate from minutes system users.',
+      back: 'Back to site',
+      loginTitle: 'Sign in with the minutes system',
+      loginDescription: 'Use the same account from the IEEE minutes panel.',
+      username: 'Username',
+      password: 'Password',
+      login: 'Sign in',
+      logout: 'Sign out',
+      statusIdle: 'Waiting for authentication.',
+      statusChecking: 'Checking the minutes system session.',
+      statusLogged: (name) => `Active session as ${name}.`,
+      statusCreated: 'Site member created. If published, they will appear on the public page.',
+      statusUpdated: 'Site member updated.',
+      statusRemoved: 'Member removed from the site.',
+      statusError: 'The action could not be completed.',
+      formTitle: 'Add member to the site',
+      editFormTitle: 'Edit site member',
+      formDescription:
+        'Use this panel to add members to the public page, update photo, role, biography, or remove profiles from the members area.',
+      fullName: 'Full name',
+      role: 'Role',
+      chapters: 'Linked chapters',
+      photoUrl: 'Photo URL',
+      photoCrop: 'Photo crop',
+      photoCropHorizontal: 'Horizontal',
+      photoCropVertical: 'Vertical',
+      photoCropZoom: 'Zoom',
+      photoCropCenter: 'Center photo',
+      photoPreview: 'Photo preview',
+      photoPreviewEmpty: 'Add a URL to preview the crop.',
+      bio: 'Mini biography',
+      publish: 'Publish on the site',
+      create: 'Create member',
+      creating: 'Creating...',
+      update: 'Save changes',
+      updating: 'Saving...',
+      cancelEdit: 'Cancel editing',
+      edit: 'Edit',
+      removeFromSite: 'Remove from page',
+      reorderPreviewTitle: 'Order preview',
+      dragMember: (name) => `Reorder ${name}`,
+      refresh: 'Refresh members',
+      usersTitle: 'Members registered on the site',
+      noUsers: 'No site members loaded yet.',
+      published: 'Published',
+      hidden: 'Hidden',
+      proxyHint:
+        'Local environment connected to the published minutes system at atas.ieeeufjf.com.br only for authentication and site-member storage.',
+    },
+    contact: {
+      eyebrow: 'Contact',
+      title: 'Talk to the Branch',
+      locationLabel: 'Our location',
+      location: 'School of Engineering - Federal University of Juiz de Fora',
+      mapLabel: 'Map of the IEEE UFJF Student Branch',
+      mapTitle: 'Map of the IEEE UFJF Student Branch',
+    },
+  },
+};
 
 const mapsEmbedUrl =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4558.946106024073!2d-43.37522762383733!3d-21.778392998521973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x989ba3d97601f7%3A0xcf9f2fb389a7f742!2sRamo%20Estudantil%20IEEE%20UFJF!5e1!3m2!1sen!2sbr!4v1779591238371!5m2!1sen!2sbr';
 
 function App() {
   const [selectedChapterId, setSelectedChapterId] = useState(null);
+  const [selectedMemberId, setSelectedMemberId] = useState(null);
+  const [currentPath, setCurrentPath] = useState(() => {
+    if (typeof window === 'undefined') {
+      return '/';
+    }
+
+    return window.location.pathname;
+  });
+  const [publishedMembers, setPublishedMembers] = useState(ramoMembers);
+  const [language, setLanguage] = useState(() => {
+    if (typeof window === 'undefined') {
+      return 'pt';
+    }
+
+    return window.localStorage.getItem('language') === 'en' ? 'en' : 'pt';
+  });
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window === 'undefined') {
       return false;
@@ -192,38 +683,117 @@ function App() {
 
     return window.localStorage.getItem('theme') === 'dark';
   });
-  const detailRef = useRef(null);
+  const chapterDetailRef = useRef(null);
+  const memberDetailRef = useRef(null);
   const selectedChapter = useMemo(
     () => chapters.find((chapter) => chapter.id === selectedChapterId),
     [selectedChapterId],
   );
+  const selectedMember = useMemo(
+    () => publishedMembers.find((member) => member.id === selectedMemberId),
+    [publishedMembers, selectedMemberId],
+  );
+  const t = copy[language];
 
   useEffect(() => {
-    if (!selectedChapter || !detailRef.current) {
+    if (!selectedChapter || !chapterDetailRef.current) {
       return undefined;
     }
 
     const focusTimer = window.setTimeout(() => {
-      detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      detailRef.current?.focus({ preventScroll: true });
+      chapterDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      chapterDetailRef.current?.focus({ preventScroll: true });
     }, 80);
 
     return () => window.clearTimeout(focusTimer);
   }, [selectedChapter]);
 
   useEffect(() => {
+    if (!selectedMember || !memberDetailRef.current) {
+      return undefined;
+    }
+
+    const focusTimer = window.setTimeout(() => {
+      memberDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      memberDetailRef.current?.focus({ preventScroll: true });
+    }, 80);
+
+    return () => window.clearTimeout(focusTimer);
+  }, [selectedMember]);
+
+  useEffect(() => {
+    if (selectedMemberId && !selectedMember) {
+      setSelectedMemberId(null);
+    }
+  }, [selectedMember, selectedMemberId]);
+
+  useEffect(() => {
     document.documentElement.dataset.theme = isDarkMode ? 'dark' : 'light';
     window.localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
+  useEffect(() => {
+    document.documentElement.lang = t.lang;
+    window.localStorage.setItem('language', language);
+  }, [language, t.lang]);
+
+  useEffect(() => {
+    const handlePathChange = () => setCurrentPath(window.location.pathname);
+    window.addEventListener('popstate', handlePathChange);
+
+    return () => window.removeEventListener('popstate', handlePathChange);
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadMembers() {
+      try {
+        const response = await fetch(ATAS_MEMBERS_API_URL, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error('members-api-unavailable');
+        }
+
+        const payload = await response.json();
+        const remoteMembers = Array.isArray(payload.members)
+          ? payload.members.map(normalizeRemoteMember).filter(Boolean)
+          : [];
+
+        if (!active) {
+          return;
+        }
+
+        setPublishedMembers(remoteMembers);
+      } catch {
+        if (active) {
+          setPublishedMembers(ramoMembers);
+        }
+      }
+    }
+
+    loadMembers();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  if (currentPath === '/admin') {
+    return (
+      <AdminPage
+        isDarkMode={isDarkMode}
+        language={language}
+        setIsDarkMode={setIsDarkMode}
+        setLanguage={setLanguage}
+        t={t}
+      />
+    );
+  }
+
   return (
     <main>
-      <section className="hero" id="topo" aria-label="Ramo Estudantil IEEE UFJF">
+      <section className="hero" id="topo" aria-label={t.hero.aria}>
         <div className="hero__content">
-          <div
-            className="hero-brand"
-            aria-label="Universidade Federal de Juiz de Fora IEEE Student Branch"
-          >
+          <div className="hero-brand" aria-label={t.hero.brandAria}>
             <img
               className="hero-brand__mark"
               src="/assets/ramo-ieee-ufjf.svg"
@@ -234,55 +804,71 @@ function App() {
             />
             <div className="hero-brand__text">
               <h1>
-                <span className="desktop-line">Universidade Federal de Juiz de Fora</span>
-                <span className="mobile-line">Universidade Federal</span>
-                <span className="mobile-line">de Juiz de Fora</span>
+                <span className="desktop-line">{t.hero.universityDesktop}</span>
+                <span className="mobile-line">{t.hero.universityMobileFirst}</span>
+                <span className="mobile-line">{t.hero.universityMobileSecond}</span>
               </h1>
-              <p>IEEE Student Branch</p>
+              <p>{t.hero.branch}</p>
             </div>
           </div>
-          <a className="hero__scroll" href="#navegacao" aria-label="Ir para a navegação">
+          <a className="hero__scroll" href="#navegacao" aria-label={t.hero.scroll}>
             <ArrowDown aria-hidden="true" size={22} />
           </a>
         </div>
       </section>
 
       <div className="nav-anchor" id="navegacao" aria-hidden="true" />
-      <nav className="mini-nav" aria-label="Navegação principal">
-        <a className="mini-nav__brand" href="#topo" aria-label="Voltar ao topo">
+      <nav className="mini-nav" aria-label={t.nav.aria}>
+        <a className="mini-nav__brand" href="#topo" aria-label={t.nav.top}>
           <span className="mini-nav__mark" aria-hidden="true" />
           <span className="mini-nav__brand-text">
-            <strong>Universidade Federal de Juiz de Fora</strong>
-            <span>IEEE Student Branch</span>
+            <strong>{t.hero.universityDesktop}</strong>
+            <span>{t.hero.branch}</span>
           </span>
         </a>
-        <div className="mini-nav__links">
-          <a href="#o-ieee">O IEEE</a>
-          <a href="#capitulos">Capítulos</a>
-          <a href="#diretoria">Diretoria</a>
-          <a href="#projetos">Projetos</a>
-          <a href="#contato">Contato</a>
-          <button
-            className="mini-nav__theme"
-            type="button"
-            onClick={() => setIsDarkMode((currentTheme) => !currentTheme)}
-            aria-label={isDarkMode ? 'Desativar modo escuro' : 'Ativar modo escuro'}
-            aria-pressed={isDarkMode}
-          >
-            <Moon aria-hidden="true" size={18} />
-          </button>
+        <div className="mini-nav__menu">
+          <div className="mini-nav__links">
+            <a href="#o-ieee">{t.nav.about}</a>
+            <a href="#capitulos">{t.nav.chapters}</a>
+            <a href="#diretoria">{t.nav.board}</a>
+            <a href="#projetos">{t.nav.projects}</a>
+            <a href="#membros">{t.nav.members}</a>
+            <a href="#contato">{t.nav.contact}</a>
+          </div>
+          <div className="mini-nav__actions">
+            <button
+              className="mini-nav__language"
+              type="button"
+              onClick={() =>
+                setLanguage((currentLanguage) => (currentLanguage === 'pt' ? 'en' : 'pt'))
+              }
+              aria-label={t.nav.languageLabel}
+            >
+              <Languages aria-hidden="true" size={17} />
+              <span>{t.nav.languageButton}</span>
+            </button>
+            <button
+              className="mini-nav__theme"
+              type="button"
+              onClick={() => setIsDarkMode((currentTheme) => !currentTheme)}
+              aria-label={isDarkMode ? t.nav.disableDark : t.nav.enableDark}
+              aria-pressed={isDarkMode}
+            >
+              <Moon aria-hidden="true" size={18} />
+            </button>
+          </div>
         </div>
       </nav>
 
       <section className="about-ieee" id="o-ieee" aria-labelledby="o-ieee-title">
         <div className="section-heading">
-          <span>O IEEE</span>
+          <span>{t.about.eyebrow}</span>
           <div className="about-ieee__title-row">
-            <h2 id="o-ieee-title">Advancing Technology for Humanity</h2>
+            <h2 id="o-ieee-title">{t.about.title}</h2>
             <img
               className="about-ieee__logo"
               src={isDarkMode ? '/assets/chapters/dark/ieee.png' : '/assets/chapters/ieee.webp'}
-              alt="Logo IEEE"
+              alt={t.about.logoAlt}
               loading="lazy"
               decoding="async"
             />
@@ -291,21 +877,17 @@ function App() {
 
         <div className="about-ieee__layout">
           <div className="about-ieee__copy">
-            <p>
-              Fundado em 1963, o Instituto de Engenheiros Eletricistas e Eletrônicos é a maior organização profissional do mundo dedicada ao avanço da tecnologia em beneficio da humanidade. Com origens no final do século XIX, o IEEE atualmente tem cerca de 500 mil membros ativos, divididos em 349 seções, que estão espalhadas por 10 regiões.
-            </p>
-            <p>
-              Na Universidade Federal de Juiz de Fora, o IEEE tem presença forte desde a década de 1980, e com Ramo Estudantil formado em 1991. Atualmente, o Ramo tem 9 capítulos técnicos ativos, além dos grupos de afinidade 
-              Wie(Women in Engineering) e SIGHT(Special Interest Group in Humanitarian Technology).
-            </p>
+            {t.about.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="chapters" id="capitulos" aria-labelledby="capitulos-title">
         <div className="section-heading">
-          <span>Capítulos e Grupos de Afinidade</span>
-          <h2 id="capitulos-title">Nossos capítulos</h2>
+          <span>{t.chapters.eyebrow}</span>
+          <h2 id="capitulos-title">{t.chapters.title}</h2>
         </div>
 
         <div className="chapter-grid">
@@ -319,13 +901,13 @@ function App() {
               onClick={() => setSelectedChapterId(id)}
               aria-expanded={selectedChapterId === id}
               aria-controls="chapter-detail"
-              aria-label={`Abrir detalhes de ${nome}`}
+              aria-label={t.chapters.openDetails(nome)}
             >
               {logo ? (
                 <img
                   className={`chapter-card__logo chapter-card__logo--${id}`}
                   src={isDarkMode && darkLogo ? darkLogo : logo}
-                  alt={`Logo ${nome}`}
+                  alt={t.chapters.logoAlt(nome)}
                   loading="lazy"
                   decoding="async"
                 />
@@ -342,7 +924,7 @@ function App() {
           <article
             className="chapter-detail"
             id="chapter-detail"
-            ref={detailRef}
+            ref={chapterDetailRef}
             tabIndex={-1}
             aria-labelledby="chapter-detail-title"
             aria-live="polite"
@@ -351,7 +933,7 @@ function App() {
               className="chapter-detail__close"
               type="button"
               onClick={() => setSelectedChapterId(null)}
-              aria-label="Fechar detalhes do capítulo"
+              aria-label={t.chapters.close}
             >
               <X aria-hidden="true" size={20} />
             </button>
@@ -366,7 +948,7 @@ function App() {
                         ? selectedChapter.darkLogo
                         : selectedChapter.logo
                     }
-                    alt={`Logo ${selectedChapter.sigla}`}
+                    alt={t.chapters.logoAlt(selectedChapter.sigla)}
                     loading="lazy"
                     decoding="async"
                   />
@@ -378,19 +960,21 @@ function App() {
               <div className="chapter-detail__copy">
                 <span>{selectedChapter.nome}</span>
                 <h3 id="chapter-detail-title">{selectedChapter.sigla}</h3>
-                <p>{selectedChapter.descricao}</p>
+                <p>{selectedChapter.descricao[language]}</p>
 
-                <div className="chapter-detail__links" aria-label="Links do capítulo">
+                <div className="chapter-detail__links" aria-label={t.chapters.linksLabel}>
                   <ChapterLink
                     href={selectedChapter.instagram}
                     icon={<Instagram aria-hidden="true" size={18} />}
                     label="Instagram"
+                    comingSoon={t.chapters.comingSoon}
                   />
                   {'github' in selectedChapter && (
                     <ChapterLink
                       href={selectedChapter.github}
                       icon={<Github aria-hidden="true" size={18} />}
                       label="GitHub"
+                      comingSoon={t.chapters.comingSoon}
                     />
                   )}
                 </div>
@@ -399,7 +983,11 @@ function App() {
 
             <aside
               className="president-card"
-              aria-label={`${selectedChapter.president.label || 'Presidente'} ${
+              aria-label={`${getLocalizedText(
+                selectedChapter.president.label,
+                language,
+                t.chapters.presidentFallback,
+              )} ${
                 selectedChapter.sigla
               }`}
             >
@@ -407,7 +995,7 @@ function App() {
                 <img
                   className="president-card__photo"
                   src={selectedChapter.president.foto}
-                  alt={`Foto de ${selectedChapter.president.nome}`}
+                  alt={t.chapters.photoAlt(selectedChapter.president.nome)}
                   loading="lazy"
                   decoding="async"
                 />
@@ -417,7 +1005,13 @@ function App() {
                 </div>
               )}
               <div>
-                <span>{selectedChapter.president.label || 'Presidente'}</span>
+                <span>
+                  {getLocalizedText(
+                    selectedChapter.president.label,
+                    language,
+                    t.chapters.presidentFallback,
+                  )}
+                </span>
                 <strong>{selectedChapter.president.nome}</strong>
               </div>
             </aside>
@@ -427,19 +1021,19 @@ function App() {
 
       <section className="board" id="diretoria" aria-labelledby="diretoria-title">
         <div className="section-heading">
-          <span>Diretoria do Ramo</span>
-          <h2 id="diretoria-title">Nossa diretoria</h2>
+          <span>{t.board.eyebrow}</span>
+          <h2 id="diretoria-title">{t.board.title}</h2>
         </div>
 
         <div className="board-grid">
           {boardMembers.map(({ role, name, photo }) => (
-            <article className="board-card" key={`${role}-${name}`}>
+            <article className="board-card" key={`${role.pt}-${name}`}>
               <div className="board-card__photo-wrap">
                 {photo ? (
                   <img
                     className="board-card__photo"
                     src={photo}
-                    alt={`Foto de ${name}`}
+                    alt={t.board.photoAlt(name)}
                     loading="lazy"
                     decoding="async"
                   />
@@ -450,7 +1044,7 @@ function App() {
                 )}
               </div>
               <div className="board-card__copy">
-                <span>{role}</span>
+                <span>{role[language]}</span>
                 <strong>{name}</strong>
               </div>
             </article>
@@ -460,8 +1054,8 @@ function App() {
 
       <section className="projects" id="projetos" aria-labelledby="projetos-title">
         <div className="section-heading">
-          <span>Projetos</span>
-          <h2 id="projetos-title">Nossos projetos</h2>
+          <span>{t.projects.eyebrow}</span>
+          <h2 id="projetos-title">{t.projects.title}</h2>
         </div>
 
         <div className="projects-grid">
@@ -472,20 +1066,20 @@ function App() {
               target="_blank"
               rel="noreferrer"
               key={id}
-              aria-label={`Abrir projeto ${name}`}
+              aria-label={t.projects.open(name)}
             >
               <div className="project-card__preview">
                 <img
                   className="project-card__image"
                   src={preview}
-                  alt={`Preview do projeto ${name}`}
+                  alt={t.projects.previewAlt(name)}
                   loading="lazy"
                   decoding="async"
                 />
               </div>
               <div className="project-card__copy">
                 <strong>{name}</strong>
-                <p>{description}</p>
+                <p>{description[language]}</p>
               </div>
               <ExternalLink className="project-card__icon" aria-hidden="true" size={20} />
             </a>
@@ -493,16 +1087,103 @@ function App() {
         </div>
       </section>
 
+      <section className="members" id="membros" aria-labelledby="membros-title">
+        <div className="section-heading">
+          <span>{t.members.eyebrow}</span>
+          <h2 id="membros-title">{t.members.title}</h2>
+        </div>
+
+        <div className="member-roster" aria-label={t.members.description}>
+          {publishedMembers.length ? (
+            publishedMembers.map((member) => (
+              <button
+                className={`member-tile ${
+                  selectedMemberId === member.id ? 'member-tile--active' : ''
+                }`}
+                key={member.id}
+                type="button"
+                onClick={() => setSelectedMemberId(member.id)}
+                aria-expanded={selectedMemberId === member.id}
+                aria-controls="member-detail"
+                aria-label={t.members.openDetails(member.name)}
+              >
+                {member.photoUrl ? (
+                  <img
+                    className="member-tile__photo"
+                    src={member.photoUrl}
+                    alt={t.members.photoAlt(member.name)}
+                    style={getMemberPhotoStyle(member)}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <span className="member-tile__placeholder" aria-hidden="true">
+                    {getInitials(member.name)}
+                  </span>
+                )}
+              </button>
+            ))
+          ) : (
+            <p className="member-empty">{t.members.empty}</p>
+          )}
+        </div>
+
+        {selectedMember && (
+          <article
+            className="chapter-detail member-detail"
+            id="member-detail"
+            ref={memberDetailRef}
+            tabIndex={-1}
+            aria-labelledby="member-detail-title"
+            aria-live="polite"
+          >
+            <button
+              className="chapter-detail__close"
+              type="button"
+              onClick={() => setSelectedMemberId(null)}
+              aria-label={t.members.close}
+            >
+              <X aria-hidden="true" size={20} />
+            </button>
+
+            <div className="chapter-detail__main member-detail__main">
+              <div className="member-detail__photo-wrap">
+                {selectedMember.photoUrl ? (
+                  <img
+                    className="member-detail__photo"
+                    src={selectedMember.photoUrl}
+                    alt={t.members.photoAlt(selectedMember.name)}
+                    style={getMemberPhotoStyle(selectedMember)}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <span className="member-detail__placeholder">
+                    {getInitials(selectedMember.name)}
+                  </span>
+                )}
+              </div>
+
+              <div className="chapter-detail__copy">
+                <span>{getRoleLabel(selectedMember.role, language)}</span>
+                <h3 id="member-detail-title">{selectedMember.name}</h3>
+                <p>{getLocalizedText(selectedMember.bio, language, '')}</p>
+              </div>
+            </div>
+          </article>
+        )}
+      </section>
+
       <section className="contact" id="contato" aria-labelledby="contato-title">
         <div className="section-heading">
-          <span>Contato</span>
-          <h2 id="contato-title">Fale com o Ramo</h2>
+          <span>{t.contact.eyebrow}</span>
+          <h2 id="contato-title">{t.contact.title}</h2>
         </div>
 
         <div className="contact__layout">
           <div className="contact__copy">
-            <span>Nossa localização</span>
-            <h2>Faculdade de Engenharia - Universidade Federal de Juiz de Fora</h2>
+            <span>{t.contact.locationLabel}</span>
+            <h2>{t.contact.location}</h2>
             <a
               className="contact__instagram"
               href="https://instagram.com/ieeeufjf"
@@ -514,10 +1195,10 @@ function App() {
             </a>
           </div>
 
-          <div className="contact__map" aria-label="Mapa do Ramo Estudantil IEEE UFJF">
+          <div className="contact__map" aria-label={t.contact.mapLabel}>
             <iframe
               src={mapsEmbedUrl}
-              title="Mapa do Ramo Estudantil IEEE UFJF"
+              title={t.contact.mapTitle}
               width="600"
               height="450"
               style={{ border: 0 }}
@@ -532,12 +1213,655 @@ function App() {
   );
 }
 
-function ChapterLink({ href, icon, label }) {
+function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
+  const [auth, setAuth] = useState({ checking: true, user: null });
+  const [loginForm, setLoginForm] = useState({ password: '', username: '' });
+  const [memberForm, setMemberForm] = useState(createAdminMemberForm);
+  const [editingMemberId, setEditingMemberId] = useState(null);
+  const [siteMembers, setSiteMembers] = useState([]);
+  const [draggedMemberId, setDraggedMemberId] = useState(null);
+  const [status, setStatus] = useState({ tone: 'loading', text: t.admin.statusChecking });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+  const isOrderingRef = useRef(false);
+
+  useEffect(() => {
+    checkSession();
+  }, []);
+
+  async function checkSession() {
+    setAuth((current) => ({ ...current, checking: true }));
+    setStatus({ tone: 'loading', text: t.admin.statusChecking });
+
+    try {
+      const response = await fetch('/api/atas-auth?action=me', { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(await readAdminApiError(response, t.admin.statusError));
+      }
+
+      const payload = await readAdminJson(response, t.admin.proxyHint);
+      const user = payload.user || null;
+      setAuth({ checking: false, user });
+      setStatus({
+        tone: user ? 'success' : 'idle',
+        text: user ? t.admin.statusLogged(user.name) : t.admin.statusIdle,
+      });
+
+      if (user?.canManageMembers) {
+        await loadSiteMembers();
+      }
+    } catch (error) {
+      setAuth({ checking: false, user: null });
+      setStatus({ tone: 'error', text: error.message || t.admin.statusError });
+    }
+  }
+
+  async function loadSiteMembers() {
+    setIsLoadingUsers(true);
+
+    try {
+      const response = await fetch('/api/atas-site-members', { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(await readAdminApiError(response, t.admin.statusError));
+      }
+
+      const payload = await readAdminJson(response, t.admin.proxyHint);
+      const normalizedMembers = Array.isArray(payload.members)
+        ? payload.members.map(normalizeAdminMember).filter(Boolean)
+        : [];
+      setSiteMembers(normalizedMembers);
+      setDraggedMemberId(null);
+    } catch (error) {
+      setStatus({ tone: 'error', text: error.message || t.admin.statusError });
+    } finally {
+      setIsLoadingUsers(false);
+    }
+  }
+
+  async function handleLogin(event) {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setStatus({ tone: 'loading', text: t.admin.statusChecking });
+
+    try {
+      const response = await fetch('/api/atas-auth', {
+        body: JSON.stringify(loginForm),
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error(await readAdminApiError(response, t.admin.statusError));
+      }
+
+      const payload = await readAdminJson(response, t.admin.proxyHint);
+      setAuth({ checking: false, user: payload.user || null });
+      setLoginForm({ password: '', username: '' });
+      setStatus({
+        tone: 'success',
+        text: payload.user ? t.admin.statusLogged(payload.user.name) : t.admin.statusIdle,
+      });
+      if (payload.user?.canManageMembers) {
+        await loadSiteMembers();
+      } else {
+        setSiteMembers([]);
+      }
+    } catch (error) {
+      setStatus({ tone: 'error', text: error.message || t.admin.statusError });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  async function handleLogout() {
+    await fetch('/api/atas-auth', { method: 'DELETE' });
+    setAuth({ checking: false, user: null });
+    setSiteMembers([]);
+    setStatus({ tone: 'idle', text: t.admin.statusIdle });
+  }
+
+  function updateMemberForm(field, value) {
+    setMemberForm((current) => ({ ...current, [field]: value }));
+  }
+
+  function updatePhotoCrop(field, value) {
+    updateMemberForm(field, Number(value));
+  }
+
+  function resetMemberForm() {
+    setEditingMemberId(null);
+    setMemberForm(createAdminMemberForm());
+  }
+
+  function startEditMember(member) {
+    setEditingMemberId(member.id);
+    setMemberForm(createAdminMemberForm(member));
+    setStatus({
+      tone: 'idle',
+      text:
+        language === 'en'
+          ? `Editing ${member.name}.`
+          : `Editando ${member.name}.`,
+    });
+  }
+
+  function toggleMemberChapter(chapterKey) {
+    setMemberForm((current) => {
+      const selected = new Set(current.chapters);
+      if (selected.has(chapterKey)) {
+        selected.delete(chapterKey);
+      } else {
+        selected.add(chapterKey);
+      }
+
+      return { ...current, chapters: [...selected] };
+    });
+  }
+
+  async function handleSaveMember(event) {
+    event.preventDefault();
+    const isEditing = Boolean(editingMemberId);
+    const nextPosition = isEditing
+      ? memberForm.position
+      : siteMembers.reduce((maxPosition, member) => Math.max(maxPosition, Number(member.position) || 0), -1) + 1;
+    setIsSubmitting(true);
+    setStatus({ tone: 'loading', text: isEditing ? t.admin.updating : t.admin.creating });
+
+    try {
+      const response = await fetch(
+        isEditing
+          ? `/api/atas-site-members?id=${encodeURIComponent(editingMemberId)}`
+          : '/api/atas-site-members',
+        {
+          body: JSON.stringify(buildAdminMemberPayload(memberForm, { position: nextPosition })),
+          headers: { 'Content-Type': 'application/json' },
+          method: isEditing ? 'PATCH' : 'POST',
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(await readAdminApiError(response, t.admin.statusError));
+      }
+
+      resetMemberForm();
+      setStatus({ tone: 'success', text: isEditing ? t.admin.statusUpdated : t.admin.statusCreated });
+      await loadSiteMembers();
+    } catch (error) {
+      setStatus({ tone: 'error', text: error.message || t.admin.statusError });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  function handleMemberDragStart(event, memberId) {
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', String(memberId));
+    setDraggedMemberId(memberId);
+  }
+
+  function handleMemberDragOver(event) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  }
+
+  async function handleMemberDrop(event, targetMemberId) {
+    event.preventDefault();
+    const sourceId = draggedMemberId || event.dataTransfer.getData('text/plain');
+    setDraggedMemberId(null);
+
+    if (!sourceId || String(sourceId) === String(targetMemberId)) {
+      return;
+    }
+
+    const targetIndex = siteMembers.findIndex((member) => String(member.id) === String(targetMemberId));
+    await commitMemberOrderToIndex(sourceId, targetIndex);
+  }
+
+  async function commitMemberOrderToIndex(memberId, targetIndex) {
+    if (isOrderingRef.current) {
+      return;
+    }
+
+    const currentIndex = siteMembers.findIndex((member) => String(member.id) === String(memberId));
+    if (currentIndex < 0 || targetIndex < 0 || targetIndex >= siteMembers.length || targetIndex === currentIndex) {
+      return;
+    }
+
+    const reorderedMembers = [...siteMembers];
+    const [movedMember] = reorderedMembers.splice(currentIndex, 1);
+    reorderedMembers.splice(targetIndex, 0, movedMember);
+    const positionedMembers = reorderedMembers.map((member, index) => ({ ...member, position: index }));
+
+    isOrderingRef.current = true;
+    setIsSubmitting(true);
+    setStatus({ tone: 'loading', text: t.admin.updating });
+    setSiteMembers(positionedMembers);
+    setDraggedMemberId(null);
+
+    try {
+      await Promise.all(
+        positionedMembers.map((member) =>
+          fetch(`/api/atas-site-members?id=${encodeURIComponent(member.id)}`, {
+            body: JSON.stringify({ position: member.position }),
+            headers: { 'Content-Type': 'application/json' },
+            method: 'PATCH',
+          }).then(async (response) => {
+            if (!response.ok) {
+              throw new Error(await readAdminApiError(response, t.admin.statusError));
+            }
+          }),
+        ),
+      );
+
+      setStatus({ tone: 'success', text: t.admin.statusUpdated });
+      await loadSiteMembers();
+    } catch (error) {
+      setStatus({ tone: 'error', text: error.message || t.admin.statusError });
+      await loadSiteMembers();
+    } finally {
+      isOrderingRef.current = false;
+      setIsSubmitting(false);
+    }
+  }
+
+  async function handleRemoveMember(member) {
+    setIsSubmitting(true);
+    setStatus({ tone: 'loading', text: t.admin.updating });
+
+    try {
+      const response = await fetch(`/api/atas-site-members?id=${encodeURIComponent(member.id)}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error(await readAdminApiError(response, t.admin.statusError));
+      }
+
+      if (editingMemberId === member.id) {
+        resetMemberForm();
+      }
+
+      setStatus({ tone: 'success', text: t.admin.statusRemoved });
+      await loadSiteMembers();
+    } catch (error) {
+      setStatus({ tone: 'error', text: error.message || t.admin.statusError });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  const canManage = Boolean(auth.user?.canManageMembers);
+  const isEditingMember = Boolean(editingMemberId);
+
+  return (
+    <main className="admin-page">
+      <nav className="admin-nav" aria-label="Administração">
+        <a className="admin-nav__back" href="/">
+          <ArrowLeft aria-hidden="true" size={18} />
+          {t.admin.back}
+        </a>
+        <div className="admin-nav__actions">
+          <button
+            className="mini-nav__language"
+            type="button"
+            onClick={() => setLanguage((currentLanguage) => (currentLanguage === 'pt' ? 'en' : 'pt'))}
+            aria-label={t.nav.languageLabel}
+          >
+            <Languages aria-hidden="true" size={17} />
+            <span>{t.nav.languageButton}</span>
+          </button>
+          <button
+            className="mini-nav__theme"
+            type="button"
+            onClick={() => setIsDarkMode((currentTheme) => !currentTheme)}
+            aria-label={isDarkMode ? t.nav.disableDark : t.nav.enableDark}
+            aria-pressed={isDarkMode}
+          >
+            <Moon aria-hidden="true" size={18} />
+          </button>
+        </div>
+      </nav>
+
+      <section className="admin-hero">
+        <span>{t.admin.eyebrow}</span>
+        <h1>{t.admin.title}</h1>
+        <p>{t.admin.description}</p>
+        <div className={`admin-status admin-status--${status.tone}`}>
+          <ShieldCheck aria-hidden="true" size={18} />
+          <strong>{status.text}</strong>
+        </div>
+      </section>
+
+      <section className="admin-grid">
+        <article className="admin-panel">
+          <div className="admin-panel__heading">
+            <LockKeyhole aria-hidden="true" size={22} />
+            <div>
+              <span>{t.admin.loginTitle}</span>
+              <p>{t.admin.loginDescription}</p>
+            </div>
+          </div>
+
+          {auth.user ? (
+            <div className="admin-session-card">
+              <strong>{auth.user.name}</strong>
+              <span>@{auth.user.username}</span>
+              <div className="admin-session-card__actions">
+                <button type="button" onClick={handleLogout}>
+                  {t.admin.logout}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <form className="admin-form" onSubmit={handleLogin}>
+              <label>
+                <span>{t.admin.username}</span>
+                <input
+                  value={loginForm.username}
+                  onChange={(event) =>
+                    setLoginForm((current) => ({ ...current, username: event.target.value }))
+                  }
+                  autoComplete="username"
+                />
+              </label>
+              <label>
+                <span>{t.admin.password}</span>
+                <input
+                  type="password"
+                  value={loginForm.password}
+                  onChange={(event) =>
+                    setLoginForm((current) => ({ ...current, password: event.target.value }))
+                  }
+                  autoComplete="current-password"
+                />
+              </label>
+              <button className="admin-primary-button" disabled={isSubmitting || auth.checking}>
+                {t.admin.login}
+              </button>
+              <p className="admin-hint">{t.admin.proxyHint}</p>
+            </form>
+          )}
+        </article>
+
+        <article className="admin-panel admin-panel--wide">
+          <div className="admin-panel__heading">
+            <UserPlus aria-hidden="true" size={22} />
+            <div>
+              <span>{isEditingMember ? t.admin.editFormTitle : t.admin.formTitle}</span>
+              <p>{t.admin.formDescription}</p>
+            </div>
+          </div>
+
+          <form className="admin-member-form" onSubmit={handleSaveMember}>
+            <label>
+              <span>{t.admin.fullName}</span>
+              <input
+                value={memberForm.name}
+                onChange={(event) => updateMemberForm('name', event.target.value)}
+                disabled={!canManage}
+                required
+              />
+            </label>
+            <label>
+              <span>{t.admin.role}</span>
+              <select
+                value={memberForm.cargo}
+                onChange={(event) => updateMemberForm('cargo', event.target.value)}
+                disabled={!canManage}
+              >
+                {roleOptions.map((role) => (
+                  <option key={role} value={role}>
+                    {language === 'en' ? translateRole(role, language) : role}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="admin-member-form__span">
+              <span>{t.admin.photoUrl}</span>
+              <input
+                value={memberForm.photoUrl}
+                onChange={(event) => updateMemberForm('photoUrl', event.target.value)}
+                disabled={!canManage}
+                placeholder="https://..."
+              />
+            </label>
+            <fieldset className="admin-photo-crop" disabled={!canManage}>
+              <legend>{t.admin.photoCrop}</legend>
+              <div className="admin-photo-crop__grid">
+                <div className="admin-photo-crop__preview" aria-label={t.admin.photoPreview}>
+                  {memberForm.photoUrl ? (
+                    <img
+                      src={normalizeImageUrl(memberForm.photoUrl)}
+                      alt={t.admin.photoPreview}
+                      style={getMemberPhotoStyle(memberForm)}
+                    />
+                  ) : (
+                    <span>{t.admin.photoPreviewEmpty}</span>
+                  )}
+                </div>
+                <div className="admin-photo-crop__controls">
+                  <label>
+                    <span>{t.admin.photoCropHorizontal}</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={memberForm.photoPositionX}
+                      onInput={(event) => updatePhotoCrop('photoPositionX', event.currentTarget.value)}
+                      onChange={(event) => updatePhotoCrop('photoPositionX', event.currentTarget.value)}
+                    />
+                  </label>
+                  <label>
+                    <span>{t.admin.photoCropVertical}</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={memberForm.photoPositionY}
+                      onInput={(event) => updatePhotoCrop('photoPositionY', event.currentTarget.value)}
+                      onChange={(event) => updatePhotoCrop('photoPositionY', event.currentTarget.value)}
+                    />
+                  </label>
+                  <label>
+                    <span>{t.admin.photoCropZoom}</span>
+                    <input
+                      type="range"
+                      min="100"
+                      max="200"
+                      step="5"
+                      value={memberForm.photoZoom}
+                      onInput={(event) => updatePhotoCrop('photoZoom', event.currentTarget.value)}
+                      onChange={(event) => updatePhotoCrop('photoZoom', event.currentTarget.value)}
+                    />
+                  </label>
+                  <button
+                    className="admin-soft-button"
+                    type="button"
+                    onClick={() =>
+                      setMemberForm((current) => ({
+                        ...current,
+                        photoPositionX: 50,
+                        photoPositionY: 50,
+                        photoZoom: 100,
+                      }))
+                    }
+                    disabled={!canManage}
+                  >
+                    <RefreshCw aria-hidden="true" size={16} />
+                    {t.admin.photoCropCenter}
+                  </button>
+                </div>
+              </div>
+            </fieldset>
+            <label className="admin-member-form__span">
+              <span>{t.admin.bio}</span>
+              <textarea
+                value={memberForm.bio}
+                onChange={(event) => updateMemberForm('bio', event.target.value)}
+                disabled={!canManage}
+                maxLength={600}
+                rows={4}
+              />
+            </label>
+
+            <fieldset className="admin-chapter-list" disabled={!canManage}>
+              <legend>{t.admin.chapters}</legend>
+              {adminChapterOptions.map((chapter) => (
+                <label key={chapter.key}>
+                  <input
+                    type="checkbox"
+                    checked={memberForm.chapters.includes(chapter.key)}
+                    onChange={() => toggleMemberChapter(chapter.key)}
+                  />
+                  <span>{chapter.key}</span>
+                </label>
+              ))}
+            </fieldset>
+
+            <label className="admin-checkbox">
+              <input
+                type="checkbox"
+                checked={memberForm.isPublic}
+                onChange={(event) => updateMemberForm('isPublic', event.target.checked)}
+                disabled={!canManage}
+              />
+              <span>{t.admin.publish}</span>
+            </label>
+
+            <div className="admin-form-actions">
+              <button className="admin-primary-button" disabled={!canManage || isSubmitting}>
+                <Plus aria-hidden="true" size={18} />
+                {isSubmitting
+                  ? isEditingMember
+                    ? t.admin.updating
+                    : t.admin.creating
+                  : isEditingMember
+                    ? t.admin.update
+                    : t.admin.create}
+              </button>
+              {isEditingMember ? (
+                <button
+                  className="admin-soft-button"
+                  type="button"
+                  onClick={resetMemberForm}
+                  disabled={isSubmitting}
+                >
+                  {t.admin.cancelEdit}
+                </button>
+              ) : null}
+            </div>
+          </form>
+        </article>
+
+        <article className="admin-panel admin-panel--wide">
+          <div className="admin-panel__heading admin-panel__heading--row">
+            <div>
+              <span>{t.admin.usersTitle}</span>
+              <p>
+                {siteMembers.length
+                  ? `${siteMembers.length} ${language === 'en' ? 'member(s)' : 'membro(s)'}`
+                  : t.admin.noUsers}
+              </p>
+            </div>
+            <button className="admin-soft-button" type="button" onClick={loadSiteMembers} disabled={!canManage || isLoadingUsers}>
+              <RefreshCw aria-hidden="true" size={16} />
+              {t.admin.refresh}
+            </button>
+          </div>
+
+          {siteMembers.length ? (
+            <div className="admin-reorder-preview" aria-label={t.admin.reorderPreviewTitle}>
+              <span>{t.admin.reorderPreviewTitle}</span>
+              <div className="admin-reorder-preview__grid">
+                {siteMembers.map((member, index) => (
+                  <button
+                    className={`admin-member-order-card ${
+                      String(draggedMemberId) === String(member.id) ? 'admin-member-order-card--dragging' : ''
+                    }`}
+                    key={member.id}
+                    type="button"
+                    draggable={canManage && !isSubmitting && siteMembers.length > 1}
+                    onClick={() => startEditMember(member)}
+                    onDragStart={(event) => handleMemberDragStart(event, member.id)}
+                    onDragOver={handleMemberDragOver}
+                    onDrop={(event) => handleMemberDrop(event, member.id)}
+                    onDragEnd={() => setDraggedMemberId(null)}
+                    disabled={!canManage || isSubmitting}
+                    aria-label={t.admin.dragMember(member.name)}
+                  >
+                    <span className="admin-member-order-card__photo">
+                      {member.photoUrl ? (
+                        <img
+                          src={member.photoUrl}
+                          alt={t.members.photoAlt(member.name)}
+                          style={getMemberPhotoStyle(member)}
+                          loading="lazy"
+                          decoding="async"
+                          draggable={false}
+                        />
+                      ) : (
+                        <span>{getInitials(member.name)}</span>
+                      )}
+                      <strong>{index + 1}</strong>
+                    </span>
+                    <span className="admin-member-order-card__copy">
+                      <strong>{member.name}</strong>
+                      <small>{translateRole(member.role || 'Membro', language)}</small>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          <div className="admin-users-list">
+            {siteMembers.length ? (
+              siteMembers.map((member) => (
+                <div className="admin-user-row" key={member.id}>
+                  <div className="admin-user-row__content">
+                    <strong>{member.name}</strong>
+                    <span>{translateRole(member.role || 'Membro', language)}</span>
+                  </div>
+                  <div className="admin-user-row__meta">
+                    <span>{member.isPublic ? t.admin.published : t.admin.hidden}</span>
+                    <span>{member.chapters?.length || 0} cap.</span>
+                  </div>
+                  <div className="admin-user-row__actions">
+                    <button
+                      className="admin-soft-button"
+                      type="button"
+                      onClick={() => startEditMember(member)}
+                      disabled={!canManage || isSubmitting}
+                    >
+                      {t.admin.edit}
+                    </button>
+                    <button
+                      className="admin-danger-button"
+                      type="button"
+                      onClick={() => handleRemoveMember(member)}
+                      disabled={!canManage || isSubmitting}
+                    >
+                      {t.admin.removeFromSite}
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="admin-empty">{t.admin.noUsers}</p>
+            )}
+          </div>
+        </article>
+      </section>
+    </main>
+  );
+}
+
+function ChapterLink({ href, icon, label, comingSoon }) {
   if (!href) {
     return (
       <span className="chapter-link chapter-link--empty">
         {icon}
-        {label} em breve
+        {label} {comingSoon}
       </span>
     );
   }
@@ -548,6 +1872,216 @@ function ChapterLink({ href, icon, label }) {
       {label}
     </a>
   );
+}
+
+function getLocalizedText(value, language, fallback) {
+  if (!value) {
+    return fallback;
+  }
+
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  return value[language] || value.pt || fallback;
+}
+
+function translateRole(role, language) {
+  if (language !== 'en') {
+    return role;
+  }
+
+  return roleTranslations[role] || role;
+}
+
+function getRoleLabel(role, language) {
+  if (typeof role === 'string') {
+    return translateRole(role, language);
+  }
+
+  return getLocalizedText(role, language, translateRole('Membro', language));
+}
+
+function getGoogleDriveFileId(value) {
+  try {
+    const url = new URL(value);
+    const host = url.hostname.toLowerCase();
+    const isGoogleDriveUrl = [
+      'docs.google.com',
+      'drive.google.com',
+      'drive.usercontent.google.com',
+    ].includes(host);
+
+    if (!isGoogleDriveUrl) {
+      return '';
+    }
+
+    const queryId = url.searchParams.get('id')?.trim();
+    if (queryId) {
+      return queryId;
+    }
+
+    const fileMatch = url.pathname.match(/\/file\/d\/([^/]+)/);
+    return fileMatch?.[1] ? decodeURIComponent(fileMatch[1]).trim() : '';
+  } catch {
+    return '';
+  }
+}
+
+function normalizeImageUrl(value) {
+  const cleanValue = String(value || '').trim();
+  if (!cleanValue) {
+    return '';
+  }
+
+  const googleDriveFileId = getGoogleDriveFileId(cleanValue);
+  if (googleDriveFileId) {
+    return `https://drive.google.com/thumbnail?id=${encodeURIComponent(googleDriveFileId)}&sz=w1000`;
+  }
+
+  return cleanValue;
+}
+
+function clampPercentage(value, fallback = 50) {
+  const numberValue = Number(value);
+  if (!Number.isFinite(numberValue)) {
+    return fallback;
+  }
+
+  return Math.min(100, Math.max(0, Math.round(numberValue)));
+}
+
+function clampPhotoZoom(value, fallback = 100) {
+  const numberValue = Number(value);
+  if (!Number.isFinite(numberValue)) {
+    return fallback;
+  }
+
+  return Math.min(200, Math.max(100, Math.round(numberValue)));
+}
+
+function getMemberPhotoPosition(member) {
+  return {
+    x: clampPercentage(member?.photoPositionX),
+    y: clampPercentage(member?.photoPositionY),
+    zoom: clampPhotoZoom(member?.photoZoom),
+  };
+}
+
+function getMemberPhotoStyle(member) {
+  const { x, y, zoom } = getMemberPhotoPosition(member);
+  return {
+    objectPosition: `${x}% ${y}%`,
+    transform: `scale(${zoom / 100})`,
+    transformOrigin: `${x}% ${y}%`,
+  };
+}
+
+function normalizeRemoteMember(member) {
+  if (!member?.name) {
+    return null;
+  }
+
+  return {
+    bio: member.bio || '',
+    chapters: Array.isArray(member.chapters) ? member.chapters : [],
+    id: `atas-${member.id || member.name}`,
+    name: member.name,
+    photoUrl: normalizeImageUrl(member.photoUrl),
+    photoPositionX: clampPercentage(member.photoPositionX),
+    photoPositionY: clampPercentage(member.photoPositionY),
+    photoZoom: clampPhotoZoom(member.photoZoom),
+    position: Number.isFinite(Number(member.position)) ? Number(member.position) : 0,
+    role: member.role || 'Membro',
+  };
+}
+
+function normalizeAdminMember(member) {
+  if (!member?.name) {
+    return null;
+  }
+
+  return {
+    ...member,
+    chapters: Array.isArray(member.chapters) ? member.chapters : [],
+    isPublic: Boolean(member.isPublic),
+    photoUrl: normalizeImageUrl(member.photoUrl),
+    photoPositionX: clampPercentage(member.photoPositionX),
+    photoPositionY: clampPercentage(member.photoPositionY),
+    photoZoom: clampPhotoZoom(member.photoZoom),
+    position: Number.isFinite(Number(member.position)) ? Number(member.position) : 0,
+    role: member.role || 'Membro',
+  };
+}
+
+function createAdminMemberForm(user) {
+  if (user) {
+    const chapters = Array.isArray(user.chapters) && user.chapters.length ? user.chapters : ['Ramo'];
+
+    return {
+      bio: user.bio || '',
+      cargo: user.role || user.cargo || 'Membro',
+      chapters,
+      isPublic: Boolean(user.isPublic),
+      name: user.name || '',
+      photoUrl: user.photoUrl || '',
+      photoPositionX: clampPercentage(user.photoPositionX),
+      photoPositionY: clampPercentage(user.photoPositionY),
+      photoZoom: clampPhotoZoom(user.photoZoom),
+      position: Number.isFinite(Number(user.position)) ? Number(user.position) : 0,
+    };
+  }
+
+  return {
+    bio: '',
+    cargo: 'Membro',
+    chapters: ['Ramo'],
+    isPublic: true,
+    name: '',
+    photoUrl: '',
+    photoPositionX: 50,
+    photoPositionY: 50,
+    photoZoom: 100,
+    position: 0,
+  };
+}
+
+function buildAdminMemberPayload(form, overrides = {}) {
+  const selectedChapters = Array.isArray(form.chapters) && form.chapters.length
+    ? form.chapters
+    : ['Ramo'];
+  return {
+    bio: form.bio,
+    chapters: selectedChapters,
+    isPublic: form.isPublic,
+    name: form.name,
+    photoUrl: normalizeImageUrl(form.photoUrl),
+    photoPositionX: clampPercentage(form.photoPositionX),
+    photoPositionY: clampPercentage(form.photoPositionY),
+    photoZoom: clampPhotoZoom(form.photoZoom),
+    position: Number.isFinite(Number(overrides.position ?? form.position))
+      ? Number(overrides.position ?? form.position)
+      : 0,
+    role: form.cargo,
+  };
+}
+
+async function readAdminApiError(response, fallback) {
+  try {
+    const payload = await response.json();
+    return payload.detail || fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+async function readAdminJson(response, fallback) {
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    throw new Error(fallback);
+  }
+
+  return response.json();
 }
 
 function getInitials(name) {
