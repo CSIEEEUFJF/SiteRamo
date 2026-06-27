@@ -67,9 +67,22 @@ const chapters = [
       pt: 'Capítulo dedicado à computação, software, inteligência artificial, segurança, sistemas e formação técnica em tecnologia.',
       en: 'Chapter dedicated to computing, software, artificial intelligence, security, systems, and technical training in technology.',
     },
-    instagram: '',
+    instagram: 'https://www.instagram.com/ieeecs.ufjf/',
     github: 'https://github.com/CSIEEEUFJF',
     president: { nome: 'Rafael Lago', foto: '/assets/presidents/rafael-lago.png' },
+  },
+  {
+    id: 'cas',
+    sigla: 'CAS',
+    nome: 'Circuits and Systems Society',
+    logo: '/assets/chapters/cas.png',
+    darkLogo: '/assets/chapters/dark/cas-white-transparent.png',
+    descricao: {
+      pt: 'Capítulo voltado ao estudo de circuitos, sistemas eletrônicos, processamento de sinais, integração de hardware e tecnologias de sistemas embarcados.',
+      en: 'Chapter focused on circuits, electronic systems, signal processing, hardware integration, and embedded systems technologies.',
+    },
+    instagram: '',
+    president: { nome: 'Arthur Araújo', foto: '' },
   },
   {
     id: 'edsoc',
@@ -81,7 +94,7 @@ const chapters = [
       pt: 'Capítulo voltado à educação em engenharia, aprendizagem, metodologias de ensino e iniciativas de capacitação técnica.',
       en: 'Chapter focused on engineering education, learning, teaching methodologies, and technical training initiatives.',
     },
-    instagram: '',
+    instagram: 'https://www.instagram.com/ieeescolasufjf/',
     president: { nome: 'Fabrício Prata', foto: '/assets/presidents/fabricio-prata.png' },
   },
   {
@@ -108,7 +121,7 @@ const chapters = [
       en: 'Chapter focused on electric energy, power systems, generation, transmission, distribution, and the energy transition.',
     },
     instagram: 'https://www.instagram.com/ieeepesufjf/',
-    president: { nome: 'Pedro Temponi', foto: '/assets/presidents/pedro-temponi.jpg' },
+    president: { nome: 'Nicolas Ávila', foto: '' },
   },
   {
     id: 'ras',
@@ -168,7 +181,7 @@ const chapters = [
       en: 'Affinity group dedicated to strengthening the presence, retention, and leadership of women in engineering and technology.',
     },
     instagram: 'https://www.instagram.com/ieeewieufjf/',
-    president: { nome: 'Camila Porto', foto: '/assets/presidents/camila-porto.png' },
+    president: { nome: 'Maria Eduarda de Sá', foto: '' },
   },
 ];
 
@@ -176,7 +189,7 @@ const boardMembers = [
   {
     role: {
       pt: 'Presidente',
-      en: 'President',
+      en: 'Chair',
     },
     name: 'Pedro Fuzimoto',
     photo: '/assets/presidents/pedro-fuzimoto.png',
@@ -184,7 +197,7 @@ const boardMembers = [
   {
     role: {
       pt: 'Vice-Presidente',
-      en: 'Vice President',
+      en: 'Vice-Chair',
     },
     name: 'Lauro Abdallah',
     photo: '/assets/presidents/lauro-abdallah.png',
@@ -212,12 +225,12 @@ const projects = [
   {
     id: 'atas',
     name: 'Sistema Interno',
-    chapter: 'Ramo',
-    url: 'https://interno.ieeeufjf.com.br',
-    displayUrl: 'interno.ieeeufjf.com.br',
+    chapter: 'CS',
+    url: 'https://interno.ieeeufjf.com.br/demo',
+    displayUrl: 'interno.ieeeufjf.com.br/demo',
     description: {
-      pt: 'Atas, tarefas, calendario e membros do Ramo',
-      en: 'Minutes, tasks, calendar, and Branch members',
+      pt: 'Sistema para gerenciamento do Ramo',
+      en: 'System for branch management',
     },
     preview: '/assets/ramo-ieee-ufjf-blue.svg',
     previewDark: '/assets/ramo-ieee-ufjf.svg',
@@ -225,7 +238,7 @@ const projects = [
   {
     id: 'entense',
     name: 'ENTENSE',
-    chapter: 'Ramo',
+    chapter: 'IAS',
     url: 'https://entense.ieeeufjf.com.br',
     displayUrl: 'entense.ieeeufjf.com.br',
     description: {
@@ -237,7 +250,7 @@ const projects = [
   {
     id: 'helpieee',
     name: 'HELPIEEE',
-    chapter: 'Ramo',
+    chapter: 'EdSoc',
     url: 'https://help.ieeeufjf.com.br',
     displayUrl: 'help.ieeeufjf.com.br',
     description: {
@@ -261,6 +274,7 @@ const ATAS_PROJECTS_API_URLS = [
 const chapterOptions = [
   { key: 'AESS', label: 'Aerospace and Electronic Systems Society' },
   { key: 'APS', label: 'Antennas and Propagation Society' },
+  { key: 'CAS', label: 'Circuits and Systems Society' },
   { key: 'CS', label: 'Computer Society' },
   { key: 'EdSoc', label: 'Education Society' },
   { key: 'IAS', label: 'Industry Applications Society' },
@@ -290,10 +304,10 @@ const roleOptions = [
 const roleTranslations = {
   Conselheiro: 'Advisor',
   Membro: 'Member',
-  Presidente: 'President',
+  Presidente: 'Chair',
   Secretário: 'Secretary',
   Tesoureiro: 'Treasurer',
-  'Vice-Presidente': 'Vice President',
+  'Vice-Presidente': 'Vice-Chair',
   Webmaster: 'Webmaster',
 };
 
@@ -301,7 +315,7 @@ const ramoMembers = [
   {
     id: 'camila-porto',
     name: 'Camila Porto',
-    role: { pt: 'Presidente do Ramo', en: 'Student Branch President' },
+    role: { pt: 'Presidente do Ramo', en: 'Student Branch Chair' },
     chapters: ['Ramo', 'WIE'],
     photoUrl: '/assets/presidents/camila-porto.png',
     bio: {
@@ -312,7 +326,7 @@ const ramoMembers = [
   {
     id: 'pedro-fuzimoto',
     name: 'Pedro Fuzimoto',
-    role: { pt: 'Vice-Presidente', en: 'Vice President' },
+    role: { pt: 'Vice-Presidente', en: 'Vice-Chair' },
     chapters: ['Ramo', 'APS', 'ComSoc'],
     photoUrl: '/assets/presidents/pedro-fuzimoto.png',
     bio: {
@@ -323,7 +337,7 @@ const ramoMembers = [
   {
     id: 'endhel-andrade',
     name: 'Endhel Andrade',
-    role: { pt: 'Webmaster e Presidente RAS', en: 'Webmaster and RAS President' },
+    role: { pt: 'Webmaster e Presidente RAS', en: 'Webmaster and RAS Chair' },
     chapters: ['Ramo', 'RAS'],
     photoUrl: '/assets/presidents/endhel-andrade.jpg',
     bio: {
@@ -345,7 +359,7 @@ const ramoMembers = [
   {
     id: 'fabricio-prata',
     name: 'Fabrício Prata',
-    role: { pt: 'Tesoureiro e Presidente EdSoc', en: 'Treasurer and EdSoc President' },
+    role: { pt: 'Tesoureiro e Presidente EdSoc', en: 'Treasurer and EdSoc Chair' },
     chapters: ['Ramo', 'EdSoc'],
     photoUrl: '/assets/presidents/fabricio-prata.png',
     bio: {
@@ -356,7 +370,7 @@ const ramoMembers = [
   {
     id: 'brendo-almeida',
     name: 'Brendo Almeida',
-    role: { pt: 'Presidente AESS', en: 'AESS President' },
+    role: { pt: 'Presidente AESS', en: 'AESS Chair' },
     chapters: ['AESS'],
     photoUrl: '/assets/presidents/brendo-almeida.jpg',
     bio: {
@@ -367,7 +381,7 @@ const ramoMembers = [
   {
     id: 'rafael-lago',
     name: 'Rafael Lago',
-    role: { pt: 'Presidente CS', en: 'CS President' },
+    role: { pt: 'Presidente CS', en: 'CS Chair' },
     chapters: ['CS'],
     photoUrl: '/assets/presidents/rafael-lago.png',
     bio: {
@@ -378,7 +392,7 @@ const ramoMembers = [
   {
     id: 'lauro-abdallah',
     name: 'Lauro Abdallah',
-    role: { pt: 'Presidente IAS', en: 'IAS President' },
+    role: { pt: 'Presidente IAS', en: 'IAS Chair' },
     chapters: ['IAS'],
     photoUrl: '/assets/presidents/lauro-abdallah.png',
     bio: {
@@ -389,7 +403,7 @@ const ramoMembers = [
   {
     id: 'pedro-temponi',
     name: 'Pedro Temponi',
-    role: { pt: 'Presidente PES', en: 'PES President' },
+    role: { pt: 'Presidente PES', en: 'PES Chair' },
     chapters: ['PES'],
     photoUrl: '/assets/presidents/pedro-temponi.jpg',
     bio: {
@@ -400,7 +414,7 @@ const ramoMembers = [
   {
     id: 'carlos-alexandre',
     name: 'Carlos Alexandre',
-    role: { pt: 'Presidente SIGHT', en: 'SIGHT President' },
+    role: { pt: 'Presidente SIGHT', en: 'SIGHT Chair' },
     chapters: ['SIGHT'],
     photoUrl: '/assets/presidents/carlos-alexandre.png',
     bio: {
@@ -430,7 +444,6 @@ const copy = {
       board: 'Diretoria',
       projects: 'Projetos',
       members: 'Membros',
-      internal: 'Atas',
       contact: 'Contato',
       enableDark: 'Ativar modo escuro',
       disableDark: 'Desativar modo escuro',
@@ -443,7 +456,7 @@ const copy = {
       logoAlt: 'Logo IEEE',
       paragraphs: [
         'Fundado em 1963, o Instituto de Engenheiros Eletricistas e Eletrônicos é a maior organização profissional do mundo dedicada ao avanço da tecnologia em benefício da humanidade. Com origens no final do século XIX, o IEEE atualmente tem cerca de 500 mil membros ativos, divididos em 349 seções, que estão espalhadas por 10 regiões.',
-        'Na Universidade Federal de Juiz de Fora, o IEEE tem presença forte desde a década de 1980, com Ramo Estudantil formado em 1991. Atualmente, o Ramo tem 9 capítulos técnicos ativos, além dos grupos de afinidade WIE (Women in Engineering) e SIGHT (Special Interest Group in Humanitarian Technology).',
+        'Na Universidade Federal de Juiz de Fora, o IEEE tem presença forte desde a década de 1980, com Ramo Estudantil formado em 1991. Atualmente, o Ramo tem 10 capítulos técnicos ativos, além dos grupos de afinidade WIE (Women in Engineering) e SIGHT (Special Interest Group in Humanitarian Technology).',
       ],
     },
     chapters: {
@@ -560,7 +573,6 @@ const copy = {
       board: 'Board',
       projects: 'Projects',
       members: 'Members',
-      internal: 'Minutes',
       contact: 'Contact',
       enableDark: 'Enable dark mode',
       disableDark: 'Disable dark mode',
@@ -573,7 +585,7 @@ const copy = {
       logoAlt: 'IEEE logo',
       paragraphs: [
         'Founded in 1963, the Institute of Electrical and Electronics Engineers is the world’s largest professional organization dedicated to advancing technology for humanity. With origins in the late 19th century, IEEE currently has around 500,000 active members across 349 sections in 10 regions.',
-        'At the Federal University of Juiz de Fora, IEEE has had a strong presence since the 1980s, with its Student Branch founded in 1991. Today, the Branch has 9 active technical chapters, in addition to the WIE (Women in Engineering) and SIGHT (Special Interest Group in Humanitarian Technology) affinity groups.',
+        'At the Federal University of Juiz de Fora, IEEE has had a strong presence since the 1980s, with its Student Branch founded in 1991. Today, the Branch has 10 active technical chapters, in addition to the WIE (Women in Engineering) and SIGHT (Special Interest Group in Humanitarian Technology) affinity groups.',
       ],
     },
     chapters: {
@@ -584,7 +596,7 @@ const copy = {
       close: 'Close chapter details',
       linksLabel: 'Chapter links',
       comingSoon: 'coming soon',
-      presidentFallback: 'President',
+      presidentFallback: 'Chair',
       logoAlt: (name) => `${name} logo`,
       photoAlt: (name) => `Photo of ${name}`,
     },
@@ -711,6 +723,10 @@ function App() {
   const selectedMember = useMemo(
     () => publishedMembers.find((member) => member.id === selectedMemberId),
     [publishedMembers, selectedMemberId],
+  );
+  const selectedChapterPresidentMember = useMemo(
+    () => findPublishedMemberByName(publishedMembers, selectedChapter?.president?.nome),
+    [publishedMembers, selectedChapter],
   );
   const visibleBoardMembers = useMemo(
     () =>
@@ -911,9 +927,6 @@ function App() {
             <a href="#diretoria">{t.nav.board}</a>
             <a href="#projetos">{t.nav.projects}</a>
             <a href="#membros">{t.nav.members}</a>
-            <a href="https://interno.ieeeufjf.com.br" target="_blank" rel="noreferrer">
-              {t.nav.internal}
-            </a>
             <a href="#contato">{t.nav.contact}</a>
           </div>
           <div className="mini-nav__actions">
@@ -1039,8 +1052,8 @@ function App() {
               </div>
 
               <div className="chapter-detail__copy">
-                <span>{selectedChapter.nome}</span>
-                <h3 id="chapter-detail-title">{selectedChapter.sigla}</h3>
+                <span>{selectedChapter.sigla}</span>
+                <h3 id="chapter-detail-title">{selectedChapter.nome}</h3>
                 <p>{selectedChapter.descricao[language]}</p>
 
                 <div className="chapter-detail__links" aria-label={t.chapters.linksLabel}>
@@ -1072,16 +1085,19 @@ function App() {
                 selectedChapter.sigla
               }`}
             >
-              {selectedChapter.president.foto ? (
-                <img
-                  className="president-card__photo"
-                  src={selectedChapter.president.foto}
-                  alt={t.chapters.photoAlt(selectedChapter.president.nome)}
-                  loading="lazy"
-                  decoding="async"
-                />
+              {(selectedChapterPresidentMember?.photoUrl || selectedChapter.president.foto) ? (
+                <div className="president-card__photo-frame">
+                  <img
+                    className="president-card__photo"
+                    src={selectedChapterPresidentMember?.photoUrl || selectedChapter.president.foto}
+                    alt={t.chapters.photoAlt(selectedChapter.president.nome)}
+                    style={selectedChapterPresidentMember ? getMemberPhotoStyle(selectedChapterPresidentMember) : undefined}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
               ) : (
-                <div className="president-card__photo president-card__photo--empty">
+                <div className="president-card__photo-frame president-card__photo--empty">
                   <span>{selectedChapter.sigla}</span>
                 </div>
               )}
@@ -1717,7 +1733,6 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
       <section className="admin-hero">
         <span>{t.admin.eyebrow}</span>
         <h1>{t.admin.title}</h1>
-        <p>{t.admin.description}</p>
         <div className={`admin-status admin-status--${status.tone}`}>
           <ShieldCheck aria-hidden="true" size={18} />
           <strong>{status.text}</strong>
@@ -1730,7 +1745,6 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
             <LockKeyhole aria-hidden="true" size={22} />
             <div>
               <span>{t.admin.loginTitle}</span>
-              <p>{t.admin.loginDescription}</p>
             </div>
           </div>
 
@@ -1770,7 +1784,6 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
               <button className="admin-primary-button" disabled={isSubmitting || auth.checking}>
                 {t.admin.login}
               </button>
-              <p className="admin-hint">{t.admin.proxyHint}</p>
             </form>
           )}
         </article>
