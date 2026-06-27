@@ -213,8 +213,8 @@ const projects = [
     id: 'atas',
     name: 'Sistema Interno',
     chapter: 'Ramo',
-    url: 'https://atas.ieeeufjf.com.br',
-    displayUrl: 'atas.ieeeufjf.com.br',
+    url: 'https://interno.ieeeufjf.com.br',
+    displayUrl: 'interno.ieeeufjf.com.br',
     description: {
       pt: 'Atas, tarefas, calendario e membros do Ramo',
       en: 'Minutes, tasks, calendar, and Branch members',
@@ -530,7 +530,7 @@ const copy = {
       published: 'Publicado',
       hidden: 'Oculto',
       proxyHint:
-        'Ambiente local conectado ao sistema de atas publicado em atas.ieeeufjf.com.br apenas para autenticação e armazenamento dos membros do site.',
+        'Ambiente local conectado ao sistema interno publicado em interno.ieeeufjf.com.br apenas para autenticação e armazenamento dos membros do site.',
     },
     contact: {
       eyebrow: 'Contato',
@@ -660,7 +660,7 @@ const copy = {
       published: 'Published',
       hidden: 'Hidden',
       proxyHint:
-        'Local environment connected to the published minutes system at atas.ieeeufjf.com.br only for authentication and site-member storage.',
+        'Local environment connected to the published internal system at interno.ieeeufjf.com.br only for authentication and site-member storage.',
     },
     contact: {
       eyebrow: 'Contact',
@@ -911,7 +911,7 @@ function App() {
             <a href="#diretoria">{t.nav.board}</a>
             <a href="#projetos">{t.nav.projects}</a>
             <a href="#membros">{t.nav.members}</a>
-            <a href="https://atas.ieeeufjf.com.br" target="_blank" rel="noreferrer">
+            <a href="https://interno.ieeeufjf.com.br" target="_blank" rel="noreferrer">
               {t.nav.internal}
             </a>
             <a href="#contato">{t.nav.contact}</a>

@@ -1,7 +1,7 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-const ATAS_ORIGIN = process.env.ATAS_API_ORIGIN || 'https://atas.ieeeufjf.com.br';
+const ATAS_ORIGIN = process.env.ATAS_API_ORIGIN || 'https://interno.ieeeufjf.com.br';
 const SESSION_COOKIE = 'atas_ieee_session';
 const MAX_JSON_BODY_BYTES = 64 * 1024;
 
