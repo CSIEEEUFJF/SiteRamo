@@ -1031,6 +1031,7 @@ a {
 }
 
 .project-card__preview {
+  aspect-ratio: 1;
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--surface-soft);
@@ -1038,7 +1039,7 @@ a {
 
 .project-card__image {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   display: block;
   object-fit: cover;
   object-position: top center;
@@ -1490,13 +1491,13 @@ a {
 
 .admin-photo-crop__grid {
   display: grid;
-  grid-template-columns: minmax(140px, 180px) minmax(0, 1fr);
+  grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
   gap: 1rem;
   align-items: center;
 }
 
 .admin-photo-crop__preview {
-  width: min(100%, 180px);
+  width: min(100%, 320px);
   aspect-ratio: 1;
   position: relative;
   display: grid;
@@ -1528,6 +1529,15 @@ a {
   gap: 0.75rem;
 }
 
+.admin-photo-crop__control-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
 .admin-photo-crop__controls label {
   gap: 0.35rem;
 }
@@ -1536,6 +1546,24 @@ a {
   padding: 0;
   border: 0;
   accent-color: var(--link-color);
+}
+
+.admin-photo-crop__nudges,
+.admin-photo-crop__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.admin-photo-crop__nudges button,
+.admin-photo-crop__presets button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 900;
+  padding: 0.55rem 0.7rem;
 }
 
 .admin-chapter-list {

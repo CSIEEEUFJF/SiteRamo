@@ -2435,6 +2435,24 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
     updateMemberForm(field, Number(value));
   }
 
+  function adjustPhotoCrop(setter, changes) {
+    setter((current) => ({
+      ...current,
+      photoPositionX: clampPercentage((current.photoPositionX ?? 50) + (changes.photoPositionX || 0)),
+      photoPositionY: clampPercentage((current.photoPositionY ?? 50) + (changes.photoPositionY || 0)),
+      photoZoom: clampPhotoZoom((current.photoZoom ?? 100) + (changes.photoZoom || 0)),
+    }));
+  }
+
+  function resetPhotoCrop(setter, preset = {}) {
+    setter((current) => ({
+      ...current,
+      photoPositionX: clampPercentage(preset.photoPositionX ?? 50),
+      photoPositionY: clampPercentage(preset.photoPositionY ?? 50),
+      photoZoom: clampPhotoZoom(preset.photoZoom ?? 100),
+    }));
+  }
+
   function resetMemberForm() {
     setEditingMemberId(null);
     setMemberForm(createAdminMemberForm());
@@ -2850,50 +2868,69 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
                 </div>
                 <div className="admin-photo-crop__controls">
                   <label>
-                    <span>{t.admin.photoCropHorizontal}</span>
+                    <span className="admin-photo-crop__control-header">
+                      <span>{t.admin.photoCropHorizontal}</span>
+                      <span>{memberForm.photoPositionX}%</span>
+                    </span>
                     <input
                       type="range"
                       min="0"
                       max="100"
+                      step="1"
                       value={memberForm.photoPositionX}
                       onInput={(event) => updatePhotoCrop('photoPositionX', event.currentTarget.value)}
                       onChange={(event) => updatePhotoCrop('photoPositionX', event.currentTarget.value)}
                     />
                   </label>
                   <label>
-                    <span>{t.admin.photoCropVertical}</span>
+                    <span className="admin-photo-crop__control-header">
+                      <span>{t.admin.photoCropVertical}</span>
+                      <span>{memberForm.photoPositionY}%</span>
+                    </span>
                     <input
                       type="range"
                       min="0"
                       max="100"
+                      step="1"
                       value={memberForm.photoPositionY}
                       onInput={(event) => updatePhotoCrop('photoPositionY', event.currentTarget.value)}
                       onChange={(event) => updatePhotoCrop('photoPositionY', event.currentTarget.value)}
                     />
                   </label>
                   <label>
-                    <span>{t.admin.photoCropZoom}</span>
+                    <span className="admin-photo-crop__control-header">
+                      <span>{t.admin.photoCropZoom}</span>
+                      <span>{memberForm.photoZoom}%</span>
+                    </span>
                     <input
                       type="range"
                       min="100"
-                      max="200"
-                      step="5"
+                      max="260"
+                      step="1"
                       value={memberForm.photoZoom}
                       onInput={(event) => updatePhotoCrop('photoZoom', event.currentTarget.value)}
                       onChange={(event) => updatePhotoCrop('photoZoom', event.currentTarget.value)}
                     />
                   </label>
+                  <div className="admin-photo-crop__nudges" aria-label="Ajustes finos da foto">
+                    <button type="button" onClick={() => adjustPhotoCrop(setMemberForm, { photoPositionY: -5 })} disabled={!canManage}>↑</button>
+                    <button type="button" onClick={() => adjustPhotoCrop(setMemberForm, { photoPositionX: -5 })} disabled={!canManage}>←</button>
+                    <button type="button" onClick={() => adjustPhotoCrop(setMemberForm, { photoPositionX: 5 })} disabled={!canManage}>→</button>
+                    <button type="button" onClick={() => adjustPhotoCrop(setMemberForm, { photoPositionY: 5 })} disabled={!canManage}>↓</button>
+                    <button type="button" onClick={() => adjustPhotoCrop(setMemberForm, { photoZoom: -10 })} disabled={!canManage}>- zoom</button>
+                    <button type="button" onClick={() => adjustPhotoCrop(setMemberForm, { photoZoom: 10 })} disabled={!canManage}>+ zoom</button>
+                  </div>
+                  <div className="admin-photo-crop__presets">
+                    <button type="button" onClick={() => resetPhotoCrop(setMemberForm)} disabled={!canManage}>
+                      {t.admin.photoCropCenter}
+                    </button>
+                    <button type="button" onClick={() => resetPhotoCrop(setMemberForm, { photoPositionY: 0, photoZoom: 120 })} disabled={!canManage}>Topo</button>
+                    <button type="button" onClick={() => resetPhotoCrop(setMemberForm, { photoPositionY: 100, photoZoom: 120 })} disabled={!canManage}>Base</button>
+                  </div>
                   <button
                     className="admin-soft-button"
                     type="button"
-                    onClick={() =>
-                      setMemberForm((current) => ({
-                        ...current,
-                        photoPositionX: 50,
-                        photoPositionY: 50,
-                        photoZoom: 100,
-                      }))
-                    }
+                    onClick={() => resetPhotoCrop(setMemberForm)}
                     disabled={!canManage}
                   >
                     <RefreshCw aria-hidden="true" size={16} />
@@ -3181,50 +3218,69 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
                 </div>
                 <div className="admin-photo-crop__controls">
                   <label>
-                    <span>{t.admin.photoCropHorizontal}</span>
+                    <span className="admin-photo-crop__control-header">
+                      <span>{t.admin.photoCropHorizontal}</span>
+                      <span>{projectForm.photoPositionX}%</span>
+                    </span>
                     <input
                       type="range"
                       min="0"
                       max="100"
+                      step="1"
                       value={projectForm.photoPositionX}
                       onInput={(event) => updateProjectPhotoCrop('photoPositionX', event.currentTarget.value)}
                       onChange={(event) => updateProjectPhotoCrop('photoPositionX', event.currentTarget.value)}
                     />
                   </label>
                   <label>
-                    <span>{t.admin.photoCropVertical}</span>
+                    <span className="admin-photo-crop__control-header">
+                      <span>{t.admin.photoCropVertical}</span>
+                      <span>{projectForm.photoPositionY}%</span>
+                    </span>
                     <input
                       type="range"
                       min="0"
                       max="100"
+                      step="1"
                       value={projectForm.photoPositionY}
                       onInput={(event) => updateProjectPhotoCrop('photoPositionY', event.currentTarget.value)}
                       onChange={(event) => updateProjectPhotoCrop('photoPositionY', event.currentTarget.value)}
                     />
                   </label>
                   <label>
-                    <span>{t.admin.photoCropZoom}</span>
+                    <span className="admin-photo-crop__control-header">
+                      <span>{t.admin.photoCropZoom}</span>
+                      <span>{projectForm.photoZoom}%</span>
+                    </span>
                     <input
                       type="range"
                       min="100"
-                      max="200"
-                      step="5"
+                      max="260"
+                      step="1"
                       value={projectForm.photoZoom}
                       onInput={(event) => updateProjectPhotoCrop('photoZoom', event.currentTarget.value)}
                       onChange={(event) => updateProjectPhotoCrop('photoZoom', event.currentTarget.value)}
                     />
                   </label>
+                  <div className="admin-photo-crop__nudges" aria-label="Ajustes finos da imagem">
+                    <button type="button" onClick={() => adjustPhotoCrop(setProjectForm, { photoPositionY: -5 })} disabled={!canManage}>↑</button>
+                    <button type="button" onClick={() => adjustPhotoCrop(setProjectForm, { photoPositionX: -5 })} disabled={!canManage}>←</button>
+                    <button type="button" onClick={() => adjustPhotoCrop(setProjectForm, { photoPositionX: 5 })} disabled={!canManage}>→</button>
+                    <button type="button" onClick={() => adjustPhotoCrop(setProjectForm, { photoPositionY: 5 })} disabled={!canManage}>↓</button>
+                    <button type="button" onClick={() => adjustPhotoCrop(setProjectForm, { photoZoom: -10 })} disabled={!canManage}>- zoom</button>
+                    <button type="button" onClick={() => adjustPhotoCrop(setProjectForm, { photoZoom: 10 })} disabled={!canManage}>+ zoom</button>
+                  </div>
+                  <div className="admin-photo-crop__presets">
+                    <button type="button" onClick={() => resetPhotoCrop(setProjectForm)} disabled={!canManage}>
+                      {t.admin.photoCropCenter}
+                    </button>
+                    <button type="button" onClick={() => resetPhotoCrop(setProjectForm, { photoPositionY: 0, photoZoom: 120 })} disabled={!canManage}>Topo</button>
+                    <button type="button" onClick={() => resetPhotoCrop(setProjectForm, { photoPositionY: 100, photoZoom: 120 })} disabled={!canManage}>Base</button>
+                  </div>
                   <button
                     className="admin-soft-button"
                     type="button"
-                    onClick={() =>
-                      setProjectForm((current) => ({
-                        ...current,
-                        photoPositionX: 50,
-                        photoPositionY: 50,
-                        photoZoom: 100,
-                      }))
-                    }
+                    onClick={() => resetPhotoCrop(setProjectForm)}
                     disabled={!canManage}
                   >
                     <RefreshCw aria-hidden="true" size={16} />
@@ -3550,7 +3606,7 @@ function clampPhotoZoom(value, fallback = 100) {
     return fallback;
   }
 
-  return Math.min(200, Math.max(100, Math.round(numberValue)));
+  return Math.min(260, Math.max(100, Math.round(numberValue)));
 }
 
 function getMemberPhotoPosition(member) {
