@@ -1285,18 +1285,6 @@ function App() {
     };
   }, []);
 
-  if (currentPath === '/admin') {
-    return (
-      <AdminPage
-        isDarkMode={isDarkMode}
-        language={language}
-        setIsDarkMode={setIsDarkMode}
-        setLanguage={setLanguage}
-        t={t}
-      />
-    );
-  }
-
   const chapterPageMatch = currentPath.match(/^\/capitulos\/([^/]+)\/?$/);
   const chapterPageId = chapterPageMatch?.[1];
   const chapterPage = chapterPageId ? chapterPages[chapterPageId] : null;
