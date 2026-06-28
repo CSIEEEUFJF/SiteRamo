@@ -595,6 +595,7 @@ const chapterOptions = [
 const adminChapterOptions = chapterOptions.filter(
   ({ key }) => !['SIGHT', 'WIE'].includes(key),
 );
+const projectChapterOptions = chapterOptions;
 
 const roleOptions = [
   'Membro',
@@ -2989,7 +2990,7 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
                 onChange={(event) => updateProjectForm('chapter', event.target.value)}
                 disabled={!canManage}
               >
-                {adminChapterOptions.map((chapter) => (
+                {projectChapterOptions.map((chapter) => (
                   <option key={chapter.key} value={chapter.key}>
                     {chapter.key}
                   </option>
