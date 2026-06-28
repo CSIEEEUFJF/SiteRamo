@@ -1301,6 +1301,7 @@ function App() {
         chapterPage={chapterPage}
         isDarkMode={isDarkMode}
         language={language}
+        publishedProjects={publishedProjects}
         setIsDarkMode={setIsDarkMode}
         setLanguage={setLanguage}
         t={t}
@@ -1631,7 +1632,7 @@ function App() {
               <div className="project-card__copy">
                   <span className="project-card__tag">{chapter}</span>
                   <strong>{name}</strong>
-                  <p>{description[language]}</p>
+                  <p>{getLocalizedText(description, language, '')}</p>
                 </div>
                 {hasUrl ? <ExternalLink className="project-card__icon" aria-hidden="true" size={20} /> : null}
               </ProjectCardTag>
@@ -1663,6 +1664,7 @@ function App() {
                   className="project-detail__image"
                   src={selectedProjectSlide}
                   alt={t.projects.previewAlt(selectedProject.name)}
+                  style={getProjectPhotoStyle(selectedProject)}
                   loading="lazy"
                   decoding="async"
                 />
@@ -1686,20 +1688,8 @@ function App() {
               <div className="chapter-detail__copy project-detail__copy">
                 <span>{selectedProject.chapter}</span>
                 <h3 id="project-detail-title">{selectedProject.name}</h3>
-                <p>{selectedProject.description[language]}</p>
-                {selectedProject.driveFolderUrl ? (
-                  <div className="chapter-detail__links">
-                    <a
-                      className="chapter-link"
-                      href={selectedProject.driveFolderUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <ExternalLink aria-hidden="true" size={18} />
-                      {language === 'en' ? 'Open photo folder' : 'Abrir pasta de fotos'}
-                    </a>
-                  </div>
-                ) : null}
+                {selectedProject.subtitle ? <strong>{selectedProject.subtitle}</strong> : null}
+                <p>{getLocalizedText(selectedProject.detailDescription, language, selectedProject.subtitle || '')}</p>
               </div>
             </div>
           </article>
@@ -1862,6 +1852,7 @@ function ChapterPage({
   chapterPage,
   isDarkMode,
   language,
+  publishedProjects,
   setIsDarkMode,
   setLanguage,
   t,
@@ -1894,6 +1885,7 @@ function ChapterPage({
     language,
     t.chapters.presidentFallback,
   );
+  const relatedProjects = getChapterRelatedProjects(chapter, chapterPage, publishedProjects, language);
 
   return (
     <main className="chapter-page">
@@ -1963,9 +1955,9 @@ function ChapterPage({
         </div>
 
         <div className="chapter-page__project-grid">
-          {chapterPage.projects[language].map((project) => (
+          {relatedProjects.map((project) => (
             <article className="chapter-page__project" key={project.title}>
-              <span>{chapter.sigla}</span>
+              <span>{project.source || chapter.sigla}</span>
               <h3>{project.title}</h3>
               <p>{project.text}</p>
             </article>
@@ -2022,6 +2014,41 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
       </div>
     </nav>
   );
+}
+
+function getChapterRelatedProjects(chapter, chapterPage, publishedProjects, language) {
+  const baseProjects = (chapterPage?.projects?.[language] || []).map((project) => ({
+    source: chapter?.sigla || '',
+    text: project.text,
+    title: project.title,
+  }));
+  const seenTitles = new Set(baseProjects.map((project) => project.title.trim().toLowerCase()));
+  const chapterKeys = new Set(
+    [chapter?.sigla, chapter?.id]
+      .filter(Boolean)
+      .map((value) => String(value).trim().toLowerCase()),
+  );
+  const relatedHomepageProjects = (publishedProjects || [])
+    .filter((project) => chapterKeys.has(String(project.chapter || '').trim().toLowerCase()))
+    .map((project) => ({
+      source: language === 'en' ? 'Featured on homepage' : 'Destaque na homepage',
+      text: getLocalizedText(project.detailDescription, language, '') ||
+        getLocalizedText(project.description, language, '') ||
+        project.subtitle ||
+        '',
+      title: project.name,
+    }))
+    .filter((project) => {
+      const key = project.title.trim().toLowerCase();
+      if (!key || seenTitles.has(key)) {
+        return false;
+      }
+
+      seenTitles.add(key);
+      return true;
+    });
+
+  return [...baseProjects, ...relatedHomepageProjects];
 }
 
 function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
@@ -2310,6 +2337,10 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
 
   function updateProjectForm(field, value) {
     setProjectForm((current) => ({ ...current, [field]: value }));
+  }
+
+  function updateProjectPhotoCrop(field, value) {
+    updateProjectForm(field, Number(value));
   }
 
   function resetProjectForm() {
@@ -2822,6 +2853,16 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
               />
             </label>
             <label className="admin-member-form__span">
+              <span>{language === 'en' ? 'Description' : 'DescriÃ§Ã£o'}</span>
+              <textarea
+                value={projectForm.description}
+                onChange={(event) => updateProjectForm('description', event.target.value)}
+                disabled={!canManage}
+                maxLength={900}
+                rows={4}
+              />
+            </label>
+            <label className="admin-member-form__span">
               <span>{language === 'en' ? 'Google Drive photo folder' : 'Pasta do Google Drive com fotos'}</span>
               <input
                 value={projectForm.driveFolderUrl}
@@ -2843,6 +2884,78 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
                 }
               />
             </label>
+            <fieldset className="admin-photo-crop" disabled={!canManage}>
+              <legend>{language === 'en' ? 'Project photo crop' : 'Recorte das fotos do projeto'}</legend>
+              <div className="admin-photo-crop__grid">
+                <div className="admin-photo-crop__preview" aria-label={t.admin.photoPreview}>
+                  {(normalizeImageUrl(projectForm.imageUrl) || normalizeGalleryImages(projectForm.galleryImagesText)[0]) ? (
+                    <img
+                      src={normalizeImageUrl(projectForm.imageUrl) || normalizeGalleryImages(projectForm.galleryImagesText)[0]}
+                      alt={t.admin.photoPreview}
+                      style={getProjectPhotoStyle(projectForm)}
+                    />
+                  ) : (
+                    <span>
+                      {language === 'en'
+                        ? 'Add an image URL or slideshow photo.'
+                        : 'Adicione uma imagem ou foto do slideshow.'}
+                    </span>
+                  )}
+                </div>
+                <div className="admin-photo-crop__controls">
+                  <label>
+                    <span>{t.admin.photoCropHorizontal}</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={projectForm.photoPositionX}
+                      onInput={(event) => updateProjectPhotoCrop('photoPositionX', event.currentTarget.value)}
+                      onChange={(event) => updateProjectPhotoCrop('photoPositionX', event.currentTarget.value)}
+                    />
+                  </label>
+                  <label>
+                    <span>{t.admin.photoCropVertical}</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={projectForm.photoPositionY}
+                      onInput={(event) => updateProjectPhotoCrop('photoPositionY', event.currentTarget.value)}
+                      onChange={(event) => updateProjectPhotoCrop('photoPositionY', event.currentTarget.value)}
+                    />
+                  </label>
+                  <label>
+                    <span>{t.admin.photoCropZoom}</span>
+                    <input
+                      type="range"
+                      min="100"
+                      max="200"
+                      step="5"
+                      value={projectForm.photoZoom}
+                      onInput={(event) => updateProjectPhotoCrop('photoZoom', event.currentTarget.value)}
+                      onChange={(event) => updateProjectPhotoCrop('photoZoom', event.currentTarget.value)}
+                    />
+                  </label>
+                  <button
+                    className="admin-soft-button"
+                    type="button"
+                    onClick={() =>
+                      setProjectForm((current) => ({
+                        ...current,
+                        photoPositionX: 50,
+                        photoPositionY: 50,
+                        photoZoom: 100,
+                      }))
+                    }
+                    disabled={!canManage}
+                  >
+                    <RefreshCw aria-hidden="true" size={16} />
+                    {t.admin.photoCropCenter}
+                  </button>
+                </div>
+              </div>
+            </fieldset>
             <label className="admin-member-form__span">
               <span>{language === 'en' ? 'Click link' : 'Link ao clicar'}</span>
               <input
@@ -3154,6 +3267,18 @@ function getMemberPhotoStyle(member) {
   };
 }
 
+function getProjectPhotoStyle(project) {
+  const x = clampPercentage(project?.photoPositionX);
+  const y = clampPercentage(project?.photoPositionY);
+  const zoom = clampPhotoZoom(project?.photoZoom);
+
+  return {
+    objectPosition: `${x}% ${y}%`,
+    transform: `scale(${zoom / 100})`,
+    transformOrigin: `${x}% ${y}%`,
+  };
+}
+
 function normalizeRemoteMember(member) {
   if (!member?.name) {
     return null;
@@ -3179,6 +3304,7 @@ function normalizeRemoteProject(project) {
   }
 
   const subtitle = project.subtitle || '';
+  const detailDescription = project.description || subtitle;
   const galleryImages = normalizeGalleryImages(project.galleryImages);
   const preview = normalizeImageUrl(project.imageUrl) || galleryImages[0] || '';
 
@@ -3188,11 +3314,18 @@ function normalizeRemoteProject(project) {
       en: subtitle,
       pt: subtitle,
     },
+    detailDescription: {
+      en: detailDescription,
+      pt: detailDescription,
+    },
     driveFolderUrl: normalizeDriveFolderUrl(project.driveFolderUrl),
     galleryImages,
     id: `project-${project.id || project.title}`,
     isPublic: Boolean(project.isPublic),
     name: project.title,
+    photoPositionX: clampPercentage(project.photoPositionX),
+    photoPositionY: clampPercentage(project.photoPositionY),
+    photoZoom: clampPhotoZoom(project.photoZoom),
     position: Number.isFinite(Number(project.position)) ? Number(project.position) : 0,
     preview,
     subtitle,
@@ -3252,6 +3385,7 @@ function normalizeAdminProject(project) {
 
   return {
     chapter: project.chapter || 'Ramo',
+    description: project.description || '',
     driveFolderUrl: normalizeDriveFolderUrl(project.driveFolderUrl),
     galleryImages: normalizeGalleryImages(project.galleryImages),
     galleryImagesText: normalizeGalleryImages(project.galleryImages).join('\n'),
@@ -3259,6 +3393,9 @@ function normalizeAdminProject(project) {
     imageUrl: normalizeImageUrl(project.imageUrl),
     isPublic: Boolean(project.isPublic),
     linkUrl: normalizeLinkUrl(project.linkUrl),
+    photoPositionX: clampPercentage(project.photoPositionX),
+    photoPositionY: clampPercentage(project.photoPositionY),
+    photoZoom: clampPhotoZoom(project.photoZoom),
     position: Number.isFinite(Number(project.position)) ? Number(project.position) : 0,
     subtitle: project.subtitle || '',
     title: project.title,
@@ -3300,11 +3437,15 @@ function createAdminMemberForm(user) {
 function createAdminProjectForm(project) {
   return {
     chapter: project?.chapter || 'Ramo',
+    description: project?.description || '',
     driveFolderUrl: project?.driveFolderUrl || '',
     galleryImagesText: project?.galleryImagesText || normalizeGalleryImages(project?.galleryImages).join('\n'),
     imageUrl: project?.imageUrl || '',
     isPublic: typeof project?.isPublic === 'boolean' ? project.isPublic : true,
     linkUrl: project?.linkUrl || '',
+    photoPositionX: clampPercentage(project?.photoPositionX),
+    photoPositionY: clampPercentage(project?.photoPositionY),
+    photoZoom: clampPhotoZoom(project?.photoZoom),
     position: Number.isFinite(Number(project?.position)) ? Number(project.position) : 0,
     subtitle: project?.subtitle || '',
     title: project?.title || '',
@@ -3336,9 +3477,13 @@ function buildAdminProjectPayload(form, overrides = {}) {
   const galleryImages = normalizeGalleryImages(form.galleryImagesText);
   const payload = {
     chapter: form.chapter || 'Ramo',
+    description: String(form.description || '').trim(),
     imageUrl: normalizeImageUrl(form.imageUrl),
     isPublic: Boolean(form.isPublic),
     linkUrl: normalizeLinkUrl(form.linkUrl),
+    photoPositionX: clampPercentage(form.photoPositionX),
+    photoPositionY: clampPercentage(form.photoPositionY),
+    photoZoom: clampPhotoZoom(form.photoZoom),
     position: Number.isFinite(Number(overrides.position ?? form.position))
       ? Number(overrides.position ?? form.position)
       : 0,
