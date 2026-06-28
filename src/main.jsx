@@ -745,11 +745,11 @@ const copy = {
     },
     hero: {
       aria: 'Ramo',
-      brandAria: 'Universidade Federal de Juiz de Fora Ramo',
+      brandAria: 'Universidade Federal de Juiz de Fora IEEE Student Branch',
       universityDesktop: 'Universidade Federal de Juiz de Fora',
       universityMobileFirst: 'Universidade Federal',
       universityMobileSecond: 'de Juiz de Fora',
-      branch: 'Ramo',
+      branch: 'IEEE Student Branch',
       scroll: 'Ir para a navegação',
     },
     nav: {
