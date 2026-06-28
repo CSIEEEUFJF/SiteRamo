@@ -157,7 +157,7 @@ const chapters = [
     logo: '/assets/chapters/vts.webp',
     darkLogo: '/assets/chapters/dark/vts.png',
     descricao: {
-      pt: 'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas. No IEEE Student Branch UFJF, é uma parceria com a equipe RAMPAGE BAJA.',
+      pt: 'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas. No Ramo, é uma parceria com a equipe RAMPAGE BAJA.',
       en: 'Chapter dedicated to mobility, vehicular systems, intelligent transportation, vehicular communication, and automotive technologies. At the IEEE UFJF Student Branch, it is a partnership with the RAMPAGE BAJA team.',
     },
     instagram: 'https://www.instagram.com/rampagebaja/',
@@ -343,7 +343,7 @@ const chapterPages = {
     oldSiteUrl: 'https://edu.ieee.org/br-ufjf/cs/',
     body: {
       pt: [
-        'O IEEE Computer Society Student Branch Chapter da Universidade Federal de Juiz de Fora, fundado em 25 de março de 2026, é dedicado à promoção da excelência acadêmica e profissional na área de computação.',
+        'O Capítulo Estudantil IEEE Computer Society da Universidade Federal de Juiz de Fora, fundado em 25 de março de 2026, é dedicado à promoção da excelência acadêmica e profissional na área de computação.',
         'O capítulo tem como missão disseminar conhecimento científico e tecnológico, estimulando competências em planejamento, projeto, desenvolvimento, implementação e operação de sistemas computacionais, além de pesquisa aplicada e inovação tecnológica.',
         'Por meio de projetos técnicos, atividades acadêmicas e iniciativas colaborativas, o capítulo busca formar profissionais preparados para desafios contemporâneos em engenharia de software, sistemas embarcados, redes de computadores e tecnologias emergentes.',
       ],
@@ -586,7 +586,7 @@ const chapterOptions = [
   { key: 'MTTS', label: 'Microwave Theory and Technology Society' },
   { key: 'PES', label: 'Power & Energy Society' },
   { key: 'RAS', label: 'Robotics and Automation Society' },
-  { key: 'Ramo', label: 'IEEE Student Branch UFJF' },
+  { key: 'Ramo', label: 'Ramo' },
   { key: 'SIGHT', label: 'Special Interest Group on Humanitarian Technology' },
   { key: 'VTS', label: 'Vehicular Technology Society' },
   { key: 'WIE', label: 'Women in Engineering' },
@@ -744,12 +744,12 @@ const copy = {
       imageAlt: 'Logo do Ramo Estudantil IEEE UFJF',
     },
     hero: {
-      aria: 'IEEE Student Branch UFJF',
-      brandAria: 'Universidade Federal de Juiz de Fora IEEE Student Branch',
+      aria: 'Ramo',
+      brandAria: 'Universidade Federal de Juiz de Fora Ramo',
       universityDesktop: 'Universidade Federal de Juiz de Fora',
       universityMobileFirst: 'Universidade Federal',
       universityMobileSecond: 'de Juiz de Fora',
-      branch: 'IEEE Student Branch',
+      branch: 'Ramo',
       scroll: 'Ir para a navegação',
     },
     nav: {
@@ -774,7 +774,7 @@ const copy = {
       logoAlt: 'Logo IEEE',
       paragraphs: [
         'O IEEE é uma organização sem fins lucrativos presente em mais de 160 países, com centenas de milhares de membros e atuação global na inovação tecnológica e na excelência profissional em benefício da humanidade.',
-        'Na Universidade Federal de Juiz de Fora, o IEEE Student Branch reúne estudantes e docentes em projetos técnicos, educacionais e sociais, difundindo os benefícios do IEEE para a vida acadêmica e profissional.',
+        'Na Universidade Federal de Juiz de Fora, o Ramo reúne estudantes e docentes em projetos técnicos, educacionais e sociais, difundindo os benefícios do IEEE para a vida acadêmica e profissional.',
         'Nossas atividades conectam capítulos técnicos, grupos de afinidade, eventos, ações sociais, cursos, competições e parcerias internas e externas para transformar conhecimento em impacto.',
       ],
       highlights: [
@@ -820,10 +820,10 @@ const copy = {
       galleryPhotoLabel: (index) => `Foto ${index + 1}`,
     },
     members: {
-      eyebrow: 'Membros do IEEE Student Branch',
-      title: 'Quem faz o IEEE Student Branch acontecer',
+      eyebrow: 'Membros do Ramo',
+      title: 'Quem faz o Ramo acontecer',
       description:
-        'Conheça as pessoas que mantêm capítulos, projetos, eventos e rotinas internas em movimento no IEEE Student Branch UFJF.',
+        'Conheça as pessoas que mantêm capítulos, projetos, eventos e rotinas internas em movimento no Ramo.',
       openDetails: (name) => `Abrir detalhes de ${name}`,
       close: 'Fechar detalhes do membro',
       empty: 'Nenhum membro cadastrado no site ainda.',
@@ -895,8 +895,8 @@ const copy = {
       emailLabel: 'E-mail',
       emails: ['sb.ufjf@ieee.org', 'ieee@engenharia.ufjf.br'],
       socialLabel: 'Redes sociais',
-      mapLabel: 'Mapa do IEEE Student Branch UFJF',
-      mapTitle: 'Mapa do IEEE Student Branch UFJF',
+      mapLabel: 'Mapa do Ramo',
+      mapTitle: 'Mapa do Ramo',
     },
   },
   en: {
