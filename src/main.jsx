@@ -658,6 +658,61 @@ const projects = [
   },
 ];
 
+const historyLogoSlides = [
+  {
+    src: '/assets/history/ramo-2005.jpg',
+    alt: {
+      pt: 'Logo histórica do Ramo Estudantil IEEE UFJF em 2005',
+      en: 'Historical IEEE UFJF Student Branch logo from 2005',
+    },
+  },
+  {
+    src: '/assets/history/logo-ate-2018.png',
+    alt: {
+      pt: 'Logo do Ramo Estudantil IEEE UFJF usada até 2018',
+      en: 'IEEE UFJF Student Branch logo used until 2018',
+    },
+  },
+  {
+    src: '/assets/history/logo-2018-2026.png',
+    alt: {
+      pt: 'Logo do Ramo Estudantil IEEE UFJF usada entre 2018 e 2026',
+      en: 'IEEE UFJF Student Branch logo used from 2018 to 2026',
+    },
+  },
+  {
+    src: '/assets/ramo-ieee-ufjf-blue.svg',
+    alt: {
+      pt: 'Logo atual do Ramo Estudantil IEEE UFJF',
+      en: 'Current IEEE UFJF Student Branch logo',
+    },
+  },
+];
+
+const historyPhotoSlides = [
+  {
+    src: '/assets/presidents/camila-porto.png',
+    alt: {
+      pt: 'Foto histórica mock do Ramo Estudantil IEEE UFJF',
+      en: 'Mock historical photo from IEEE UFJF Student Branch',
+    },
+  },
+  {
+    src: '/assets/projects/entense-preview.png',
+    alt: {
+      pt: 'Registro mock de projeto histórico do Ramo',
+      en: 'Mock record of a historical Branch project',
+    },
+  },
+  {
+    src: '/assets/projects/helpieee-preview.png',
+    alt: {
+      pt: 'Registro mock de iniciativa histórica do Ramo',
+      en: 'Mock record of a historical Branch initiative',
+    },
+  },
+];
+
 const ATAS_MEMBERS_API_URLS = [
   '/api/atas-site-members',
   'https://interno.ieeeufjf.com.br/api/site-members',
@@ -666,6 +721,21 @@ const ATAS_MEMBERS_API_URLS = [
 const ATAS_PROJECTS_API_URLS = [
   '/api/atas-site-projects',
   'https://interno.ieeeufjf.com.br/api/site-projects',
+];
+
+const ATAS_HISTORY_PHOTOS_API_URLS = [
+  '/api/atas-site-history-photos',
+  'https://interno.ieeeufjf.com.br/api/site-history-photos',
+];
+
+const HOME_SECTION_IDS = [
+  'o-ieee',
+  'capitulos',
+  'diretoria',
+  'projetos',
+  'membros',
+  'contato',
+  'localizacao',
 ];
 
 const roleTranslations = {
@@ -821,6 +891,7 @@ const copy = {
       board: 'Diretoria',
       projects: 'Projetos',
       members: 'Membros',
+      history: 'História',
       location: 'Localização',
       contact: 'Contato',
       enableDark: 'Ativar modo escuro',
@@ -875,6 +946,11 @@ const copy = {
     projects: {
       eyebrow: 'Projetos',
       title: 'Nossos projetos',
+      allProjectsTitle: 'Todos os projetos do Ramo',
+      allProjectsIntro:
+        'Conheça projetos desenvolvidos pelo Ramo, capítulos técnicos e grupos de afinidade.',
+      allProjectsCta: 'Ver todos os projetos do Ramo',
+      back: 'Voltar ao site',
       open: (name) => `Abrir projeto ${name}`,
       openDetails: (name) => `Abrir detalhes de ${name}`,
       close: 'Fechar detalhes do projeto',
@@ -891,6 +967,30 @@ const copy = {
       close: 'Fechar detalhes do membro',
       empty: 'Nenhum membro cadastrado no site ainda.',
       photoAlt: (name) => `Foto de ${name}`,
+    },
+
+    history: {
+      eyebrow: 'História',
+      title: 'História do Ramo Estudantil IEEE UFJF',
+      homeTitle: 'Conheça nossa história',
+      homeTeaser:
+        'Fundado em 1991, o Ramo Estudantil IEEE UFJF foi o primeiro ramo estudantil IEEE fundado no estado de Minas Gerais. Nos seus 35 anos de história, o Ramo teve mais de 1500 membros, e tem atualmente 10 capítulos ativos, além de dois grupos de afinidade.',
+      homeCta: 'Quer conhecer mais a história do Ramo Estudantil IEEE UFJF? Clique aqui!',
+      intro:
+        'Esta página está preparada para reunir a memória institucional do Ramo, suas gestões, projetos, conquistas, identidades visuais e registros fotográficos ao longo dos anos.',
+      back: 'Voltar ao site',
+      timelineTitle: 'Uma trajetória construída por estudantes',
+      paragraphs: [
+        'Durante a década de 1980, diversos professores e estudantes da Universidade Federal de Juiz de Fora se reuniam para tentar trazer o material da revista IEEE Spectrum para a Universidade.',
+        'Foi nesse contexto que, em 1991, professores e estudantes de pós graduação em Engenharia Elétrica se uniram para fundar o Ramo Estudantil IEEE UFJF, o primeiro do estado de Minas Gerais. Ao longo de 35 anos, o Ramo Estudantil IEEE UFJF teve mais de 1500 membros, e atualmente conta com 10 capítulos ativos, além de dois grupos de afinidade.',
+        'O Ramo Estudantil IEEE UFJF é um espaço de aprendizado, desenvolvimento e integração entre estudantes, professores e profissionais da área de engenharia elétrica, computação e tecnologia. Ao longo dos anos, o Ramo tem promovido diversos projetos, eventos e atividades que contribuem para a formação acadêmica e profissional dos seus membros.',
+      ],
+      logosTitle: 'Logos do Ramo',
+      logosDescription:
+        'Com 35 anos de história, o Ramo Estudantil IEEE UFJF teve diferentes logos e identidades visuais.',
+      photosTitle: 'Fotos históricas',
+      photosDescription:
+        '',
     },
 
     contact: {
@@ -938,6 +1038,7 @@ const copy = {
       board: 'Board',
       projects: 'Projects',
       members: 'Members',
+      history: 'History',
       location: 'Location',
       contact: 'Contact',
       enableDark: 'Enable dark mode',
@@ -992,6 +1093,11 @@ const copy = {
     projects: {
       eyebrow: 'Projects',
       title: 'Our projects',
+      allProjectsTitle: 'All Branch projects',
+      allProjectsIntro:
+        'Explore projects developed by the Branch, technical chapters, and affinity groups.',
+      allProjectsCta: 'See all Branch projects',
+      back: 'Back to site',
       open: (name) => `Open ${name} project`,
       openDetails: (name) => `Open details for ${name}`,
       close: 'Close project details',
@@ -1008,6 +1114,29 @@ const copy = {
       close: 'Close member details',
       empty: 'No members registered on the site yet.',
       photoAlt: (name) => `Photo of ${name}`,
+    },
+
+    history: {
+      eyebrow: 'History',
+      title: 'History of IEEE UFJF Student Branch',
+      homeTitle: 'Discover our history',
+      homeTeaser:
+        'Founded in 1991, IEEE UFJF Student Branch was the first IEEE student branch founded in the state of Minas Gerais. Across its 35 years of history, the Branch has had more than 1,500 members and currently has 10 active chapters, as well as two affinity groups.',
+      homeCta: 'Want to learn more about the history of IEEE UFJF Student Branch? Click here!',
+      intro:
+        'This page is prepared to bring together the Branch institutional memory, its boards, projects, achievements, visual identities, and photographic records over the years.',
+      back: 'Back to site',
+      timelineTitle: 'A journey built by students',
+      paragraphs: [
+        'During the 1980s, several professors and students from the Federal University of Juiz de Fora met to try to bring IEEE Spectrum magazine materials to the University.',
+        'In this context, in 1991, professors and graduate students in Electrical Engineering came together to found IEEE UFJF Student Branch, the first one in the state of Minas Gerais. Over 35 years, IEEE UFJF Student Branch has had more than 1,500 members and currently has 10 active chapters, as well as two affinity groups.',
+        'IEEE UFJF Student Branch is a space for learning, development, and integration among students, professors, and professionals in electrical engineering, computing, and technology. Over the years, the Branch has promoted several projects, events, and activities that contribute to the academic and professional development of its members.',
+      ],
+      logosTitle: 'Branch logos',
+      logosDescription:
+        'Across 35 years of history, IEEE UFJF Student Branch has had different logos and visual identities.',
+      photosTitle: 'Historical photos',
+      photosDescription: '',
     },
 
     contact: {
@@ -1145,6 +1274,7 @@ function App() {
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [selectedProjectSlideIndex, setSelectedProjectSlideIndex] = useState(0);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [activeSectionId, setActiveSectionId] = useState('o-ieee');
   const [currentPath, setCurrentPath] = useState(() => {
     if (typeof window === 'undefined') {
       return '/';
@@ -1154,6 +1284,7 @@ function App() {
   });
   const [publishedMembers, setPublishedMembers] = useState([]);
   const [publishedProjects, setPublishedProjects] = useState(projects);
+  const [publishedHistoryPhotos, setPublishedHistoryPhotos] = useState(historyPhotoSlides);
   const [language, setLanguage] = useState(() => {
     if (typeof window === 'undefined') {
       return 'pt';
@@ -1325,6 +1456,56 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (contentPath !== '/') {
+      return undefined;
+    }
+
+    let frameId = null;
+
+    function updateActiveSection() {
+      frameId = null;
+      const viewportLine = window.innerHeight * 0.38;
+      let nextSectionId = HOME_SECTION_IDS[0];
+
+      HOME_SECTION_IDS.forEach((sectionId) => {
+        const section = document.querySelector(`[data-section-id="${sectionId}"]`);
+        if (!section) {
+          return;
+        }
+
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= viewportLine && rect.bottom > viewportLine * 0.45) {
+          nextSectionId = sectionId;
+        }
+      });
+
+      setActiveSectionId((currentSectionId) =>
+        currentSectionId === nextSectionId ? currentSectionId : nextSectionId,
+      );
+    }
+
+    function requestUpdate() {
+      if (frameId !== null) {
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(updateActiveSection);
+    }
+
+    updateActiveSection();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+    };
+  }, [contentPath]);
+
+  useEffect(() => {
     let active = true;
 
     async function loadMembers() {
@@ -1356,6 +1537,36 @@ function App() {
     }
 
     const cancelLoad = runAfterFirstPaint(loadMembers);
+    return () => {
+      active = false;
+      cancelLoad();
+    };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadHistoryPhotos() {
+      let remotePhotos = [];
+
+      for (const endpoint of ATAS_HISTORY_PHOTOS_API_URLS) {
+        try {
+          const payload = await fetchJsonWithTimeout(endpoint);
+          remotePhotos = Array.isArray(payload.photos)
+            ? payload.photos.map(normalizeRemoteHistoryPhoto).filter(Boolean)
+            : [];
+          break;
+        } catch {
+          remotePhotos = [];
+        }
+      }
+
+      if (active && remotePhotos.length) {
+        setPublishedHistoryPhotos(sortHistoryPhotos(remotePhotos));
+      }
+    }
+
+    const cancelLoad = runAfterFirstPaint(loadHistoryPhotos);
     return () => {
       active = false;
       cancelLoad();
@@ -1398,6 +1609,32 @@ function App() {
   const chapterForPage = chapterPageId
     ? chapters.find((chapter) => chapter.id === chapterPageId)
     : null;
+
+  if (contentPath === '/historia' || contentPath === '/historia/') {
+    return (
+      <HistoryPage
+        isDarkMode={isDarkMode}
+        language={language}
+        setIsDarkMode={setIsDarkMode}
+        setLanguage={setLanguage}
+        historyPhotos={publishedHistoryPhotos}
+        t={t}
+      />
+    );
+  }
+
+  if (contentPath === '/projetos' || contentPath === '/projetos/') {
+    return (
+      <ProjectsPage
+        isDarkMode={isDarkMode}
+        language={language}
+        publishedProjects={publishedProjects}
+        setIsDarkMode={setIsDarkMode}
+        setLanguage={setLanguage}
+        t={t}
+      />
+    );
+  }
 
   if (chapterPageMatch) {
     return (
@@ -1492,17 +1729,74 @@ function App() {
           </div>
         </div>
         <div className="mini-nav__links" id="site-navigation-links">
-          <a href={localizedHash(language, '#o-ieee')} onClick={() => setIsNavOpen(false)}>{t.nav.about}</a>
-          <a href={localizedHash(language, '#capitulos')} onClick={() => setIsNavOpen(false)}>{t.nav.chapters}</a>
-          <a href={localizedHash(language, '#diretoria')} onClick={() => setIsNavOpen(false)}>{t.nav.board}</a>
-          <a href={localizedHash(language, '#projetos')} onClick={() => setIsNavOpen(false)}>{t.nav.projects}</a>
-          <a href={localizedHash(language, '#membros')} onClick={() => setIsNavOpen(false)}>{t.nav.members}</a>
-          <a href={localizedHash(language, '#contato')} onClick={() => setIsNavOpen(false)}>{t.nav.contact}</a>
-          <a href={localizedHash(language, '#localizacao')} onClick={() => setIsNavOpen(false)}>{t.nav.location}</a>
+          <a
+            className={activeSectionId === 'o-ieee' ? 'mini-nav__link--active' : undefined}
+            href={localizedHash(language, '#o-ieee')}
+            onClick={() => setIsNavOpen(false)}
+            aria-current={activeSectionId === 'o-ieee' ? 'page' : undefined}
+          >
+            {t.nav.about}
+          </a>
+          <a href={localizedPath(language, '/historia')} onClick={() => setIsNavOpen(false)}>
+            {t.nav.history}
+          </a>
+          <a
+            className={activeSectionId === 'capitulos' ? 'mini-nav__link--active' : undefined}
+            href={localizedHash(language, '#capitulos')}
+            onClick={() => setIsNavOpen(false)}
+            aria-current={activeSectionId === 'capitulos' ? 'page' : undefined}
+          >
+            {t.nav.chapters}
+          </a>
+          <a
+            className={activeSectionId === 'diretoria' ? 'mini-nav__link--active' : undefined}
+            href={localizedHash(language, '#diretoria')}
+            onClick={() => setIsNavOpen(false)}
+            aria-current={activeSectionId === 'diretoria' ? 'page' : undefined}
+          >
+            {t.nav.board}
+          </a>
+          <a
+            className={activeSectionId === 'projetos' ? 'mini-nav__link--active' : undefined}
+            href={localizedHash(language, '#projetos')}
+            onClick={() => setIsNavOpen(false)}
+            aria-current={activeSectionId === 'projetos' ? 'page' : undefined}
+          >
+            {t.nav.projects}
+          </a>
+          <a
+            className={activeSectionId === 'membros' ? 'mini-nav__link--active' : undefined}
+            href={localizedHash(language, '#membros')}
+            onClick={() => setIsNavOpen(false)}
+            aria-current={activeSectionId === 'membros' ? 'page' : undefined}
+          >
+            {t.nav.members}
+          </a>
+          <a
+            className={activeSectionId === 'contato' ? 'mini-nav__link--active' : undefined}
+            href={localizedHash(language, '#contato')}
+            onClick={() => setIsNavOpen(false)}
+            aria-current={activeSectionId === 'contato' ? 'page' : undefined}
+          >
+            {t.nav.contact}
+          </a>
+          <a
+            className={activeSectionId === 'localizacao' ? 'mini-nav__link--active' : undefined}
+            href={localizedHash(language, '#localizacao')}
+            onClick={() => setIsNavOpen(false)}
+            aria-current={activeSectionId === 'localizacao' ? 'page' : undefined}
+          >
+            {t.nav.location}
+          </a>
         </div>
       </nav>
 
-      <section className="about-ieee" id="conteudo-principal" aria-labelledby="o-ieee-title">
+      <section
+        className="about-ieee"
+        id="conteudo-principal"
+        data-section-id="o-ieee"
+        aria-labelledby="o-ieee-title"
+      >
         <span id="o-ieee" className="section-anchor" aria-hidden="true" />
         <div className="section-heading">
           <span>{t.about.eyebrow}</span>
@@ -1535,7 +1829,25 @@ function App() {
         </div>
       </section>
 
-      <section className="chapters" id="capitulos" aria-labelledby="capitulos-title">
+      <section className="history-teaser" aria-labelledby="historia-home-title">
+        <div className="history-teaser__inner">
+          <div>
+            <span className="section-kicker">{t.history.eyebrow}</span>
+            <h2 id="historia-home-title">{t.history.homeTitle}</h2>
+            <p>{t.history.homeTeaser}</p>
+          </div>
+          <a className="history-teaser__link" href={localizedPath(language, '/historia')}>
+            {t.history.homeCta}
+          </a>
+        </div>
+      </section>
+
+      <section
+        className="chapters"
+        id="capitulos"
+        data-section-id="capitulos"
+        aria-labelledby="capitulos-title"
+      >
         <div className="section-heading">
           <span>{t.chapters.eyebrow}</span>
           <h2 id="capitulos-title">{t.chapters.title}</h2>
@@ -1679,7 +1991,12 @@ function App() {
         )}
       </section>
 
-      <section className="board" id="diretoria" aria-labelledby="diretoria-title">
+      <section
+        className="board"
+        id="diretoria"
+        data-section-id="diretoria"
+        aria-labelledby="diretoria-title"
+      >
         <div className="section-heading">
           <span>{t.board.eyebrow}</span>
           <h2 id="diretoria-title">{t.board.title}</h2>
@@ -1714,10 +2031,21 @@ function App() {
         </div>
       </section>
 
-      <section className="projects" id="projetos" aria-labelledby="projetos-title">
+      <section
+        className="projects"
+        id="projetos"
+        data-section-id="projetos"
+        aria-labelledby="projetos-title"
+      >
         <div className="section-heading">
           <span>{t.projects.eyebrow}</span>
           <h2 id="projetos-title">{t.projects.title}</h2>
+        </div>
+
+        <div className="section-actions">
+          <a className="section-action-link" href={localizedPath(language, '/projetos')}>
+            {t.projects.allProjectsCta}
+          </a>
         </div>
 
         <div className="projects-grid">
@@ -1820,7 +2148,12 @@ function App() {
         )}
       </section>
 
-      <section className="members" id="membros" aria-labelledby="membros-title">
+      <section
+        className="members"
+        id="membros"
+        data-section-id="membros"
+        aria-labelledby="membros-title"
+      >
         <div className="section-heading">
           <span>{t.members.eyebrow}</span>
           <h2 id="membros-title">{t.members.title}</h2>
@@ -1907,7 +2240,12 @@ function App() {
         )}
       </section>
 
-      <section className="contact" id="contato" aria-labelledby="contato-title">
+      <section
+        className="contact"
+        id="contato"
+        data-section-id="contato"
+        aria-labelledby="contato-title"
+      >
         <div className="section-heading">
           <span>{t.contact.eyebrow}</span>
           <h2 id="contato-title">{t.contact.title}</h2>
@@ -1943,7 +2281,12 @@ function App() {
         </div>
       </section>
 
-      <section className="location" id="localizacao" aria-labelledby="localizacao-title">
+      <section
+        className="location"
+        id="localizacao"
+        data-section-id="localizacao"
+        aria-labelledby="localizacao-title"
+      >
         <div className="section-heading">
           <span>{t.contact.locationLabel}</span>
           <h2 id="localizacao-title">{t.contact.location}</h2>
@@ -1965,6 +2308,303 @@ function App() {
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function ProjectsPage({
+  isDarkMode,
+  language,
+  publishedProjects,
+  setIsDarkMode,
+  setLanguage,
+  t,
+}) {
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedProjectSlideIndex, setSelectedProjectSlideIndex] = useState(0);
+  const projectDetailRef = useRef(null);
+  const allProjects = useMemo(
+    () => (publishedProjects || []).filter((project) => project.isPublic !== false),
+    [publishedProjects],
+  );
+  const selectedProject = useMemo(
+    () => allProjects.find((project) => project.id === selectedProjectId),
+    [allProjects, selectedProjectId],
+  );
+  const selectedProjectPreviewSrc = selectedProject
+    ? getProjectPreviewSrc(selectedProject, isDarkMode)
+    : '';
+  const selectedProjectGallery = useMemo(
+    () =>
+      selectedProject
+        ? getUniqueUrls([...(selectedProject.galleryImages || []), selectedProjectPreviewSrc])
+        : [],
+    [selectedProject, selectedProjectPreviewSrc],
+  );
+  const selectedProjectSlide =
+    selectedProjectGallery[selectedProjectSlideIndex] || selectedProjectPreviewSrc;
+
+  useEffect(() => {
+    if (!selectedProject || !projectDetailRef.current) {
+      return undefined;
+    }
+
+    const focusTimer = window.setTimeout(() => {
+      projectDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      projectDetailRef.current?.focus({ preventScroll: true });
+    }, 80);
+
+    return () => window.clearTimeout(focusTimer);
+  }, [selectedProject]);
+
+  useEffect(() => {
+    setSelectedProjectSlideIndex(0);
+  }, [selectedProjectId]);
+
+  useEffect(() => {
+    if (selectedProjectGallery.length <= 1) {
+      return undefined;
+    }
+
+    const slideTimer = window.setInterval(() => {
+      setSelectedProjectSlideIndex((currentIndex) => (
+        currentIndex + 1
+      ) % selectedProjectGallery.length);
+    }, 4500);
+
+    return () => window.clearInterval(slideTimer);
+  }, [selectedProjectGallery.length]);
+
+  useEffect(() => {
+    if (selectedProjectId && !selectedProject) {
+      setSelectedProjectId(null);
+    }
+  }, [selectedProject, selectedProjectId]);
+
+  return (
+    <main className="projects-page">
+      <SiteNav
+        isDarkMode={isDarkMode}
+        language={language}
+        setIsDarkMode={setIsDarkMode}
+        setLanguage={setLanguage}
+        t={t}
+      />
+
+      <section className="history-page__hero projects-page__hero">
+        <a className="chapter-page__back" href={localizedPath(language, '/#projetos')}>
+          <ArrowLeft aria-hidden="true" size={18} />
+          {t.projects.back}
+        </a>
+        <p className="section-kicker">{t.projects.eyebrow}</p>
+        <h1>{t.projects.allProjectsTitle}</h1>
+        <p>{t.projects.allProjectsIntro}</p>
+      </section>
+
+      <section className="projects-page__section" aria-labelledby="todos-projetos-title">
+        <div className="section-heading">
+          <span>{t.projects.eyebrow}</span>
+          <h2 id="todos-projetos-title">{t.projects.title}</h2>
+        </div>
+
+        <div className="projects-grid projects-page__grid">
+          {allProjects.map((project) => {
+            const previewSrc = getProjectPreviewSrc(project, isDarkMode);
+            const hasUrl = Boolean(project.url);
+            const ProjectCardTag = hasUrl ? 'a' : 'button';
+            const cardProps = hasUrl
+              ? { href: project.url, rel: 'noreferrer', target: '_blank' }
+              : {
+                  type: 'button',
+                  onClick: () => setSelectedProjectId(project.id),
+                  'aria-controls': 'all-project-detail',
+                  'aria-expanded': selectedProjectId === project.id,
+                };
+
+            return (
+              <ProjectCardTag
+                className={`project-card ${
+                  hasUrl ? '' : 'project-card--button'
+                } ${selectedProjectId === project.id ? 'project-card--active' : ''}`}
+                key={project.id}
+                aria-label={hasUrl ? t.projects.open(project.name) : t.projects.openDetails(project.name)}
+                {...cardProps}
+              >
+                <div className="project-card__preview">
+                  <img
+                    className="project-card__image"
+                    src={previewSrc}
+                    alt={projectImageAlt(project, language)}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div className="project-card__copy">
+                  <span className="project-card__tag">{project.chapter}</span>
+                  <strong>{project.name}</strong>
+                  <p>{getLocalizedText(project.description, language, '')}</p>
+                </div>
+                {hasUrl ? <ExternalLink className="project-card__icon" aria-hidden="true" size={20} /> : null}
+              </ProjectCardTag>
+            );
+          })}
+        </div>
+
+        {selectedProject ? (
+          <article
+            className="chapter-detail project-detail"
+            id="all-project-detail"
+            ref={projectDetailRef}
+            tabIndex={-1}
+            aria-labelledby="all-project-detail-title"
+            aria-live="polite"
+          >
+            <button
+              className="chapter-detail__close"
+              type="button"
+              onClick={() => setSelectedProjectId(null)}
+              aria-label={t.projects.close}
+            >
+              <X size={20} aria-hidden="true" />
+            </button>
+
+            <div className="chapter-detail__main project-detail__main">
+              <div className="project-detail__image-wrap">
+                <img
+                  className="project-detail__image"
+                  src={selectedProjectSlide}
+                  alt={projectImageAlt(selectedProject, language, selectedProjectSlideIndex)}
+                  style={getProjectPhotoStyle(selectedProject)}
+                  loading="lazy"
+                  decoding="async"
+                />
+                {selectedProjectGallery.length > 1 ? (
+                  <div className="project-detail__slides" aria-label={t.projects.galleryLabel}>
+                    {selectedProjectGallery.map((slide, index) => (
+                      <button
+                        className={`project-detail__dot ${
+                          selectedProjectSlideIndex === index ? 'project-detail__dot--active' : ''
+                        }`}
+                        key={slide}
+                        type="button"
+                        onClick={() => setSelectedProjectSlideIndex(index)}
+                        aria-label={t.projects.galleryPhotoLabel(index)}
+                        aria-pressed={selectedProjectSlideIndex === index}
+                      />
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+              <div className="chapter-detail__copy project-detail__copy">
+                <span>{selectedProject.chapter}</span>
+                <h3 id="all-project-detail-title">{selectedProject.name}</h3>
+                {selectedProject.subtitle ? <strong>{selectedProject.subtitle}</strong> : null}
+                <p>
+                  {getLocalizedText(
+                    selectedProject.detailDescription,
+                    language,
+                    selectedProject.subtitle || '',
+                  )}
+                </p>
+              </div>
+            </div>
+          </article>
+        ) : null}
+      </section>
+    </main>
+  );
+}
+
+function HistoryPage({ historyPhotos, isDarkMode, language, setIsDarkMode, setLanguage, t }) {
+  return (
+    <main className="history-page">
+      <SiteNav
+        isDarkMode={isDarkMode}
+        language={language}
+        setIsDarkMode={setIsDarkMode}
+        setLanguage={setLanguage}
+        t={t}
+      />
+
+      <section className="history-page__hero">
+        <a className="chapter-page__back" href={localizedPath(language, '/')}>
+          <ArrowLeft aria-hidden="true" size={18} />
+          {t.history.back}
+        </a>
+        <p className="section-kicker">{t.history.eyebrow}</p>
+        <h1>{t.history.title}</h1>
+        <p>{t.history.intro}</p>
+      </section>
+
+      <section className="history-page__section history-page__section--text">
+        <div className="section-heading">
+          <span>{t.history.eyebrow}</span>
+          <h2>{t.history.timelineTitle}</h2>
+        </div>
+        <div className="history-page__copy">
+          {t.history.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+      </section>
+
+      <section className="history-page__section">
+        <div className="section-heading">
+          <span>{t.history.eyebrow}</span>
+          <h2>{t.history.logosTitle}</h2>
+          <p>{t.history.logosDescription}</p>
+        </div>
+        <div className="history-carousel history-carousel--logos" aria-label={t.history.logosTitle}>
+          <div className="history-carousel__track">
+            {[...historyLogoSlides, ...historyLogoSlides].map((slide, index) => {
+              const isDuplicate = index >= historyLogoSlides.length;
+
+              return (
+                <figure
+                  className="history-carousel__slide"
+                  key={`${slide.src}-${index}`}
+                  aria-hidden={isDuplicate ? 'true' : undefined}
+                >
+                  <img
+                    src={slide.src}
+                    alt={isDuplicate ? '' : slide.alt[language]}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="history-page__section">
+        <div className="section-heading">
+          <span>{t.history.eyebrow}</span>
+          <h2>{t.history.photosTitle}</h2>
+          <p>{t.history.photosDescription}</p>
+        </div>
+        <div className="history-carousel history-carousel--photos" aria-label={t.history.photosTitle}>
+          {historyPhotos.map((slide) => (
+            <figure className="history-carousel__slide" key={slide.src}>
+              <img
+                src={slide.src}
+                alt={slide.alt?.[language] || slide.title || t.history.photosTitle}
+                style={getProjectPhotoStyle(slide)}
+                loading="lazy"
+                decoding="async"
+              />
+              {(slide.title || slide.description) ? (
+                <figcaption className="history-carousel__caption">
+                  {slide.year ? <span>{slide.year}</span> : null}
+                  {slide.title ? <strong>{slide.title}</strong> : null}
+                  {slide.description ? <p>{slide.description}</p> : null}
+                </figcaption>
+              ) : null}
+            </figure>
+          ))}
         </div>
       </section>
     </main>
@@ -2260,6 +2900,10 @@ function ChapterPage({
 
 function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const contentPath =
+    typeof window === 'undefined' ? '/' : stripLanguagePrefix(window.location.pathname);
+  const isHistoryPage = contentPath === '/historia' || contentPath === '/historia/';
+  const isProjectsPage = contentPath === '/projetos' || contentPath === '/projetos/';
 
   return (
     <nav className={`mini-nav mini-nav--page ${isNavOpen ? 'mini-nav--open' : ''}`} aria-label={t.nav.aria}>
@@ -2310,9 +2954,24 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
       </div>
       <div className="mini-nav__links" id="site-page-navigation-links">
         <a href={localizedPath(language, '/#o-ieee')} onClick={() => setIsNavOpen(false)}>{t.nav.about}</a>
+        <a
+          className={isHistoryPage ? 'mini-nav__link--active' : undefined}
+          href={localizedPath(language, '/historia')}
+          onClick={() => setIsNavOpen(false)}
+          aria-current={isHistoryPage ? 'page' : undefined}
+        >
+          {t.nav.history}
+        </a>
         <a href={localizedPath(language, '/#capitulos')} onClick={() => setIsNavOpen(false)}>{t.nav.chapters}</a>
         <a href={localizedPath(language, '/#diretoria')} onClick={() => setIsNavOpen(false)}>{t.nav.board}</a>
-        <a href={localizedPath(language, '/#projetos')} onClick={() => setIsNavOpen(false)}>{t.nav.projects}</a>
+        <a
+          className={isProjectsPage ? 'mini-nav__link--active' : undefined}
+          href={localizedPath(language, '/#projetos')}
+          onClick={() => setIsNavOpen(false)}
+          aria-current={isProjectsPage ? 'page' : undefined}
+        >
+          {t.nav.projects}
+        </a>
         <a href={localizedPath(language, '/#membros')} onClick={() => setIsNavOpen(false)}>{t.nav.members}</a>
         <a href={localizedPath(language, '/#contato')} onClick={() => setIsNavOpen(false)}>{t.nav.contact}</a>
         <a href={localizedPath(language, '/#localizacao')} onClick={() => setIsNavOpen(false)}>{t.nav.location}</a>
@@ -2649,6 +3308,46 @@ function normalizeRemoteProject(project) {
     subtitle,
     url: normalizeLinkUrl(project.linkUrl),
   };
+}
+
+function normalizeRemoteHistoryPhoto(photo) {
+  const src = normalizeImageUrl(photo?.imageUrl);
+  if (!src) {
+    return null;
+  }
+
+  const title = String(photo.title || '').trim();
+  const description = String(photo.description || '').trim();
+  const year = Number.isFinite(Number(photo.year)) ? Number(photo.year) : 0;
+
+  return {
+    alt: {
+      en: title || 'Historical IEEE UFJF Student Branch photo',
+      pt: title || 'Foto histórica do Ramo Estudantil IEEE UFJF',
+    },
+    description,
+    id: `history-photo-${photo.id || src}`,
+    photoPositionX: clampPercentage(photo.photoPositionX),
+    photoPositionY: clampPercentage(photo.photoPositionY),
+    photoZoom: clampPhotoZoom(photo.photoZoom),
+    position: Number.isFinite(Number(photo.position)) ? Number(photo.position) : 0,
+    src,
+    title,
+    year,
+  };
+}
+
+function sortHistoryPhotos(photos) {
+  return [...photos].sort((firstPhoto, secondPhoto) => {
+    const firstYear = Number(firstPhoto.year) || 9999;
+    const secondYear = Number(secondPhoto.year) || 9999;
+
+    if (firstYear !== secondYear) {
+      return firstYear - secondYear;
+    }
+
+    return (Number(firstPhoto.position) || 0) - (Number(secondPhoto.position) || 0);
+  });
 }
 
 function mergePublishedProjects(fixedProjects, remoteProjects) {

@@ -58,7 +58,23 @@
       "destination": "/en.html"
     },
     {
+      "source": "/en/historia",
+      "destination": "/en.html"
+    },
+    {
+      "source": "/en/projetos",
+      "destination": "/en.html"
+    },
+    {
       "source": "/capitulos/(.*)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/historia",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/projetos",
       "destination": "/index.html"
     }
   ]
