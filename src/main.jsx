@@ -864,6 +864,7 @@ const copy = {
       photoPreview: 'Prévia da foto',
       photoPreviewEmpty: 'Adicione uma URL para visualizar o recorte.',
       bio: 'Mini biografia',
+      bioEn: 'Mini biografia em inglês',
       publish: 'Publicar no site',
       create: 'Cadastrar membro',
       creating: 'Cadastrando...',
@@ -1031,6 +1032,7 @@ const copy = {
       photoPreview: 'Photo preview',
       photoPreviewEmpty: 'Add a URL to preview the crop.',
       bio: 'Mini biography',
+      bioEn: 'Mini biography in English',
       publish: 'Publish on the site',
       create: 'Create member',
       creating: 'Creating...',
@@ -1189,6 +1191,7 @@ function App() {
 
         return {
           ...boardMember,
+          bio: publishedMember?.bio || boardMember.bio,
           member: publishedMember,
           photo: publishedMember?.photoUrl || boardMember.photo,
         };
@@ -1666,7 +1669,7 @@ function App() {
         </div>
 
         <div className="board-grid">
-          {visibleBoardMembers.map(({ role, name, photo, member }) => (
+          {visibleBoardMembers.map(({ role, name, photo, member, bio }) => (
             <article className="board-card" key={`${role.pt}-${name}`}>
               <div className="board-card__photo-wrap">
                 {photo ? (
@@ -1687,6 +1690,7 @@ function App() {
               <div className="board-card__copy">
                 <span>{role[language]}</span>
                 <strong>{name}</strong>
+                <p>{getLocalizedText(bio, language, '')}</p>
               </div>
             </article>
           ))}
@@ -2908,6 +2912,16 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
                 rows={4}
               />
             </label>
+            <label className="admin-member-form__span">
+              <span>{t.admin.bioEn}</span>
+              <textarea
+                value={memberForm.bioEn}
+                onChange={(event) => updateMemberForm('bioEn', event.target.value)}
+                disabled={!canManage}
+                maxLength={600}
+                rows={4}
+              />
+            </label>
 
             <fieldset className="admin-chapter-list" disabled={!canManage}>
               <legend>{t.admin.chapters}</legend>
@@ -3582,7 +3596,10 @@ function normalizeRemoteMember(member) {
   }
 
   return {
-    bio: member.bio || '',
+    bio: {
+      en: member.bioEn || member.bio || '',
+      pt: member.bio || '',
+    },
     chapters: Array.isArray(member.chapters) ? member.chapters : [],
     id: `atas-${member.id || member.name}`,
     name: member.name,
@@ -3676,6 +3693,8 @@ function normalizeAdminMember(member) {
 
   return {
     ...member,
+    bio: member.bio || '',
+    bioEn: member.bioEn || '',
     chapters: Array.isArray(member.chapters) ? member.chapters : [],
     isPublic: Boolean(member.isPublic),
     photoUrl: normalizeImageUrl(member.photoUrl),
@@ -3719,6 +3738,7 @@ function createAdminMemberForm(user) {
 
     return {
       bio: user.bio || '',
+      bioEn: user.bioEn || '',
       cargo: user.role || user.cargo || 'Membro',
       chapters,
       isPublic: Boolean(user.isPublic),
@@ -3733,6 +3753,7 @@ function createAdminMemberForm(user) {
 
   return {
     bio: '',
+    bioEn: '',
     cargo: 'Membro',
     chapters: ['Ramo'],
     isPublic: true,
@@ -3771,6 +3792,7 @@ function buildAdminMemberPayload(form, overrides = {}) {
     : ['Ramo'];
   return {
     bio: form.bio,
+    bioEn: form.bioEn,
     chapters: selectedChapters,
     isPublic: form.isPublic,
     name: form.name,

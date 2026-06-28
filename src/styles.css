@@ -964,6 +964,13 @@ a {
   line-height: 1.2;
 }
 
+.board-card__copy p {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
 .projects {
   scroll-margin-top: var(--nav-height);
   min-height: calc(100svh - var(--nav-height));
