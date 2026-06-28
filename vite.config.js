@@ -7,6 +7,14 @@ const MAX_JSON_BODY_BYTES = 64 * 1024;
 
 export default defineConfig({
   plugins: [react(), atasAdminProxy()],
+  build: {
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        en: 'en.html',
+      },
+    },
+  },
 });
 
 function atasAdminProxy() {

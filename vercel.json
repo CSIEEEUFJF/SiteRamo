@@ -50,8 +50,12 @@
   ],
   "rewrites": [
     {
-      "source": "/admin",
-      "destination": "/index.html"
+      "source": "/en",
+      "destination": "/en.html"
+    },
+    {
+      "source": "/en/capitulos/(.*)",
+      "destination": "/en.html"
     },
     {
       "source": "/capitulos/(.*)",

@@ -157,7 +157,7 @@ const chapters = [
     logo: '/assets/chapters/vts.webp',
     darkLogo: '/assets/chapters/dark/vts.png',
     descricao: {
-      pt: 'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas. No Ramo Estudantil IEEE UFJF, é uma parceria com a equipe RAMPAGE BAJA.',
+      pt: 'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas. No IEEE Student Branch UFJF, é uma parceria com a equipe RAMPAGE BAJA.',
       en: 'Chapter dedicated to mobility, vehicular systems, intelligent transportation, vehicular communication, and automotive technologies. At the IEEE UFJF Student Branch, it is a partnership with the RAMPAGE BAJA team.',
     },
     instagram: 'https://www.instagram.com/rampagebaja/',
@@ -586,7 +586,7 @@ const chapterOptions = [
   { key: 'MTTS', label: 'Microwave Theory and Technology Society' },
   { key: 'PES', label: 'Power & Energy Society' },
   { key: 'RAS', label: 'Robotics and Automation Society' },
-  { key: 'Ramo', label: 'Ramo Estudantil IEEE UFJF' },
+  { key: 'Ramo', label: 'IEEE Student Branch UFJF' },
   { key: 'SIGHT', label: 'Special Interest Group on Humanitarian Technology' },
   { key: 'VTS', label: 'Vehicular Technology Society' },
   { key: 'WIE', label: 'Women in Engineering' },
@@ -733,8 +733,18 @@ const ramoMembers = [
 const copy = {
   pt: {
     lang: 'pt-BR',
+    seo: {
+      title: 'Ramo Estudantil IEEE UFJF | A casa do IEEE na UFJF',
+      description:
+        'Conheça o Ramo Estudantil IEEE UFJF, seus capítulos técnicos, grupos de afinidade, diretoria, projetos e canais de contato na Universidade Federal de Juiz de Fora.',
+      ogLocale: 'pt_BR',
+      ogTitle: 'Ramo Estudantil IEEE UFJF',
+      ogDescription:
+        'Capítulos técnicos, grupos de afinidade, projetos e iniciativas de engenharia, tecnologia e impacto social na UFJF.',
+      imageAlt: 'Logo do Ramo Estudantil IEEE UFJF',
+    },
     hero: {
-      aria: 'Ramo Estudantil IEEE UFJF',
+      aria: 'IEEE Student Branch UFJF',
       brandAria: 'Universidade Federal de Juiz de Fora IEEE Student Branch',
       universityDesktop: 'Universidade Federal de Juiz de Fora',
       universityMobileFirst: 'Universidade Federal',
@@ -756,6 +766,7 @@ const copy = {
       disableDark: 'Desativar modo escuro',
       languageButton: 'EN',
       languageLabel: 'Alterar texto para inglês',
+      skip: 'Pular para o conteúdo',
     },
     about: {
       eyebrow: 'O IEEE',
@@ -763,7 +774,7 @@ const copy = {
       logoAlt: 'Logo IEEE',
       paragraphs: [
         'O IEEE é uma organização sem fins lucrativos presente em mais de 160 países, com centenas de milhares de membros e atuação global na inovação tecnológica e na excelência profissional em benefício da humanidade.',
-        'Na Universidade Federal de Juiz de Fora, o Ramo Estudantil IEEE reúne estudantes e docentes em projetos técnicos, educacionais e sociais, difundindo os benefícios do IEEE para a vida acadêmica e profissional.',
+        'Na Universidade Federal de Juiz de Fora, o IEEE Student Branch reúne estudantes e docentes em projetos técnicos, educacionais e sociais, difundindo os benefícios do IEEE para a vida acadêmica e profissional.',
         'Nossas atividades conectam capítulos técnicos, grupos de afinidade, eventos, ações sociais, cursos, competições e parcerias internas e externas para transformar conhecimento em impacto.',
       ],
       highlights: [
@@ -805,12 +816,14 @@ const copy = {
       openDetails: (name) => `Abrir detalhes de ${name}`,
       close: 'Fechar detalhes do projeto',
       previewAlt: (name) => `Preview do projeto ${name}`,
+      galleryLabel: 'Fotos do projeto',
+      galleryPhotoLabel: (index) => `Foto ${index + 1}`,
     },
     members: {
-      eyebrow: 'Membros do Ramo',
-      title: 'Quem faz o Ramo acontecer',
+      eyebrow: 'Membros do IEEE Student Branch',
+      title: 'Quem faz o IEEE Student Branch acontecer',
       description:
-        'Conheça as pessoas que mantêm capítulos, projetos, eventos e rotinas internas em movimento no Ramo Estudantil IEEE UFJF.',
+        'Conheça as pessoas que mantêm capítulos, projetos, eventos e rotinas internas em movimento no IEEE Student Branch UFJF.',
       openDetails: (name) => `Abrir detalhes de ${name}`,
       close: 'Fechar detalhes do membro',
       empty: 'Nenhum membro cadastrado no site ainda.',
@@ -871,9 +884,9 @@ const copy = {
     },
     contact: {
       eyebrow: 'Contato',
-      title: 'Fale com o Ramo',
+      title: 'Fale com o IEEE Student Branch',
       description:
-        'É importante que o Ramo Estudantil IEEE UFJF esteja em contato com a comunidade, seja para novos projetos, parcerias, oportunidades, dúvidas ou sugestões sobre o IEEE e nossas atividades.',
+        'É importante que o IEEE Student Branch UFJF esteja em contato com a comunidade, seja para novos projetos, parcerias, oportunidades, dúvidas ou sugestões sobre o IEEE e nossas atividades.',
       locationLabel: 'Nossa localização',
       location: 'Segundo andar da Faculdade de Engenharia da Universidade Federal de Juiz de Fora.',
       visit:
@@ -881,12 +894,22 @@ const copy = {
       emailLabel: 'E-mail',
       emails: ['sb.ufjf@ieee.org', 'ieee@engenharia.ufjf.br'],
       socialLabel: 'Redes sociais',
-      mapLabel: 'Mapa do Ramo Estudantil IEEE UFJF',
-      mapTitle: 'Mapa do Ramo Estudantil IEEE UFJF',
+      mapLabel: 'Mapa do IEEE Student Branch UFJF',
+      mapTitle: 'Mapa do IEEE Student Branch UFJF',
     },
   },
   en: {
     lang: 'en',
+    seo: {
+      title: 'Ramo Estudantil IEEE UFJF | IEEE at UFJF',
+      description:
+        'Meet Ramo Estudantil IEEE UFJF, its technical chapters, affinity groups, board, projects, and contact channels at the Federal University of Juiz de Fora.',
+      ogLocale: 'en_US',
+      ogTitle: 'Ramo Estudantil IEEE UFJF',
+      ogDescription:
+        'Technical chapters, affinity groups, projects, and engineering, technology, and social impact initiatives at UFJF.',
+      imageAlt: 'Ramo Estudantil IEEE UFJF logo',
+    },
     hero: {
       aria: 'IEEE UFJF Student Branch',
       brandAria: 'Federal University of Juiz de Fora IEEE Student Branch',
@@ -910,6 +933,7 @@ const copy = {
       disableDark: 'Disable dark mode',
       languageButton: 'PT',
       languageLabel: 'Change text to Portuguese',
+      skip: 'Skip to content',
     },
     about: {
       eyebrow: 'IEEE',
@@ -959,6 +983,8 @@ const copy = {
       openDetails: (name) => `Open details for ${name}`,
       close: 'Close project details',
       previewAlt: (name) => `${name} project preview`,
+      galleryLabel: 'Project photos',
+      galleryPhotoLabel: (index) => `Photo ${index + 1}`,
     },
     members: {
       eyebrow: 'Branch members',
@@ -1044,6 +1070,60 @@ const copy = {
 const mapsEmbedUrl =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4558.946106024073!2d-43.37522762383733!3d-21.778392998521973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x989ba3d97601f7%3A0xcf9f2fb389a7f742!2sRamo%20Estudantil%20IEEE%20UFJF!5e1!3m2!1sen!2sbr!4v1779591238371!5m2!1sen!2sbr';
 
+function setMetaContent(selector, content) {
+  const meta = document.querySelector(selector);
+  if (meta && content) {
+    meta.setAttribute('content', content);
+  }
+}
+
+function setLinkHref(selector, href) {
+  const link = document.querySelector(selector);
+  if (link && href) {
+    link.setAttribute('href', href);
+  }
+}
+
+function stripLanguagePrefix(pathname) {
+  if (pathname === '/en') {
+    return '/';
+  }
+
+  return pathname.startsWith('/en/') ? pathname.slice(3) || '/' : pathname;
+}
+
+function localizedPath(language, path = '/') {
+  if (language !== 'en') {
+    return path;
+  }
+
+  return path === '/' ? '/en' : `/en${path}`;
+}
+
+function localizedHash(language, hash) {
+  return language === 'en' ? `/en${hash}` : hash;
+}
+
+function alternateLanguagePath(currentPath, nextLanguage) {
+  const cleanPath = stripLanguagePrefix(currentPath);
+  return localizedPath(nextLanguage, cleanPath);
+}
+
+function absoluteSiteUrl(path = '/') {
+  return `https://ieeeufjf.com.br${path === '/' ? '/' : path}`;
+}
+
+function projectImageAlt(project, language, slideIndex = null) {
+  const name = project?.name || project?.title || '';
+  const subtitle = getLocalizedText(project?.description, language, project?.subtitle || '');
+  const suffix = subtitle ? `: ${subtitle}` : '';
+  const prefix = Number.isInteger(slideIndex)
+    ? language === 'en' ? `Photo ${slideIndex + 1} from project` : `Foto ${slideIndex + 1} do projeto`
+    : language === 'en' ? 'Project image' : 'Imagem do projeto';
+
+  return `${prefix} ${name}${suffix}`.trim();
+}
+
 function App() {
   const [selectedChapterId, setSelectedChapterId] = useState(null);
   const [selectedMemberId, setSelectedMemberId] = useState(null);
@@ -1061,6 +1141,10 @@ function App() {
   const [language, setLanguage] = useState(() => {
     if (typeof window === 'undefined') {
       return 'pt';
+    }
+
+    if (window.location.pathname === '/en' || window.location.pathname.startsWith('/en/')) {
+      return 'en';
     }
 
     return window.localStorage.getItem('language') === 'en' ? 'en' : 'pt';
@@ -1112,6 +1196,8 @@ function App() {
     [publishedMembers],
   );
   const t = copy[language];
+  const contentPath = stripLanguagePrefix(currentPath);
+  const nextLanguage = language === 'pt' ? 'en' : 'pt';
   const selectedProjectPreviewSrc = selectedProject
     ? getProjectPreviewSrc(selectedProject, isDarkMode)
     : '';
@@ -1198,9 +1284,21 @@ function App() {
   }, [isDarkMode]);
 
   useEffect(() => {
+    const canonicalPath = localizedPath(language, stripLanguagePrefix(window.location.pathname));
+    const canonicalUrl = absoluteSiteUrl(canonicalPath);
     document.documentElement.lang = t.lang;
     window.localStorage.setItem('language', language);
-  }, [language, t.lang]);
+    document.title = t.seo.title;
+    setLinkHref('link[rel="canonical"]', canonicalUrl);
+    setMetaContent('meta[name="description"]', t.seo.description);
+    setMetaContent('meta[property="og:locale"]', t.seo.ogLocale);
+    setMetaContent('meta[property="og:title"]', t.seo.ogTitle);
+    setMetaContent('meta[property="og:description"]', t.seo.ogDescription);
+    setMetaContent('meta[property="og:url"]', canonicalUrl);
+    setMetaContent('meta[property="og:image:alt"]', t.seo.imageAlt);
+    setMetaContent('meta[name="twitter:title"]', t.seo.ogTitle);
+    setMetaContent('meta[name="twitter:description"]', t.seo.description);
+  }, [language, t.lang, t.seo]);
 
   useEffect(() => {
     const handlePathChange = () => setCurrentPath(window.location.pathname);
@@ -1285,7 +1383,7 @@ function App() {
     };
   }, []);
 
-  const chapterPageMatch = currentPath.match(/^\/capitulos\/([^/]+)\/?$/);
+  const chapterPageMatch = contentPath.match(/^\/capitulos\/([^/]+)\/?$/);
   const chapterPageId = chapterPageMatch?.[1];
   const chapterPage = chapterPageId ? chapterPages[chapterPageId] : null;
   const chapterForPage = chapterPageId
@@ -1309,6 +1407,9 @@ function App() {
 
   return (
     <main>
+      <a className="skip-link" href={localizedHash(language, '#conteudo-principal')}>
+        {t.nav.skip}
+      </a>
       <section className="hero" id="topo" aria-label={t.hero.aria}>
         <div className="hero__content">
           <div className="hero-brand" aria-label={t.hero.brandAria}>
@@ -1329,7 +1430,7 @@ function App() {
               <p>{t.hero.branch}</p>
             </div>
           </div>
-          <a className="hero__scroll" href="#navegacao" aria-label={t.hero.scroll}>
+          <a className="hero__scroll" href={localizedHash(language, '#navegacao')} aria-label={t.hero.scroll}>
             <ArrowDown aria-hidden="true" size={22} />
           </a>
         </div>
@@ -1337,7 +1438,7 @@ function App() {
 
       <div className="nav-anchor" id="navegacao" aria-hidden="true" />
       <nav className="mini-nav" aria-label={t.nav.aria}>
-        <a className="mini-nav__brand" href="#topo" aria-label={t.nav.top}>
+        <a className="mini-nav__brand" href={localizedHash(language, '#topo')} aria-label={t.nav.top}>
           <span className="mini-nav__mark" aria-hidden="true" />
           <span className="mini-nav__brand-text">
             <strong>{t.hero.universityDesktop}</strong>
@@ -1346,21 +1447,23 @@ function App() {
         </a>
         <div className="mini-nav__menu">
           <div className="mini-nav__links">
-            <a href="#o-ieee">{t.nav.about}</a>
-            <a href="#capitulos">{t.nav.chapters}</a>
-            <a href="#diretoria">{t.nav.board}</a>
-            <a href="#projetos">{t.nav.projects}</a>
-            <a href="#membros">{t.nav.members}</a>
-            <a href="#contato">{t.nav.contact}</a>
-            <a href="#localizacao">{t.nav.location}</a>
+            <a href={localizedHash(language, '#o-ieee')}>{t.nav.about}</a>
+            <a href={localizedHash(language, '#capitulos')}>{t.nav.chapters}</a>
+            <a href={localizedHash(language, '#diretoria')}>{t.nav.board}</a>
+            <a href={localizedHash(language, '#projetos')}>{t.nav.projects}</a>
+            <a href={localizedHash(language, '#membros')}>{t.nav.members}</a>
+            <a href={localizedHash(language, '#contato')}>{t.nav.contact}</a>
+            <a href={localizedHash(language, '#localizacao')}>{t.nav.location}</a>
           </div>
           <div className="mini-nav__actions">
             <button
               className="mini-nav__language"
               type="button"
-              onClick={() =>
-                setLanguage((currentLanguage) => (currentLanguage === 'pt' ? 'en' : 'pt'))
-              }
+              onClick={() => {
+                setLanguage(nextLanguage);
+                window.history.pushState({}, '', alternateLanguagePath(currentPath, nextLanguage));
+                setCurrentPath(window.location.pathname);
+              }}
               aria-label={t.nav.languageLabel}
             >
               <Languages aria-hidden="true" size={17} />
@@ -1379,7 +1482,8 @@ function App() {
         </div>
       </nav>
 
-      <section className="about-ieee" id="o-ieee" aria-labelledby="o-ieee-title">
+      <section className="about-ieee" id="conteudo-principal" aria-labelledby="o-ieee-title">
+        <span id="o-ieee" className="section-anchor" aria-hidden="true" />
         <div className="section-heading">
           <span>{t.about.eyebrow}</span>
           <div className="about-ieee__title-row">
@@ -1505,7 +1609,7 @@ function App() {
                     />
                   )}
                   {chapterPages[selectedChapter.id] ? (
-                    <a className="chapter-link" href={`/capitulos/${selectedChapter.id}`}>
+                    <a className="chapter-link" href={localizedPath(language, `/capitulos/${selectedChapter.id}`)}>
                       <ExternalLink aria-hidden="true" size={18} />
                       <span>{language === 'pt' ? 'Ver página' : 'Open page'}</span>
                     </a>
@@ -1622,7 +1726,7 @@ function App() {
                   <img
                     className="project-card__image"
                     src={previewSrc}
-                    alt={t.projects.previewAlt(name)}
+                    alt={projectImageAlt(project, language)}
                     loading="lazy"
                     decoding="async"
                 />
@@ -1661,13 +1765,13 @@ function App() {
                 <img
                   className="project-detail__image"
                   src={selectedProjectSlide}
-                  alt={t.projects.previewAlt(selectedProject.name)}
+                  alt={projectImageAlt(selectedProject, language, selectedProjectSlideIndex)}
                   style={getProjectPhotoStyle(selectedProject)}
                   loading="lazy"
                   decoding="async"
                 />
                 {selectedProjectGallery.length > 1 ? (
-                  <div className="project-detail__slides" aria-label="Fotos do projeto">
+                  <div className="project-detail__slides" aria-label={t.projects.galleryLabel}>
                     {selectedProjectGallery.map((slide, index) => (
                       <button
                         className={`project-detail__dot ${
@@ -1676,7 +1780,7 @@ function App() {
                         key={slide}
                         type="button"
                         onClick={() => setSelectedProjectSlideIndex(index)}
-                        aria-label={`Foto ${index + 1}`}
+                        aria-label={t.projects.galleryPhotoLabel(index)}
                         aria-pressed={selectedProjectSlideIndex === index}
                       />
                     ))}
@@ -1868,7 +1972,7 @@ function ChapterPage({
         <section className="chapter-page__hero">
           <p className="section-kicker">{language === 'pt' ? 'Capítulo' : 'Chapter'}</p>
           <h1>{language === 'pt' ? 'Página não encontrada' : 'Page not found'}</h1>
-          <a className="chapter-page__back" href="/#capitulos">
+          <a className="chapter-page__back" href={localizedPath(language, '/#capitulos')}>
             <ArrowLeft aria-hidden="true" size={18} />
             {language === 'pt' ? 'Voltar aos capítulos' : 'Back to chapters'}
           </a>
@@ -1952,7 +2056,7 @@ function ChapterPage({
       />
 
       <section className="chapter-page__hero">
-        <a className="chapter-page__back" href="/#capitulos">
+        <a className="chapter-page__back" href={localizedPath(language, '/#capitulos')}>
           <ArrowLeft aria-hidden="true" size={18} />
           {language === 'pt' ? 'Voltar aos capítulos' : 'Back to chapters'}
         </a>
@@ -2030,7 +2134,7 @@ function ChapterPage({
                       <img
                         className="project-card__image"
                         src={previewSrc}
-                        alt={t.projects.previewAlt(project.name)}
+                        alt={projectImageAlt(project, language)}
                         loading="lazy"
                         decoding="async"
                       />
@@ -2068,13 +2172,13 @@ function ChapterPage({
                     <img
                       className="project-detail__image"
                       src={selectedChapterProjectSlide}
-                      alt={t.projects.previewAlt(selectedChapterProject.name)}
+                      alt={projectImageAlt(selectedChapterProject, language, selectedChapterProjectSlideIndex)}
                       style={getProjectPhotoStyle(selectedChapterProject)}
                       loading="lazy"
                       decoding="async"
                     />
                     {selectedChapterProjectGallery.length > 1 ? (
-                      <div className="project-detail__slides" aria-label="Fotos do projeto">
+                      <div className="project-detail__slides" aria-label={t.projects.galleryLabel}>
                         {selectedChapterProjectGallery.map((slide, index) => (
                           <button
                             className={`project-detail__dot ${
@@ -2083,7 +2187,7 @@ function ChapterPage({
                             key={slide}
                             type="button"
                             onClick={() => setSelectedChapterProjectSlideIndex(index)}
-                            aria-label={`Foto ${index + 1}`}
+                            aria-label={t.projects.galleryPhotoLabel(index)}
                             aria-pressed={selectedChapterProjectSlideIndex === index}
                           />
                         ))}
@@ -2123,7 +2227,7 @@ function ChapterPage({
           <p className="chapter-page__empty">
             {language === 'en'
               ? 'No projects registered for this chapter yet.'
-              : 'Nenhum projeto cadastrado para este capÃ­tulo ainda.'}
+              : 'Nenhum projeto cadastrado para este capítulo ainda.'}
           </p>
         )}
       </section>
@@ -2135,7 +2239,7 @@ function ChapterPage({
 function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
   return (
     <nav className="mini-nav mini-nav--page" aria-label={t.nav.aria}>
-      <a className="mini-nav__brand" href="/" aria-label={t.nav.top}>
+      <a className="mini-nav__brand" href={localizedPath(language, '/')} aria-label={t.nav.top}>
         <span className="mini-nav__mark" aria-hidden="true" />
         <span className="mini-nav__brand-text">
           <strong>{t.hero.universityDesktop}</strong>
@@ -2144,21 +2248,24 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
       </a>
       <div className="mini-nav__menu">
         <div className="mini-nav__links">
-          <a href="/#o-ieee">{t.nav.about}</a>
-          <a href="/#capitulos">{t.nav.chapters}</a>
-          <a href="/#diretoria">{t.nav.board}</a>
-          <a href="/#projetos">{t.nav.projects}</a>
-          <a href="/#membros">{t.nav.members}</a>
-          <a href="/#contato">{t.nav.contact}</a>
-          <a href="/#localizacao">{t.nav.location}</a>
+          <a href={localizedPath(language, '/#o-ieee')}>{t.nav.about}</a>
+          <a href={localizedPath(language, '/#capitulos')}>{t.nav.chapters}</a>
+          <a href={localizedPath(language, '/#diretoria')}>{t.nav.board}</a>
+          <a href={localizedPath(language, '/#projetos')}>{t.nav.projects}</a>
+          <a href={localizedPath(language, '/#membros')}>{t.nav.members}</a>
+          <a href={localizedPath(language, '/#contato')}>{t.nav.contact}</a>
+          <a href={localizedPath(language, '/#localizacao')}>{t.nav.location}</a>
         </div>
         <div className="mini-nav__actions">
           <button
             className="mini-nav__language"
             type="button"
-            onClick={() =>
-              setLanguage((currentLanguage) => (currentLanguage === 'pt' ? 'en' : 'pt'))
-            }
+            onClick={() => {
+              const nextLanguage = language === 'pt' ? 'en' : 'pt';
+              setLanguage(nextLanguage);
+              window.history.pushState({}, '', alternateLanguagePath(window.location.pathname, nextLanguage));
+              window.dispatchEvent(new Event('popstate'));
+            }}
             aria-label={t.nav.languageLabel}
           >
             <Languages aria-hidden="true" size={17} />
@@ -2599,7 +2706,12 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
           <button
             className="mini-nav__language"
             type="button"
-            onClick={() => setLanguage((currentLanguage) => (currentLanguage === 'pt' ? 'en' : 'pt'))}
+            onClick={() => {
+              const nextLanguage = language === 'pt' ? 'en' : 'pt';
+              setLanguage(nextLanguage);
+              window.history.pushState({}, '', alternateLanguagePath(window.location.pathname, nextLanguage));
+              window.dispatchEvent(new Event('popstate'));
+            }}
             aria-label={t.nav.languageLabel}
           >
             <Languages aria-hidden="true" size={17} />
@@ -3003,7 +3115,7 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
               />
             </label>
             <label className="admin-member-form__span">
-              <span>{language === 'en' ? 'Description' : 'DescriÃ§Ã£o'}</span>
+              <span>{language === 'en' ? 'Description' : 'Descrição'}</span>
               <textarea
                 value={projectForm.description}
                 onChange={(event) => updateProjectForm('description', event.target.value)}
@@ -3131,7 +3243,7 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
                 onChange={(event) => updateProjectForm('showOnChapter', event.target.checked)}
                 disabled={!canManage}
               />
-              <span>{language === 'en' ? 'Show on chapter page' : 'Mostrar na pÃ¡gina do capÃ­tulo'}</span>
+              <span>{language === 'en' ? 'Show on chapter page' : 'Mostrar na página do capítulo'}</span>
             </label>
             <label className="admin-checkbox">
               <input
@@ -3175,7 +3287,7 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
                     <span>
                       {[
                         project.showOnHome ? (language === 'en' ? 'Home' : 'Home') : '',
-                        project.showOnChapter ? (language === 'en' ? 'Chapter' : 'CapÃ­tulo') : '',
+                        project.showOnChapter ? (language === 'en' ? 'Chapter' : 'Capítulo') : '',
                       ]
                         .filter(Boolean)
                         .join(' + ') || (language === 'en' ? 'No placement' : 'Sem local')}

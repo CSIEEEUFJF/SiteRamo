@@ -15,13 +15,16 @@
 }
 
 :root {
+  /* Brand tokens: IEEE blue is reserved for brand surfaces and approved artwork. */
   --ieee-blue: #00629b;
+  /* UI tokens: neutral and functional colors are interface support colors, not IEEE brand extensions. */
   --ink: #12202f;
   --muted: #5d6c7d;
   --paper: #f7fafc;
   --line: #dbe5ef;
   --accent: #12202f;
-  --brand-color: var(--ieee-blue);
+  --link-color: var(--ieee-blue);
+  --brand-color: var(--link-color);
   --hero-bg: var(--ieee-blue);
   --nav-bg: #fff;
   --surface: #fff;
@@ -49,6 +52,7 @@
   --paper: #121212;
   --line: #3c4043;
   --accent: #ffffff;
+  --link-color: #8fd3ff;
   --brand-color: #fff;
   --hero-bg: var(--ieee-blue);
   --nav-bg: #1f1f1f;
@@ -80,6 +84,33 @@ body {
 
 a {
   color: inherit;
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  transform: translateY(-180%);
+  border: 2px solid var(--link-color);
+  background: var(--surface);
+  color: var(--link-color);
+  font-weight: 900;
+  padding: 0.85rem 1rem;
+  text-decoration: none;
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: none;
+}
+
+.section-anchor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .hero {
@@ -256,7 +287,7 @@ a {
 }
 
 .mini-nav__links a:hover {
-  color: var(--ieee-blue);
+  color: var(--link-color);
 }
 
 .mini-nav--page {
@@ -279,7 +310,7 @@ a {
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
-  color: var(--ieee-blue);
+  color: var(--link-color);
   cursor: pointer;
   transition:
     background 180ms ease,
@@ -440,7 +471,7 @@ a {
   align-items: center;
   gap: 0.5rem;
   margin: 0 auto;
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: 0.92rem;
   font-weight: 900;
   text-decoration: none;
@@ -466,7 +497,7 @@ a {
 }
 
 .chapter-page__logo-card span {
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: 2.8rem;
   font-weight: 900;
 }
@@ -538,7 +569,7 @@ a {
 }
 
 .chapter-page__facts a:hover {
-  color: var(--ieee-blue);
+  color: var(--link-color);
 }
 
 .chapter-page__project-grid {
@@ -670,7 +701,7 @@ a {
   place-items: center;
   border-radius: 8px;
   background: var(--surface-muted);
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: 1rem;
   font-weight: 900;
 }
@@ -727,7 +758,7 @@ a {
 }
 
 .chapter-detail__close:hover {
-  color: var(--ieee-blue);
+  color: var(--link-color);
 }
 
 .chapter-detail__main {
@@ -751,7 +782,7 @@ a {
 }
 
 .chapter-detail__placeholder {
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: 2rem;
   font-weight: 900;
 }
@@ -770,7 +801,7 @@ a {
 
 .chapter-detail__copy h3 {
   margin: 0.45rem 0 0;
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: clamp(2rem, 5vw, 3.25rem);
   line-height: 1;
 }
@@ -799,7 +830,7 @@ a {
   border: 1px solid rgba(0, 98, 155, 0.2);
   border-radius: 8px;
   background: var(--surface-soft);
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: 0.92rem;
   font-weight: 800;
   text-decoration: none;
@@ -840,7 +871,7 @@ a {
 .president-card__photo--empty {
   display: grid;
   place-items: center;
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: 1.6rem;
   font-weight: 900;
 }
@@ -909,7 +940,7 @@ a {
 .board-card__placeholder {
   display: grid;
   place-items: center;
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 900;
 }
@@ -1049,7 +1080,7 @@ a {
   position: absolute;
   right: 1rem;
   bottom: 1rem;
-  color: var(--ieee-blue);
+  color: var(--link-color);
 }
 
 .project-detail {
@@ -1146,7 +1177,7 @@ a {
   border: 1px solid var(--line);
   margin: 0 -1px -1px 0;
   background: var(--surface-muted);
-  color: var(--ieee-blue);
+  color: var(--link-color);
   cursor: pointer;
   transition:
     box-shadow 180ms ease,
@@ -1243,7 +1274,7 @@ a {
   height: 100%;
   display: grid;
   place-items: center;
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 900;
 }
@@ -1278,7 +1309,7 @@ a {
 }
 
 .admin-nav__back {
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-weight: 900;
   text-decoration: none;
 }
@@ -1373,7 +1404,7 @@ a {
 }
 
 .admin-panel__heading svg {
-  color: var(--ieee-blue);
+  color: var(--link-color);
   flex: 0 0 auto;
 }
 
@@ -1497,7 +1528,7 @@ a {
 .admin-photo-crop__controls input[type='range'] {
   padding: 0;
   border: 0;
-  accent-color: var(--ieee-blue);
+  accent-color: var(--link-color);
 }
 
 .admin-chapter-list {
@@ -1558,7 +1589,7 @@ a {
 .admin-session-card__actions button {
   border: 1px solid rgba(0, 98, 155, 0.2);
   background: var(--surface-soft);
-  color: var(--ieee-blue);
+  color: var(--link-color);
   padding: 0.65rem 0.85rem;
 }
 
@@ -1680,7 +1711,7 @@ a {
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--surface-muted);
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: 1.6rem;
   font-weight: 900;
 }
@@ -1770,7 +1801,7 @@ a {
   padding: 0.3rem 0.5rem;
   border-radius: 999px;
   background: var(--surface-soft);
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: 0.72rem;
   font-weight: 900;
 }
@@ -1861,7 +1892,7 @@ a {
   border: 1px solid rgba(0, 98, 155, 0.22);
   border-radius: 8px;
   background: var(--surface);
-  color: var(--ieee-blue);
+  color: var(--link-color);
   font-size: 0.95rem;
   font-weight: 900;
   text-decoration: none;
