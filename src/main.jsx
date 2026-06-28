@@ -182,6 +182,86 @@ const chapters = [
 ];
 
 const chapterPages = {
+  aess: {
+    foundation: '2026',
+    email: 'ramo.ieeeufjf@gmail.com',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/',
+    body: {
+      pt: [
+        'O Capítulo Estudantil IEEE Aerospace and Electronic Systems Society UFJF reúne estudantes interessados em sistemas aeroespaciais, eletrônica embarcada, sensoriamento, navegação, controle e tecnologias aplicadas a ambientes complexos.',
+        'Fundado em 2026, o capítulo atua para aproximar a comunidade acadêmica de temas estratégicos em engenharia, incentivando estudos, projetos técnicos e atividades de formação voltadas a sistemas eletrônicos avançados.',
+      ],
+      en: [
+        'The IEEE Aerospace and Electronic Systems Society Student Branch Chapter at UFJF brings together students interested in aerospace systems, embedded electronics, sensing, navigation, control, and technologies applied to complex environments.',
+        'Founded in 2026, the chapter connects the academic community with strategic engineering topics, encouraging studies, technical projects, and training activities focused on advanced electronic systems.',
+      ],
+    },
+    projects: { pt: [], en: [] },
+  },
+  aps: {
+    foundation: '2026',
+    email: 'ramo.ieeeufjf@gmail.com',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/',
+    body: {
+      pt: [
+        'O Capítulo Estudantil IEEE Antennas and Propagation Society UFJF é dedicado ao estudo de antenas, propagação eletromagnética, radiofrequência, micro-ondas e comunicações sem fio.',
+        'Fundado em 2026, o AP-S UFJF busca desenvolver projetos, capacitações e atividades acadêmicas que aproximem estudantes de aplicações práticas em telecomunicações, sistemas radiantes e tecnologias de conectividade.',
+      ],
+      en: [
+        'The IEEE Antennas and Propagation Society Student Branch Chapter at UFJF is dedicated to antennas, electromagnetic propagation, radio frequency, microwaves, and wireless communications.',
+        'Founded in 2026, AP-S UFJF aims to develop projects, training activities, and academic initiatives that bring students closer to practical applications in telecommunications, radiating systems, and connectivity technologies.',
+      ],
+    },
+    projects: { pt: [], en: [] },
+  },
+  comsoc: {
+    foundation: '2016',
+    email: 'ramo.ieeeufjf@gmail.com',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/',
+    body: {
+      pt: [
+        'O Capítulo Estudantil IEEE Communications Society UFJF atua na área de redes, telecomunicações, conectividade, protocolos e tecnologias que sustentam sistemas modernos de comunicação.',
+        'Fundado em 2016, o ComSoc UFJF incentiva o estudo e a aplicação de tecnologias de comunicação por meio de projetos, capacitações, discussões técnicas e integração entre estudantes interessados em infraestrutura digital.',
+      ],
+      en: [
+        'The IEEE Communications Society Student Branch Chapter at UFJF works with networks, telecommunications, connectivity, protocols, and technologies that support modern communication systems.',
+        'Founded in 2016, ComSoc UFJF encourages the study and application of communication technologies through projects, training, technical discussions, and integration among students interested in digital infrastructure.',
+      ],
+    },
+    projects: { pt: [], en: [] },
+  },
+  cas: {
+    foundation: '2016',
+    email: 'ramo.ieeeufjf@gmail.com',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/',
+    body: {
+      pt: [
+        'O Capítulo Estudantil IEEE Circuits and Systems Society UFJF é voltado ao estudo de circuitos, sistemas eletrônicos, processamento de sinais, integração de hardware e tecnologias de sistemas embarcados.',
+        'Fundado em 2016, o CAS UFJF promove atividades técnicas e projetos que conectam teoria e prática em eletrônica, automação, sistemas digitais e soluções de engenharia para problemas reais.',
+      ],
+      en: [
+        'The IEEE Circuits and Systems Society Student Branch Chapter at UFJF focuses on circuits, electronic systems, signal processing, hardware integration, and embedded systems technologies.',
+        'Founded in 2016, CAS UFJF promotes technical activities and projects that connect theory and practice in electronics, automation, digital systems, and engineering solutions for real problems.',
+      ],
+    },
+    projects: { pt: [], en: [] },
+  },
+  edsoc: {
+    foundation: '2025',
+    email: 'ramo.ieeeufjf@gmail.com',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/',
+    body: {
+      pt: [
+        'O Capítulo Estudantil IEEE Education Society UFJF é dedicado à educação em engenharia, aprendizagem, metodologias de ensino e iniciativas de capacitação técnica.',
+        'Fundado em 2025, o EdSoc UFJF trabalha para aproximar estudantes de práticas educacionais, desenvolvimento de materiais, ações em escolas e projetos que fortaleçam a formação técnica dentro e fora da universidade.',
+      ],
+      en: [
+        'The IEEE Education Society Student Branch Chapter at UFJF is dedicated to engineering education, learning, teaching methodologies, and technical training initiatives.',
+        'Founded in 2025, EdSoc UFJF connects students with educational practices, material development, school outreach, and projects that strengthen technical education inside and outside the university.',
+      ],
+    },
+    projects: { pt: [], en: [] },
+  },
   ras: {
     foundation: '2009',
     email: 'ieee.ras@engenharia.ufjf.br',
@@ -477,6 +557,22 @@ const chapterPages = {
         },
       ],
     },
+  },
+  vts: {
+    foundation: '2025',
+    email: 'ramo.ieeeufjf@gmail.com',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/',
+    body: {
+      pt: [
+        'O Capítulo Estudantil IEEE Vehicular Technology Society UFJF é dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas.',
+        'Fundado em 2025, o VTS UFJF aproxima o Ramo de projetos e discussões sobre engenharia veicular. Na UFJF, sua atuação se conecta à equipe RAMPAGE BAJA, fortalecendo a integração entre competição, projeto mecânico, eletrônica e inovação em mobilidade.',
+      ],
+      en: [
+        'The IEEE Vehicular Technology Society Student Branch Chapter at UFJF is dedicated to mobility, vehicular systems, intelligent transportation, vehicular communication, and automotive technologies.',
+        'Founded in 2025, VTS UFJF connects the Branch with projects and discussions in vehicular engineering. At UFJF, its work is connected to the RAMPAGE BAJA team, strengthening the integration between competition, mechanical design, electronics, and mobility innovation.',
+      ],
+    },
+    projects: { pt: [], en: [] },
   },
 };
 
@@ -807,7 +903,7 @@ const copy = {
       visit:
         'Para marcar uma visita ou conversar sobre uma parceria, entre em contato conosco por e-mail, redes sociais ou diretamente com os capítulos e grupos de afinidade.',
       emailLabel: 'E-mail',
-      emails: ['sb.ufjf@ieee.org', 'ieee@engenharia.ufjf.br'],
+      emails: ['ramo.ieeeufjf@gmail.com'],
       socialLabel: 'Redes sociais',
       mapLabel: 'Mapa do Ramo',
       mapTitle: 'Mapa do Ramo',
@@ -924,7 +1020,7 @@ const copy = {
       visit:
         'To schedule a visit or discuss a partnership, contact us by e-mail, social media, or directly through our chapters and affinity groups.',
       emailLabel: 'E-mail',
-      emails: ['sb.ufjf@ieee.org', 'ieee@engenharia.ufjf.br'],
+      emails: ['ramo.ieeeufjf@gmail.com'],
       socialLabel: 'Social media',
       mapLabel: 'Map of the IEEE UFJF Student Branch',
       mapTitle: 'Map of the IEEE UFJF Student Branch',
