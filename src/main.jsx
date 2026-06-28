@@ -185,6 +185,305 @@ const chapters = [
   },
 ];
 
+const chapterPages = {
+  ras: {
+    foundation: '2009',
+    email: 'ieee.ras@engenharia.ufjf.br',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/nucleos/capitulos/ras/',
+    body: {
+      pt: [
+        'O IEEE RAS UFJF é um capítulo técnico estudantil da área de robótica e automação. Filiado à IEEE Robotics and Automation Society, foi o primeiro capítulo estudantil da RAS no Brasil, fundado em 14 de maio de 2009.',
+        'O capítulo desenvolve projetos técnicos, educacionais e motivacionais na área da robótica e automação para a comunidade acadêmica e externa. Suas iniciativas educacionais incentivam jovens a ingressarem na Engenharia e no campo de Ciências Exatas, além de oferecer capacitações em ferramentas como LaTeX, MATLAB e programação.',
+      ],
+      en: [
+        'IEEE RAS UFJF is a student technical chapter focused on robotics and automation. Affiliated with the IEEE Robotics and Automation Society, it was the first RAS student chapter in Brazil, founded on May 14, 2009.',
+        'The chapter develops technical, educational, and motivational projects in robotics and automation for both the academic community and external audiences. Its educational initiatives encourage young people to pursue engineering and exact sciences, while also offering training in tools such as LaTeX, MATLAB, and programming.',
+      ],
+    },
+    projects: {
+      pt: [
+        {
+          title: 'Elevador Didático',
+          text: 'Réplica funcional voltada ao ensino de robótica, reunindo comunicação, programação e saídas de controle em uma estrutura inspirada em sistemas industriais.',
+        },
+        {
+          title: 'Lego NXT 2.0',
+          text: 'Montagens com diferentes funções para incentivar crianças a se interessarem por Engenharia em escolas e feiras de ciências.',
+        },
+        {
+          title: 'Braço Robótico',
+          text: 'Sistema com motores DC, Arduino UNO e comando via Bluetooth, usado em apresentações e atividades práticas.',
+        },
+        {
+          title: 'Seguidor de Linha',
+          text: 'Carro autônomo de alta performance com sensores de refletância, microcontrolador e motores, voltado ao cenário competitivo de robótica.',
+        },
+      ],
+      en: [
+        {
+          title: 'Educational Elevator',
+          text: 'A functional model for teaching robotics, combining communication, programming, and control outputs in a structure inspired by industrial systems.',
+        },
+        {
+          title: 'Lego NXT 2.0',
+          text: 'Different robotic assemblies used to encourage children to explore engineering in schools and science fairs.',
+        },
+        {
+          title: 'Robotic Arm',
+          text: 'A system using DC motors, an Arduino UNO, and Bluetooth control, used in demonstrations and practical activities.',
+        },
+        {
+          title: 'Line Follower',
+          text: 'A high-performance autonomous car with reflectance sensors, a microcontroller, and motors, aimed at robotics competitions.',
+        },
+      ],
+    },
+  },
+  ias: {
+    foundation: '2017',
+    email: 'ieee.ias@engenharia.ufjf.br',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/nucleos/capitulos/ias/',
+    body: {
+      pt: [
+        'O IEEE IAS UFJF é um capítulo técnico estudantil sobre aplicações industriais, fundado em 10 de junho de 2017 e filiado à IEEE Industry Applications Society.',
+        'O capítulo surgiu da demanda dos estudantes por maior contato com a área profissional, tornando-se um caminho de interação entre indústria e academia. Suas atividades envolvem aplicações da engenharia elétrica e eletrônica, com enfoque no desenvolvimento de dispositivos e sistemas de baixo custo para a indústria.',
+      ],
+      en: [
+        'IEEE IAS UFJF is a student technical chapter focused on industrial applications, founded on June 10, 2017 and affiliated with the IEEE Industry Applications Society.',
+        'The chapter emerged from students’ demand for closer contact with professional practice, becoming a bridge between industry and academia. Its activities involve electrical and electronic engineering applications, with emphasis on low-cost devices and systems for industrial contexts.',
+      ],
+    },
+    projects: {
+      pt: [
+        {
+          title: 'Aquecedor Solar de Baixo Custo',
+          text: 'Construção de um painel de captação solar para aquecer água de forma sustentável, usando materiais baratos e acessíveis.',
+        },
+        {
+          title: 'Visitas Técnicas',
+          text: 'Atividades de integração estudantil-profissional, aproximando membros de ambientes reais de trabalho e pesquisa.',
+        },
+        {
+          title: 'Organização de Eventos',
+          text: 'Participação na organização de eventos técnicos, como a COBEP, ampliando contato com empresas, investidores e pesquisadores.',
+        },
+      ],
+      en: [
+        {
+          title: 'Low-Cost Solar Heater',
+          text: 'Construction of a solar collection panel to heat water sustainably with affordable and accessible materials.',
+        },
+        {
+          title: 'Technical Visits',
+          text: 'Student-professional integration activities that bring members closer to real work and research environments.',
+        },
+        {
+          title: 'Event Organization',
+          text: 'Participation in technical events such as COBEP, expanding contact with companies, investors, and researchers.',
+        },
+      ],
+    },
+  },
+  pes: {
+    foundation: '2002',
+    email: 'ieeepes.ufjf@gmail.com',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/pes/',
+    body: {
+      pt: [
+        'O IEEE PES UFJF é um capítulo técnico estudantil na área de potência e energia. Fundado em 1º de agosto de 2002, foi o primeiro capítulo estudantil IEEE do Brasil e é filiado à IEEE Power & Energy Society.',
+        'Seu objetivo é disseminar conhecimento científico em potência e energia, desenvolvendo habilidades em planejamento, construção, instalação, pesquisa e operação de equipamentos e sistemas. O capítulo atua em temas como geração, transmissão, distribuição e fontes renováveis de energia elétrica.',
+      ],
+      en: [
+        'IEEE PES UFJF is a student technical chapter focused on power and energy. Founded on August 1, 2002, it was the first IEEE student chapter in Brazil and is affiliated with the IEEE Power & Energy Society.',
+        'Its goal is to disseminate scientific knowledge in power and energy, developing skills in planning, construction, installation, research, and operation of equipment and systems. The chapter works with generation, transmission, distribution, and renewable energy sources.',
+      ],
+    },
+    projects: {
+      pt: [
+        {
+          title: 'Ação Solidária de Conserto de Equipamentos',
+          text: 'Ação de reparo de eletrodomésticos e eletroeletrônicos para famílias atingidas por chuvas em Juiz de Fora, em parceria com a TPF Soluções.',
+        },
+        {
+          title: 'Projeto Biodigestor',
+          text: 'Pesquisa e desenvolvimento de biodigestor em parceria com o IEEE SIGHT UFJF, a partir de resultados no Desafio Biomassa.',
+        },
+        {
+          title: 'Projeto RES',
+          text: 'Iniciativa para divulgar fontes renováveis de energia a estudantes do ensino básico e públicos leigos, usando kits didáticos de energia solar, eólica e eletrólise.',
+        },
+        {
+          title: 'Smart City',
+          text: 'Maquete de cidade inteligente movida por fontes renováveis, usada para estudar distribuição e proporções entre fontes renováveis e não renováveis.',
+        },
+      ],
+      en: [
+        {
+          title: 'Solidary Equipment Repair Action',
+          text: 'Repair action for home appliances and electronics from families affected by heavy rains in Juiz de Fora, in partnership with TPF Soluções.',
+        },
+        {
+          title: 'Biodigester Project',
+          text: 'Research and development of a biodigester in partnership with IEEE SIGHT UFJF, following results from the Biomass Challenge.',
+        },
+        {
+          title: 'RES Project',
+          text: 'Initiative to present renewable energy sources to basic education students and general audiences using educational kits for solar, wind, and electrolysis concepts.',
+        },
+        {
+          title: 'Smart City',
+          text: 'A smart city model powered by renewable sources, used to study distribution systems and the balance between renewable and non-renewable sources.',
+        },
+      ],
+    },
+  },
+  cs: {
+    foundation: '2026',
+    email: 'ieee.csufjf@gmail.com',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/cs/',
+    body: {
+      pt: [
+        'O IEEE Computer Society Student Branch Chapter da Universidade Federal de Juiz de Fora, fundado em 25 de março de 2026, é dedicado à promoção da excelência acadêmica e profissional na área de computação.',
+        'O capítulo tem como missão disseminar conhecimento científico e tecnológico, estimulando competências em planejamento, projeto, desenvolvimento, implementação e operação de sistemas computacionais, além de pesquisa aplicada e inovação tecnológica.',
+        'Por meio de projetos técnicos, atividades acadêmicas e iniciativas colaborativas, o capítulo busca formar profissionais preparados para desafios contemporâneos em engenharia de software, sistemas embarcados, redes de computadores e tecnologias emergentes.',
+      ],
+      en: [
+        'The IEEE Computer Society Student Branch Chapter at the Federal University of Juiz de Fora, founded on March 25, 2026, is dedicated to promoting academic and professional excellence in computing.',
+        'The chapter’s mission is to disseminate scientific and technological knowledge, encouraging skills in planning, design, development, implementation, and operation of computing systems, as well as applied research and technological innovation.',
+        'Through technical projects, academic activities, and collaborative initiatives, the chapter aims to prepare professionals for contemporary challenges in software engineering, embedded systems, computer networks, and emerging technologies.',
+      ],
+    },
+    projects: {
+      pt: [
+        {
+          title: 'Projetos de software',
+          text: 'Desenvolvimento de sistemas e ferramentas digitais para o Ramo e para a comunidade acadêmica.',
+        },
+        {
+          title: 'Pesquisa aplicada',
+          text: 'Iniciativas em tecnologias emergentes, engenharia de software, sistemas embarcados e redes de computadores.',
+        },
+      ],
+      en: [
+        {
+          title: 'Software projects',
+          text: 'Development of systems and digital tools for the Branch and the academic community.',
+        },
+        {
+          title: 'Applied research',
+          text: 'Initiatives in emerging technologies, software engineering, embedded systems, and computer networks.',
+        },
+      ],
+    },
+  },
+  wie: {
+    foundation: '2005',
+    email: 'ieee.wieufjf@gmail.com',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/nucleos/grupos/wie/',
+    body: {
+      pt: [
+        'O IEEE WIE UFJF é um grupo de afinidade estudantil filiado ao IEEE Women in Engineering. Suas atividades começaram em 2004 e sua fundação oficial ocorreu em 2 de dezembro de 2005, sendo o primeiro grupo IEEE WIE brasileiro.',
+        'O grupo tem como missão promover e manter mulheres nas áreas de Ciências e Engenharias, inspirando futuras profissionais a seguirem seus interesses acadêmicos. Em parceria com capítulos do Ramo e segmentos estudantis da UFJF, desenvolve projetos humanitários, educativos e de incentivo para Juiz de Fora e região.',
+      ],
+      en: [
+        'IEEE WIE UFJF is a student affinity group affiliated with IEEE Women in Engineering. Its activities began in 2004 and it was officially founded on December 2, 2005, becoming the first IEEE WIE group in Brazil.',
+        'The group’s mission is to promote and retain women in science and engineering, inspiring future professionals to pursue their academic interests. In partnership with Branch chapters and UFJF student groups, it develops humanitarian, educational, and motivational projects for Juiz de Fora and the region.',
+      ],
+    },
+    projects: {
+      pt: [
+        {
+          title: 'Circuito Científico',
+          text: 'Laboratório de ciências acessível, em parceria com o IEEE SIGHT UFJF, que estimula estudantes da educação básica a se interessarem por exatas.',
+        },
+        {
+          title: 'De Engenheira para Futura Engenheira',
+          text: 'Divulgação de histórias de mulheres graduandas e graduadas em Engenharia, mostrando trajetórias, obstáculos e possibilidades de carreira.',
+        },
+        {
+          title: 'Motiva WIE',
+          text: 'Eventos, palestras, treinamentos e intervenções de incentivo para meninas e meninos da engenharia.',
+        },
+        {
+          title: 'Mutirão Tecnológico',
+          text: 'Ações voltadas a mulheres em vulnerabilidade social, levando conhecimento técnico diretamente à sociedade.',
+        },
+      ],
+      en: [
+        {
+          title: 'Science Circuit',
+          text: 'An accessible science lab, in partnership with IEEE SIGHT UFJF, that encourages basic education students to explore STEM fields.',
+        },
+        {
+          title: 'From Engineer to Future Engineer',
+          text: 'Sharing stories from undergraduate and graduated women in Engineering, highlighting paths, challenges, and career possibilities.',
+        },
+        {
+          title: 'Motiva WIE',
+          text: 'Events, lectures, training sessions, and interventions designed to motivate engineering students.',
+        },
+        {
+          title: 'Technology Task Force',
+          text: 'Actions aimed at women in vulnerable contexts, bringing technical knowledge directly to society.',
+        },
+      ],
+    },
+  },
+  sight: {
+    foundation: '2018',
+    email: 'ieee.sight@engenharia.ufjf.br',
+    oldSiteUrl: 'https://edu.ieee.org/br-ufjf/nucleos/grupos/sight/',
+    body: {
+      pt: [
+        'O IEEE SIGHT UFJF é um grupo de afinidade estudantil voltado a ações sociais e projetos técnicos de cunho humanitário e sustentável. Criado em 2016, teve sua fundação oficial perante o IEEE SIGHT em 18 de dezembro de 2018.',
+        'Seu objetivo é colocar estudantes de graduação em contato com a população e suas carências, usando o conhecimento desenvolvido na universidade para gerar impacto social. O grupo valoriza empatia, solidariedade, trabalho em equipe, comprometimento e orgulho de ser IEEE SIGHT.',
+      ],
+      en: [
+        'IEEE SIGHT UFJF is a student affinity group focused on social actions and technical projects with humanitarian and sustainable impact. Created in 2016, it was officially founded within IEEE SIGHT on December 18, 2018.',
+        'Its goal is to connect undergraduate students with communities and their needs, using university knowledge to generate social impact. The group values empathy, solidarity, teamwork, commitment, and pride in being IEEE SIGHT.',
+      ],
+    },
+    projects: {
+      pt: [
+        {
+          title: 'Projeto HumanizAÇÃO',
+          text: 'Iniciativa em comunidades vulneráveis com frentes de civil, elétrica, conscientização ambiental, atividades para crianças e rodas de conversa com adolescentes.',
+        },
+        {
+          title: 'Domótica',
+          text: 'Projeto em parceria com a CAS para desenvolver aplicações de automação residencial voltadas à autonomia de pessoas com limitações físicas.',
+        },
+        {
+          title: 'MATLAB',
+          text: 'Capacitação de membros para ministrar minicursos e apoiar alunos de graduação no domínio da ferramenta.',
+        },
+        {
+          title: 'Campanhas Sociais',
+          text: 'Campanhas como Doe Futuros e Campanha do Agasalho, arrecadando materiais escolares e roupas para pessoas em vulnerabilidade.',
+        },
+      ],
+      en: [
+        {
+          title: 'HumanizAÇÃO Project',
+          text: 'Initiative in vulnerable communities with civil, electrical, environmental awareness, children’s activities, and conversation circles with teenagers.',
+        },
+        {
+          title: 'Home Automation',
+          text: 'Project in partnership with CAS to develop residential automation applications focused on autonomy for people with physical limitations.',
+        },
+        {
+          title: 'MATLAB',
+          text: 'Training members to teach short courses and support undergraduate students in using the tool.',
+        },
+        {
+          title: 'Social Campaigns',
+          text: 'Campaigns such as Doe Futuros and the Winter Clothing Campaign, collecting school supplies and clothes for vulnerable communities.',
+        },
+      ],
+    },
+  },
+};
+
 const boardMembers = [
   {
     role: {
@@ -444,6 +743,7 @@ const copy = {
       board: 'Diretoria',
       projects: 'Projetos',
       members: 'Membros',
+      location: 'Localização',
       contact: 'Contato',
       enableDark: 'Ativar modo escuro',
       disableDark: 'Desativar modo escuro',
@@ -455,8 +755,23 @@ const copy = {
       title: 'Advancing Technology for Humanity',
       logoAlt: 'Logo IEEE',
       paragraphs: [
-        'Fundado em 1963, o Instituto de Engenheiros Eletricistas e Eletrônicos é a maior organização profissional do mundo dedicada ao avanço da tecnologia em benefício da humanidade. Com origens no final do século XIX, o IEEE atualmente tem cerca de 500 mil membros ativos, divididos em 349 seções, que estão espalhadas por 10 regiões.',
-        'Na Universidade Federal de Juiz de Fora, o IEEE tem presença forte desde a década de 1980, com Ramo Estudantil formado em 1991. Atualmente, o Ramo tem 10 capítulos técnicos ativos, além dos grupos de afinidade WIE (Women in Engineering) e SIGHT (Special Interest Group in Humanitarian Technology).',
+        'O IEEE é uma organização sem fins lucrativos presente em mais de 160 países, com centenas de milhares de membros e atuação global na inovação tecnológica e na excelência profissional em benefício da humanidade.',
+        'Na Universidade Federal de Juiz de Fora, o Ramo Estudantil IEEE reúne estudantes e docentes em projetos técnicos, educacionais e sociais, difundindo os benefícios do IEEE para a vida acadêmica e profissional.',
+        'Nossas atividades conectam capítulos técnicos, grupos de afinidade, eventos, ações sociais, cursos, competições e parcerias internas e externas para transformar conhecimento em impacto.',
+      ],
+      highlights: [
+        {
+          label: 'Missão',
+          text: 'Promover conhecimento prático e teórico para transformar estudantes da UFJF em profissionais qualificados por meio de projetos e cursos.',
+        },
+        {
+          label: 'Visão',
+          text: 'Ser uma organização estudantil de referência e grande importância para o desenvolvimento acadêmico dentro da UFJF.',
+        },
+        {
+          label: 'Valores',
+          text: 'Trabalho em equipe, união, desenvolvimento humano, criatividade, proatividade, inovação e orgulho de ser IEEE.',
+        },
       ],
     },
     chapters: {
@@ -480,6 +795,8 @@ const copy = {
       eyebrow: 'Projetos',
       title: 'Nossos projetos',
       open: (name) => `Abrir projeto ${name}`,
+      openDetails: (name) => `Abrir detalhes de ${name}`,
+      close: 'Fechar detalhes do projeto',
       previewAlt: (name) => `Preview do projeto ${name}`,
     },
     members: {
@@ -548,8 +865,15 @@ const copy = {
     contact: {
       eyebrow: 'Contato',
       title: 'Fale com o Ramo',
+      description:
+        'É importante que o Ramo Estudantil IEEE UFJF esteja em contato com a comunidade, seja para novos projetos, parcerias, oportunidades, dúvidas ou sugestões sobre o IEEE e nossas atividades.',
       locationLabel: 'Nossa localização',
-      location: 'Faculdade de Engenharia - Universidade Federal de Juiz de Fora',
+      location: 'Segundo andar da Faculdade de Engenharia da Universidade Federal de Juiz de Fora.',
+      visit:
+        'Para marcar uma visita ou conversar sobre uma parceria, entre em contato conosco por e-mail, redes sociais ou diretamente com os capítulos e grupos de afinidade.',
+      emailLabel: 'E-mail',
+      emails: ['sb.ufjf@ieee.org', 'ieee@engenharia.ufjf.br'],
+      socialLabel: 'Redes sociais',
       mapLabel: 'Mapa do Ramo Estudantil IEEE UFJF',
       mapTitle: 'Mapa do Ramo Estudantil IEEE UFJF',
     },
@@ -573,6 +897,7 @@ const copy = {
       board: 'Board',
       projects: 'Projects',
       members: 'Members',
+      location: 'Location',
       contact: 'Contact',
       enableDark: 'Enable dark mode',
       disableDark: 'Disable dark mode',
@@ -584,8 +909,23 @@ const copy = {
       title: 'Advancing Technology for Humanity',
       logoAlt: 'IEEE logo',
       paragraphs: [
-        'Founded in 1963, the Institute of Electrical and Electronics Engineers is the world’s largest professional organization dedicated to advancing technology for humanity. With origins in the late 19th century, IEEE currently has around 500,000 active members across 349 sections in 10 regions.',
-        'At the Federal University of Juiz de Fora, IEEE has had a strong presence since the 1980s, with its Student Branch founded in 1991. Today, the Branch has 10 active technical chapters, in addition to the WIE (Women in Engineering) and SIGHT (Special Interest Group in Humanitarian Technology) affinity groups.',
+        'IEEE is a nonprofit organization present in more than 160 countries, with hundreds of thousands of members and global work in technological innovation and professional excellence for the benefit of humanity.',
+        'At the Federal University of Juiz de Fora, the IEEE Student Branch brings together students and faculty in technical, educational, and social projects, spreading the benefits of IEEE throughout academic and professional life.',
+        'Our activities connect technical chapters, affinity groups, events, social actions, courses, competitions, and internal and external partnerships to turn knowledge into impact.',
+      ],
+      highlights: [
+        {
+          label: 'Mission',
+          text: 'Promote practical and theoretical knowledge to help UFJF students become qualified professionals through projects and courses.',
+        },
+        {
+          label: 'Vision',
+          text: 'Be a reference student organization with strong importance for academic development within UFJF.',
+        },
+        {
+          label: 'Values',
+          text: 'Teamwork, unity, human development, creativity, proactivity, innovation, and pride in being IEEE.',
+        },
       ],
     },
     chapters: {
@@ -609,6 +949,8 @@ const copy = {
       eyebrow: 'Projects',
       title: 'Our projects',
       open: (name) => `Open ${name} project`,
+      openDetails: (name) => `Open details for ${name}`,
+      close: 'Close project details',
       previewAlt: (name) => `${name} project preview`,
     },
     members: {
@@ -677,8 +1019,15 @@ const copy = {
     contact: {
       eyebrow: 'Contact',
       title: 'Talk to the Branch',
+      description:
+        'The IEEE UFJF Student Branch values close contact with the community, whether for new projects, partnerships, opportunities, questions, or suggestions about IEEE and our activities.',
       locationLabel: 'Our location',
-      location: 'School of Engineering - Federal University of Juiz de Fora',
+      location: 'Second floor of the School of Engineering at the Federal University of Juiz de Fora.',
+      visit:
+        'To schedule a visit or discuss a partnership, contact us by e-mail, social media, or directly through our chapters and affinity groups.',
+      emailLabel: 'E-mail',
+      emails: ['sb.ufjf@ieee.org', 'ieee@engenharia.ufjf.br'],
+      socialLabel: 'Social media',
       mapLabel: 'Map of the IEEE UFJF Student Branch',
       mapTitle: 'Map of the IEEE UFJF Student Branch',
     },
@@ -691,6 +1040,8 @@ const mapsEmbedUrl =
 function App() {
   const [selectedChapterId, setSelectedChapterId] = useState(null);
   const [selectedMemberId, setSelectedMemberId] = useState(null);
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedProjectSlideIndex, setSelectedProjectSlideIndex] = useState(0);
   const [currentPath, setCurrentPath] = useState(() => {
     if (typeof window === 'undefined') {
       return '/';
@@ -716,6 +1067,7 @@ function App() {
   });
   const chapterDetailRef = useRef(null);
   const memberDetailRef = useRef(null);
+  const projectDetailRef = useRef(null);
   const selectedChapter = useMemo(
     () => chapters.find((chapter) => chapter.id === selectedChapterId),
     [selectedChapterId],
@@ -723,6 +1075,10 @@ function App() {
   const selectedMember = useMemo(
     () => publishedMembers.find((member) => member.id === selectedMemberId),
     [publishedMembers, selectedMemberId],
+  );
+  const selectedProject = useMemo(
+    () => publishedProjects.find((project) => project.id === selectedProjectId),
+    [publishedProjects, selectedProjectId],
   );
   const selectedChapterPresidentMember = useMemo(
     () => findPublishedMemberByName(publishedMembers, selectedChapter?.president?.nome),
@@ -745,6 +1101,19 @@ function App() {
     [publishedMembers],
   );
   const t = copy[language];
+  const selectedProjectPreviewSrc = selectedProject
+    ? (isDarkMode && selectedProject.previewDark ? selectedProject.previewDark : selectedProject.preview) ||
+      '/assets/ramo-ieee-ufjf-blue.svg'
+    : '';
+  const selectedProjectGallery = useMemo(
+    () =>
+      selectedProject
+        ? getUniqueUrls([...(selectedProject.galleryImages || []), selectedProjectPreviewSrc])
+        : [],
+    [selectedProject, selectedProjectPreviewSrc],
+  );
+  const selectedProjectSlide =
+    selectedProjectGallery[selectedProjectSlideIndex] || selectedProjectPreviewSrc;
 
   useEffect(() => {
     if (!selectedChapter || !chapterDetailRef.current) {
@@ -773,10 +1142,45 @@ function App() {
   }, [selectedMember]);
 
   useEffect(() => {
+    if (!selectedProject || !projectDetailRef.current) {
+      return undefined;
+    }
+
+    const focusTimer = window.setTimeout(() => {
+      projectDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      projectDetailRef.current?.focus({ preventScroll: true });
+    }, 80);
+
+    return () => window.clearTimeout(focusTimer);
+  }, [selectedProject]);
+
+  useEffect(() => {
+    setSelectedProjectSlideIndex(0);
+  }, [selectedProjectId]);
+
+  useEffect(() => {
+    if (selectedProjectGallery.length <= 1) {
+      return undefined;
+    }
+
+    const slideTimer = window.setInterval(() => {
+      setSelectedProjectSlideIndex((currentIndex) => (currentIndex + 1) % selectedProjectGallery.length);
+    }, 4500);
+
+    return () => window.clearInterval(slideTimer);
+  }, [selectedProjectGallery.length]);
+
+  useEffect(() => {
     if (selectedMemberId && !selectedMember) {
       setSelectedMemberId(null);
     }
   }, [selectedMember, selectedMemberId]);
+
+  useEffect(() => {
+    if (selectedProjectId && !selectedProject) {
+      setSelectedProjectId(null);
+    }
+  }, [selectedProject, selectedProjectId]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = isDarkMode ? 'dark' : 'light';
@@ -883,6 +1287,27 @@ function App() {
     );
   }
 
+  const chapterPageMatch = currentPath.match(/^\/capitulos\/([^/]+)\/?$/);
+  const chapterPageId = chapterPageMatch?.[1];
+  const chapterPage = chapterPageId ? chapterPages[chapterPageId] : null;
+  const chapterForPage = chapterPageId
+    ? chapters.find((chapter) => chapter.id === chapterPageId)
+    : null;
+
+  if (chapterPageMatch) {
+    return (
+      <ChapterPage
+        chapter={chapterForPage}
+        chapterPage={chapterPage}
+        isDarkMode={isDarkMode}
+        language={language}
+        setIsDarkMode={setIsDarkMode}
+        setLanguage={setLanguage}
+        t={t}
+      />
+    );
+  }
+
   return (
     <main>
       <section className="hero" id="topo" aria-label={t.hero.aria}>
@@ -928,6 +1353,7 @@ function App() {
             <a href="#projetos">{t.nav.projects}</a>
             <a href="#membros">{t.nav.members}</a>
             <a href="#contato">{t.nav.contact}</a>
+            <a href="#localizacao">{t.nav.location}</a>
           </div>
           <div className="mini-nav__actions">
             <button
@@ -973,6 +1399,14 @@ function App() {
           <div className="about-ieee__copy">
             {t.about.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+          <div className="about-ieee__highlights" aria-label={t.about.eyebrow}>
+            {t.about.highlights.map((highlight) => (
+              <article className="about-ieee__highlight" key={highlight.label}>
+                <span>{highlight.label}</span>
+                <strong>{highlight.text}</strong>
+              </article>
             ))}
           </div>
         </div>
@@ -1071,6 +1505,12 @@ function App() {
                       comingSoon={t.chapters.comingSoon}
                     />
                   )}
+                  {chapterPages[selectedChapter.id] ? (
+                    <a className="chapter-link" href={`/capitulos/${selectedChapter.id}`}>
+                      <ExternalLink aria-hidden="true" size={18} />
+                      <span>{language === 'pt' ? 'Ver página' : 'Open page'}</span>
+                    </a>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -1159,17 +1599,25 @@ function App() {
         <div className="projects-grid">
           {publishedProjects.map(({ id, name, chapter, url, description, preview, previewDark }) => {
             const previewSrc = (isDarkMode && previewDark ? previewDark : preview) || '/assets/ramo-ieee-ufjf-blue.svg';
-            const ProjectCardTag = url ? 'a' : 'article';
-            const linkProps = url
+            const hasUrl = Boolean(url);
+            const ProjectCardTag = hasUrl ? 'a' : 'button';
+            const cardProps = hasUrl
               ? { href: url, rel: 'noreferrer', target: '_blank' }
-              : {};
+              : {
+                  type: 'button',
+                  onClick: () => setSelectedProjectId(id),
+                  'aria-controls': 'project-detail',
+                  'aria-expanded': selectedProjectId === id,
+                };
 
             return (
               <ProjectCardTag
-                className={`project-card project-card--${id}`}
+                className={`project-card project-card--${id} ${
+                  hasUrl ? '' : 'project-card--button'
+                } ${selectedProjectId === id ? 'project-card--active' : ''}`}
                 key={id}
-                aria-label={t.projects.open(name)}
-                {...linkProps}
+                aria-label={hasUrl ? t.projects.open(name) : t.projects.openDetails(name)}
+                {...cardProps}
               >
                 <div className="project-card__preview">
                   <img
@@ -1185,11 +1633,77 @@ function App() {
                   <strong>{name}</strong>
                   <p>{description[language]}</p>
                 </div>
-                {url ? <ExternalLink className="project-card__icon" aria-hidden="true" size={20} /> : null}
+                {hasUrl ? <ExternalLink className="project-card__icon" aria-hidden="true" size={20} /> : null}
               </ProjectCardTag>
             );
           })}
         </div>
+
+        {selectedProject && (
+          <article
+            className="chapter-detail project-detail"
+            id="project-detail"
+            ref={projectDetailRef}
+            tabIndex={-1}
+            aria-labelledby="project-detail-title"
+            aria-live="polite"
+          >
+            <button
+              className="chapter-detail__close"
+              type="button"
+              onClick={() => setSelectedProjectId(null)}
+              aria-label={t.projects.close}
+            >
+              <X size={20} aria-hidden="true" />
+            </button>
+
+            <div className="chapter-detail__main project-detail__main">
+              <div className="project-detail__image-wrap">
+                <img
+                  className="project-detail__image"
+                  src={selectedProjectSlide}
+                  alt={t.projects.previewAlt(selectedProject.name)}
+                  loading="lazy"
+                  decoding="async"
+                />
+                {selectedProjectGallery.length > 1 ? (
+                  <div className="project-detail__slides" aria-label="Fotos do projeto">
+                    {selectedProjectGallery.map((slide, index) => (
+                      <button
+                        className={`project-detail__dot ${
+                          selectedProjectSlideIndex === index ? 'project-detail__dot--active' : ''
+                        }`}
+                        key={slide}
+                        type="button"
+                        onClick={() => setSelectedProjectSlideIndex(index)}
+                        aria-label={`Foto ${index + 1}`}
+                        aria-pressed={selectedProjectSlideIndex === index}
+                      />
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+              <div className="chapter-detail__copy project-detail__copy">
+                <span>{selectedProject.chapter}</span>
+                <h3 id="project-detail-title">{selectedProject.name}</h3>
+                <p>{selectedProject.description[language]}</p>
+                {selectedProject.driveFolderUrl ? (
+                  <div className="chapter-detail__links">
+                    <a
+                      className="chapter-link"
+                      href={selectedProject.driveFolderUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <ExternalLink aria-hidden="true" size={18} />
+                      {language === 'en' ? 'Open photo folder' : 'Abrir pasta de fotos'}
+                    </a>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </article>
+        )}
       </section>
 
       <section className="members" id="membros" aria-labelledby="membros-title">
@@ -1287,19 +1801,44 @@ function App() {
 
         <div className="contact__layout">
           <div className="contact__copy">
-            <span>{t.contact.locationLabel}</span>
-            <h2>{t.contact.location}</h2>
-            <a
-              className="contact__instagram"
-              href="https://instagram.com/ieeeufjf"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Instagram aria-hidden="true" size={18} />
-              @ieeeufjf
-            </a>
-          </div>
+            <p>{t.contact.description}</p>
 
+            <div className="contact__info-grid">
+              <article className="contact__info-card">
+                <span>{t.contact.emailLabel}</span>
+                <div className="contact__links">
+                  {t.contact.emails.map((email) => (
+                    <a key={email} href={`mailto:${email}`}>
+                      {email}
+                    </a>
+                  ))}
+                </div>
+              </article>
+
+              <article className="contact__info-card">
+                <span>{t.contact.socialLabel}</span>
+                <div className="contact__links">
+                  <a href="https://instagram.com/ieeeufjf" target="_blank" rel="noreferrer">
+                    <Instagram aria-hidden="true" size={18} />
+                    @ieeeufjf
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="location" id="localizacao" aria-labelledby="localizacao-title">
+        <div className="section-heading">
+          <span>{t.contact.locationLabel}</span>
+          <h2 id="localizacao-title">{t.contact.location}</h2>
+        </div>
+
+        <div className="location__layout">
+          <article className="location__copy">
+            <p>{t.contact.visit}</p>
+          </article>
           <div className="contact__map" aria-label={t.contact.mapLabel}>
             <iframe
               src={mapsEmbedUrl}
@@ -1315,6 +1854,173 @@ function App() {
         </div>
       </section>
     </main>
+  );
+}
+
+function ChapterPage({
+  chapter,
+  chapterPage,
+  isDarkMode,
+  language,
+  setIsDarkMode,
+  setLanguage,
+  t,
+}) {
+  if (!chapter || !chapterPage) {
+    return (
+      <main className="chapter-page">
+        <SiteNav
+          isDarkMode={isDarkMode}
+          language={language}
+          setIsDarkMode={setIsDarkMode}
+          setLanguage={setLanguage}
+          t={t}
+        />
+        <section className="chapter-page__hero">
+          <p className="section-kicker">{language === 'pt' ? 'Capítulo' : 'Chapter'}</p>
+          <h1>{language === 'pt' ? 'Página não encontrada' : 'Page not found'}</h1>
+          <a className="chapter-page__back" href="/#capitulos">
+            <ArrowLeft aria-hidden="true" size={18} />
+            {language === 'pt' ? 'Voltar aos capítulos' : 'Back to chapters'}
+          </a>
+        </section>
+      </main>
+    );
+  }
+
+  const logoSrc = isDarkMode && chapter.darkLogo ? chapter.darkLogo : chapter.logo;
+  const presidentLabel = getLocalizedText(
+    chapter.president.label,
+    language,
+    t.chapters.presidentFallback,
+  );
+
+  return (
+    <main className="chapter-page">
+      <SiteNav
+        isDarkMode={isDarkMode}
+        language={language}
+        setIsDarkMode={setIsDarkMode}
+        setLanguage={setLanguage}
+        t={t}
+      />
+
+      <section className="chapter-page__hero">
+        <a className="chapter-page__back" href="/#capitulos">
+          <ArrowLeft aria-hidden="true" size={18} />
+          {language === 'pt' ? 'Voltar aos capítulos' : 'Back to chapters'}
+        </a>
+
+        <div className="chapter-page__hero-grid">
+          <div>
+            <p className="section-kicker">{chapter.sigla}</p>
+            <h1>{chapter.nome}</h1>
+            <p>{chapter.descricao[language]}</p>
+          </div>
+
+          <div className="chapter-page__logo-card">
+            {logoSrc ? (
+              <img
+                src={logoSrc}
+                alt={t.chapters.logoAlt(chapter.nome)}
+                loading="eager"
+                decoding="async"
+              />
+            ) : (
+              <span>{chapter.sigla}</span>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="chapter-page__section">
+        <div className="chapter-page__copy">
+          {chapterPage.body[language].map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+
+        <aside className="chapter-page__facts" aria-label={language === 'pt' ? 'Dados do capítulo' : 'Chapter facts'}>
+          <div>
+            <span>{language === 'pt' ? 'Fundação' : 'Founded'}</span>
+            <strong>{chapterPage.foundation}</strong>
+          </div>
+          <div>
+            <span>{language === 'pt' ? 'Contato' : 'Contact'}</span>
+            <a href={`mailto:${chapterPage.email}`}>{chapterPage.email}</a>
+          </div>
+          <div>
+            <span>{presidentLabel}</span>
+            <strong>{chapter.president.nome}</strong>
+          </div>
+        </aside>
+      </section>
+
+      <section className="chapter-page__section chapter-page__section--stack">
+        <div className="section-heading">
+          <span>{language === 'pt' ? 'Atuação' : 'Work'}</span>
+          <h2>{language === 'pt' ? 'Projetos e iniciativas' : 'Projects and initiatives'}</h2>
+        </div>
+
+        <div className="chapter-page__project-grid">
+          {chapterPage.projects[language].map((project) => (
+            <article className="chapter-page__project" key={project.title}>
+              <span>{chapter.sigla}</span>
+              <h3>{project.title}</h3>
+              <p>{project.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+    </main>
+  );
+}
+
+function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
+  return (
+    <nav className="mini-nav mini-nav--page" aria-label={t.nav.aria}>
+      <a className="mini-nav__brand" href="/" aria-label={t.nav.top}>
+        <span className="mini-nav__mark" aria-hidden="true" />
+        <span className="mini-nav__brand-text">
+          <strong>{t.hero.universityDesktop}</strong>
+          <span>{t.hero.branch}</span>
+        </span>
+      </a>
+      <div className="mini-nav__menu">
+        <div className="mini-nav__links">
+          <a href="/#o-ieee">{t.nav.about}</a>
+          <a href="/#capitulos">{t.nav.chapters}</a>
+          <a href="/#diretoria">{t.nav.board}</a>
+          <a href="/#projetos">{t.nav.projects}</a>
+          <a href="/#membros">{t.nav.members}</a>
+          <a href="/#contato">{t.nav.contact}</a>
+          <a href="/#localizacao">{t.nav.location}</a>
+        </div>
+        <div className="mini-nav__actions">
+          <button
+            className="mini-nav__language"
+            type="button"
+            onClick={() =>
+              setLanguage((currentLanguage) => (currentLanguage === 'pt' ? 'en' : 'pt'))
+            }
+            aria-label={t.nav.languageLabel}
+          >
+            <Languages aria-hidden="true" size={17} />
+            <span>{t.nav.languageButton}</span>
+          </button>
+          <button
+            className="mini-nav__theme"
+            type="button"
+            onClick={() => setIsDarkMode((currentTheme) => !currentTheme)}
+            aria-label={isDarkMode ? t.nav.disableDark : t.nav.enableDark}
+            aria-pressed={isDarkMode}
+          >
+            <Moon aria-hidden="true" size={18} />
+          </button>
+        </div>
+      </div>
+    </nav>
   );
 }
 
@@ -2116,6 +2822,28 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
               />
             </label>
             <label className="admin-member-form__span">
+              <span>{language === 'en' ? 'Google Drive photo folder' : 'Pasta do Google Drive com fotos'}</span>
+              <input
+                value={projectForm.driveFolderUrl}
+                onChange={(event) => updateProjectForm('driveFolderUrl', event.target.value)}
+                disabled={!canManage}
+                placeholder="https://drive.google.com/drive/folders/..."
+              />
+            </label>
+            <label className="admin-member-form__span">
+              <span>{language === 'en' ? 'Slideshow photo URLs' : 'URLs das fotos do slideshow'}</span>
+              <textarea
+                value={projectForm.galleryImagesText}
+                onChange={(event) => updateProjectForm('galleryImagesText', event.target.value)}
+                disabled={!canManage}
+                placeholder={
+                  language === 'en'
+                    ? 'Paste one public Google Drive image link per line.'
+                    : 'Cole um link publico do Google Drive por linha.'
+                }
+              />
+            </label>
+            <label className="admin-member-form__span">
               <span>{language === 'en' ? 'Click link' : 'Link ao clicar'}</span>
               <input
                 value={projectForm.linkUrl}
@@ -2269,6 +2997,28 @@ function getGoogleDriveFileId(value) {
   }
 }
 
+function getGoogleDriveFolderId(value) {
+  try {
+    const url = new URL(value);
+    const host = url.hostname.toLowerCase();
+    const isGoogleDriveUrl = ['drive.google.com', 'drive.usercontent.google.com'].includes(host);
+
+    if (!isGoogleDriveUrl) {
+      return '';
+    }
+
+    const queryId = url.searchParams.get('id')?.trim();
+    if (queryId) {
+      return queryId;
+    }
+
+    const folderMatch = url.pathname.match(/\/folders\/([^/]+)/);
+    return folderMatch?.[1] ? decodeURIComponent(folderMatch[1]).trim() : '';
+  } catch {
+    return '';
+  }
+}
+
 function normalizeImageUrl(value) {
   const cleanValue = String(value || '').trim();
   if (!cleanValue) {
@@ -2281,6 +3031,54 @@ function normalizeImageUrl(value) {
   }
 
   return cleanValue;
+}
+
+function normalizeDriveFolderUrl(value) {
+  const cleanValue = String(value || '').trim();
+  if (!cleanValue) {
+    return '';
+  }
+
+  const googleDriveFolderId = getGoogleDriveFolderId(cleanValue);
+  if (googleDriveFolderId) {
+    return `https://drive.google.com/drive/folders/${encodeURIComponent(googleDriveFolderId)}`;
+  }
+
+  try {
+    const url = new URL(cleanValue);
+    const isDriveHost = ['drive.google.com', 'drive.usercontent.google.com'].includes(
+      url.hostname.toLowerCase(),
+    );
+    return isDriveHost && ['http:', 'https:'].includes(url.protocol) ? url.toString() : '';
+  } catch {
+    return '';
+  }
+}
+
+function normalizeGalleryImages(value) {
+  const rawImages = Array.isArray(value)
+    ? value
+    : String(value || '')
+        .split(/\r?\n|,/)
+        .map((item) => item.trim());
+
+  return getUniqueUrls(rawImages.map(normalizeImageUrl).filter(Boolean)).slice(0, 24);
+}
+
+function getUniqueUrls(urls) {
+  const uniqueUrls = [];
+  const seen = new Set();
+
+  urls.filter(Boolean).forEach((url) => {
+    if (seen.has(url)) {
+      return;
+    }
+
+    seen.add(url);
+    uniqueUrls.push(url);
+  });
+
+  return uniqueUrls;
 }
 
 function normalizeLinkUrl(value) {
@@ -2381,6 +3179,8 @@ function normalizeRemoteProject(project) {
   }
 
   const subtitle = project.subtitle || '';
+  const galleryImages = normalizeGalleryImages(project.galleryImages);
+  const preview = normalizeImageUrl(project.imageUrl) || galleryImages[0] || '';
 
   return {
     chapter: project.chapter || 'Ramo',
@@ -2388,11 +3188,13 @@ function normalizeRemoteProject(project) {
       en: subtitle,
       pt: subtitle,
     },
+    driveFolderUrl: normalizeDriveFolderUrl(project.driveFolderUrl),
+    galleryImages,
     id: `project-${project.id || project.title}`,
     isPublic: Boolean(project.isPublic),
     name: project.title,
     position: Number.isFinite(Number(project.position)) ? Number(project.position) : 0,
-    preview: normalizeImageUrl(project.imageUrl),
+    preview,
     subtitle,
     url: normalizeLinkUrl(project.linkUrl),
   };
@@ -2423,6 +3225,9 @@ function normalizeAdminProject(project) {
 
   return {
     chapter: project.chapter || 'Ramo',
+    driveFolderUrl: normalizeDriveFolderUrl(project.driveFolderUrl),
+    galleryImages: normalizeGalleryImages(project.galleryImages),
+    galleryImagesText: normalizeGalleryImages(project.galleryImages).join('\n'),
     id: project.id,
     imageUrl: normalizeImageUrl(project.imageUrl),
     isPublic: Boolean(project.isPublic),
@@ -2468,6 +3273,8 @@ function createAdminMemberForm(user) {
 function createAdminProjectForm(project) {
   return {
     chapter: project?.chapter || 'Ramo',
+    driveFolderUrl: project?.driveFolderUrl || '',
+    galleryImagesText: project?.galleryImagesText || normalizeGalleryImages(project?.galleryImages).join('\n'),
     imageUrl: project?.imageUrl || '',
     isPublic: typeof project?.isPublic === 'boolean' ? project.isPublic : true,
     linkUrl: project?.linkUrl || '',
@@ -2498,7 +3305,9 @@ function buildAdminMemberPayload(form, overrides = {}) {
 }
 
 function buildAdminProjectPayload(form, overrides = {}) {
-  return {
+  const driveFolderUrl = normalizeDriveFolderUrl(form.driveFolderUrl);
+  const galleryImages = normalizeGalleryImages(form.galleryImagesText);
+  const payload = {
     chapter: form.chapter || 'Ramo',
     imageUrl: normalizeImageUrl(form.imageUrl),
     isPublic: Boolean(form.isPublic),
@@ -2510,12 +3319,29 @@ function buildAdminProjectPayload(form, overrides = {}) {
     title: String(form.title || '').trim(),
     ...overrides,
   };
+
+  if (driveFolderUrl) {
+    payload.driveFolderUrl = driveFolderUrl;
+  }
+
+  if (galleryImages.length) {
+    payload.galleryImages = galleryImages;
+  }
+
+  return payload;
 }
 
 async function readAdminApiError(response, fallback) {
+  const contentType = response.headers.get('content-type') || '';
+
   try {
-    const payload = await response.json();
-    return payload.detail || fallback;
+    if (contentType.includes('application/json')) {
+      const payload = await response.json();
+      return payload.detail || payload.error || payload.message || fallback;
+    }
+
+    const text = await response.text();
+    return text.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 220) || fallback;
   } catch {
     return fallback;
   }

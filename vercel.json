@@ -52,6 +52,10 @@
     {
       "source": "/admin",
       "destination": "/index.html"
+    },
+    {
+      "source": "/capitulos/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
