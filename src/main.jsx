@@ -689,30 +689,6 @@ const historyLogoSlides = [
   },
 ];
 
-const historyPhotoSlides = [
-  {
-    src: '/assets/presidents/camila-porto.png',
-    alt: {
-      pt: 'Foto histórica mock do Ramo Estudantil IEEE UFJF',
-      en: 'Mock historical photo from IEEE UFJF Student Branch',
-    },
-  },
-  {
-    src: '/assets/projects/entense-preview.png',
-    alt: {
-      pt: 'Registro mock de projeto histórico do Ramo',
-      en: 'Mock record of a historical Branch project',
-    },
-  },
-  {
-    src: '/assets/projects/helpieee-preview.png',
-    alt: {
-      pt: 'Registro mock de iniciativa histórica do Ramo',
-      en: 'Mock record of a historical Branch initiative',
-    },
-  },
-];
-
 const ATAS_MEMBERS_API_URLS = [
   '/api/atas-site-members',
   'https://interno.ieeeufjf.com.br/api/site-members',
@@ -730,6 +706,7 @@ const ATAS_HISTORY_PHOTOS_API_URLS = [
 
 const HOME_SECTION_IDS = [
   'o-ieee',
+  'historia',
   'capitulos',
   'diretoria',
   'projetos',
@@ -980,6 +957,7 @@ const copy = {
         'Esta página está preparada para reunir a memória institucional do Ramo, suas gestões, projetos, conquistas, identidades visuais e registros fotográficos ao longo dos anos.',
       back: 'Voltar ao site',
       timelineTitle: 'Uma trajetória construída por estudantes',
+      currentLogoLabel: 'Logo atual do Ramo Estudantil IEEE UFJF',
       paragraphs: [
         'Durante a década de 1980, diversos professores e estudantes da Universidade Federal de Juiz de Fora se reuniam para tentar trazer o material da revista IEEE Spectrum para a Universidade.',
         'Foi nesse contexto que, em 1991, professores e estudantes de pós graduação em Engenharia Elétrica se uniram para fundar o Ramo Estudantil IEEE UFJF, o primeiro do estado de Minas Gerais. Ao longo de 35 anos, o Ramo Estudantil IEEE UFJF teve mais de 1500 membros, e atualmente conta com 10 capítulos ativos, além de dois grupos de afinidade.',
@@ -989,6 +967,8 @@ const copy = {
       logosDescription:
         'Com 35 anos de história, o Ramo Estudantil IEEE UFJF teve diferentes logos e identidades visuais.',
       photosTitle: 'Fotos históricas',
+      photosLoading: 'Carregando fotos históricas',
+      photosEmpty: 'Nenhuma foto histórica publicada ainda.',
       photosDescription:
         '',
     },
@@ -1127,6 +1107,7 @@ const copy = {
         'This page is prepared to bring together the Branch institutional memory, its boards, projects, achievements, visual identities, and photographic records over the years.',
       back: 'Back to site',
       timelineTitle: 'A journey built by students',
+      currentLogoLabel: 'Current IEEE UFJF Student Branch logo',
       paragraphs: [
         'During the 1980s, several professors and students from the Federal University of Juiz de Fora met to try to bring IEEE Spectrum magazine materials to the University.',
         'In this context, in 1991, professors and graduate students in Electrical Engineering came together to found IEEE UFJF Student Branch, the first one in the state of Minas Gerais. Over 35 years, IEEE UFJF Student Branch has had more than 1,500 members and currently has 10 active chapters, as well as two affinity groups.',
@@ -1136,6 +1117,8 @@ const copy = {
       logosDescription:
         'Across 35 years of history, IEEE UFJF Student Branch has had different logos and visual identities.',
       photosTitle: 'Historical photos',
+      photosLoading: 'Loading historical photos',
+      photosEmpty: 'No historical photos published yet.',
       photosDescription: '',
     },
 
@@ -1284,7 +1267,8 @@ function App() {
   });
   const [publishedMembers, setPublishedMembers] = useState([]);
   const [publishedProjects, setPublishedProjects] = useState(projects);
-  const [publishedHistoryPhotos, setPublishedHistoryPhotos] = useState(historyPhotoSlides);
+  const [publishedHistoryPhotos, setPublishedHistoryPhotos] = useState([]);
+  const [isHistoryPhotosLoading, setIsHistoryPhotosLoading] = useState(true);
   const [language, setLanguage] = useState(() => {
     if (typeof window === 'undefined') {
       return 'pt';
@@ -1564,6 +1548,10 @@ function App() {
       if (active && remotePhotos.length) {
         setPublishedHistoryPhotos(sortHistoryPhotos(remotePhotos));
       }
+
+      if (active) {
+        setIsHistoryPhotosLoading(false);
+      }
     }
 
     const cancelLoad = runAfterFirstPaint(loadHistoryPhotos);
@@ -1618,6 +1606,7 @@ function App() {
         setIsDarkMode={setIsDarkMode}
         setLanguage={setLanguage}
         historyPhotos={publishedHistoryPhotos}
+        isHistoryPhotosLoading={isHistoryPhotosLoading}
         t={t}
       />
     );
@@ -1737,7 +1726,12 @@ function App() {
           >
             {t.nav.about}
           </a>
-          <a href={localizedPath(language, '/historia')} onClick={() => setIsNavOpen(false)}>
+          <a
+            className={activeSectionId === 'historia' ? 'mini-nav__link--active' : undefined}
+            href={localizedHash(language, '#historia')}
+            onClick={() => setIsNavOpen(false)}
+            aria-current={activeSectionId === 'historia' ? 'page' : undefined}
+          >
             {t.nav.history}
           </a>
           <a
@@ -1829,7 +1823,12 @@ function App() {
         </div>
       </section>
 
-      <section className="history-teaser" aria-labelledby="historia-home-title">
+      <section
+        className="history-teaser"
+        id="historia"
+        data-section-id="historia"
+        aria-labelledby="historia-home-title"
+      >
         <div className="history-teaser__inner">
           <div>
             <span className="section-kicker">{t.history.eyebrow}</span>
@@ -2517,7 +2516,117 @@ function ProjectsPage({
   );
 }
 
-function HistoryPage({ historyPhotos, isDarkMode, language, setIsDarkMode, setLanguage, t }) {
+function HistoryPage({
+  historyPhotos,
+  isDarkMode,
+  isHistoryPhotosLoading,
+  language,
+  setIsDarkMode,
+  setLanguage,
+  t,
+}) {
+  const historyPhotoTrackRef = useRef(null);
+  const historyPhotoDragRef = useRef({
+    isDragging: false,
+    pointerId: null,
+    startOffset: 0,
+    startX: 0,
+  });
+
+  const getHistoryPhotoTrackOffset = () => {
+    const track = historyPhotoTrackRef.current;
+    if (!track) {
+      return 0;
+    }
+
+    const transform = window.getComputedStyle(track).transform;
+    if (!transform || transform === 'none') {
+      return 0;
+    }
+
+    return new DOMMatrixReadOnly(transform).m41;
+  };
+
+  const normalizeHistoryPhotoOffset = (offset) => {
+    const track = historyPhotoTrackRef.current;
+    if (!track) {
+      return offset;
+    }
+
+    const loopDistance = track.scrollWidth / 2;
+    if (!loopDistance) {
+      return offset;
+    }
+
+    let normalized = offset % loopDistance;
+    if (normalized > 0) {
+      normalized -= loopDistance;
+    }
+
+    return normalized;
+  };
+
+  const setHistoryPhotoOffset = (offset) => {
+    const track = historyPhotoTrackRef.current;
+    if (!track) {
+      return;
+    }
+
+    track.style.setProperty('--history-photo-offset', `${normalizeHistoryPhotoOffset(offset)}px`);
+  };
+
+  const handleHistoryPhotoPointerDown = (event) => {
+    if (event.button !== undefined && event.button !== 0) {
+      return;
+    }
+
+    const track = historyPhotoTrackRef.current;
+    if (!track || historyPhotos.length < 2) {
+      return;
+    }
+
+    const startOffset = getHistoryPhotoTrackOffset();
+    setHistoryPhotoOffset(startOffset);
+    historyPhotoDragRef.current = {
+      isDragging: true,
+      pointerId: event.pointerId,
+      startOffset,
+      startX: event.clientX,
+    };
+
+    event.currentTarget.setPointerCapture(event.pointerId);
+    event.currentTarget.classList.add('history-carousel--dragging');
+  };
+
+  const handleHistoryPhotoPointerMove = (event) => {
+    const drag = historyPhotoDragRef.current;
+    if (!drag.isDragging || drag.pointerId !== event.pointerId) {
+      return;
+    }
+
+    setHistoryPhotoOffset(drag.startOffset + event.clientX - drag.startX);
+  };
+
+  const finishHistoryPhotoDrag = (event) => {
+    const drag = historyPhotoDragRef.current;
+    if (!drag.isDragging || drag.pointerId !== event.pointerId) {
+      return;
+    }
+
+    setHistoryPhotoOffset(drag.startOffset + event.clientX - drag.startX);
+    historyPhotoDragRef.current = {
+      isDragging: false,
+      pointerId: null,
+      startOffset: 0,
+      startX: 0,
+    };
+
+    event.currentTarget.classList.remove('history-carousel--dragging');
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+
   return (
     <main className="history-page">
       <SiteNav
@@ -2528,25 +2637,29 @@ function HistoryPage({ historyPhotos, isDarkMode, language, setIsDarkMode, setLa
         t={t}
       />
 
-      <section className="history-page__hero">
-        <a className="chapter-page__back" href={localizedPath(language, '/')}>
-          <ArrowLeft aria-hidden="true" size={18} />
-          {t.history.back}
-        </a>
-        <p className="section-kicker">{t.history.eyebrow}</p>
-        <h1>{t.history.title}</h1>
-        <p>{t.history.intro}</p>
-      </section>
-
       <section className="history-page__section history-page__section--text">
-        <div className="section-heading">
-          <span>{t.history.eyebrow}</span>
-          <h2>{t.history.timelineTitle}</h2>
-        </div>
-        <div className="history-page__copy">
-          {t.history.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
+        <div className="history-page__intro-grid">
+          <div>
+            <a className="chapter-page__back" href={localizedPath(language, '/')}>
+              <ArrowLeft aria-hidden="true" size={18} />
+              {t.history.back}
+            </a>
+            <div className="section-heading">
+              <span>{t.history.eyebrow}</span>
+              <h1>{t.history.timelineTitle}</h1>
+            </div>
+            <div className="history-page__copy">
+              {t.history.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+          <aside className="history-page__current-logo" aria-label={t.history.currentLogoLabel}>
+            <img
+              src={isDarkMode ? '/assets/ramo-ieee-ufjf.svg' : '/assets/ramo-ieee-ufjf-blue.svg'}
+              alt={t.history.currentLogoLabel}
+            />
+          </aside>
         </div>
       </section>
 
@@ -2586,26 +2699,53 @@ function HistoryPage({ historyPhotos, isDarkMode, language, setIsDarkMode, setLa
           <h2>{t.history.photosTitle}</h2>
           <p>{t.history.photosDescription}</p>
         </div>
-        <div className="history-carousel history-carousel--photos" aria-label={t.history.photosTitle}>
-          {historyPhotos.map((slide) => (
-            <figure className="history-carousel__slide" key={slide.src}>
-              <img
-                src={slide.src}
-                alt={slide.alt?.[language] || slide.title || t.history.photosTitle}
-                style={getProjectPhotoStyle(slide)}
-                loading="lazy"
-                decoding="async"
-              />
-              {(slide.title || slide.description) ? (
-                <figcaption className="history-carousel__caption">
-                  {slide.year ? <span>{slide.year}</span> : null}
-                  {slide.title ? <strong>{slide.title}</strong> : null}
-                  {slide.description ? <p>{slide.description}</p> : null}
-                </figcaption>
-              ) : null}
-            </figure>
-          ))}
-        </div>
+        {isHistoryPhotosLoading ? (
+          <div className="history-loading" role="status" aria-live="polite" aria-label={t.history.photosLoading}>
+            <span aria-hidden="true" />
+          </div>
+        ) : historyPhotos.length ? (
+          <div
+            className="history-carousel history-carousel--photos"
+            aria-label={t.history.photosTitle}
+            onPointerCancel={finishHistoryPhotoDrag}
+            onPointerDown={handleHistoryPhotoPointerDown}
+            onPointerMove={handleHistoryPhotoPointerMove}
+            onPointerUp={finishHistoryPhotoDrag}
+          >
+            <div className="history-carousel__track" ref={historyPhotoTrackRef}>
+              {[...historyPhotos, ...historyPhotos].map((slide, index) => {
+                const isDuplicate = index >= historyPhotos.length;
+
+                return (
+                  <figure
+                    className="history-carousel__slide"
+                    key={`${slide.src}-${index}`}
+                    aria-hidden={isDuplicate ? 'true' : undefined}
+                  >
+                    <img
+                      src={slide.src}
+                      alt={isDuplicate ? '' : slide.alt?.[language] || slide.title || t.history.photosTitle}
+                      style={getProjectPhotoStyle(slide)}
+                      loading={index < Math.min(historyPhotos.length, 8) ? 'eager' : 'lazy'}
+                      fetchPriority={index < 4 ? 'high' : 'auto'}
+                      decoding="async"
+                      draggable="false"
+                    />
+                    {(slide.title || slide.description) ? (
+                      <figcaption className="history-carousel__caption">
+                        {slide.year ? <span>{slide.year}</span> : null}
+                        {slide.title ? <strong>{slide.title}</strong> : null}
+                        {slide.description ? <p>{slide.description}</p> : null}
+                      </figcaption>
+                    ) : null}
+                  </figure>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <p className="history-empty">{t.history.photosEmpty}</p>
+        )}
       </section>
     </main>
   );
