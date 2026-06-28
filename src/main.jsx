@@ -884,9 +884,9 @@ const copy = {
     },
     contact: {
       eyebrow: 'Contato',
-      title: 'Fale com o IEEE Student Branch',
+      title: 'Fale com o Ramo',
       description:
-        'É importante que o IEEE Student Branch UFJF esteja em contato com a comunidade, seja para novos projetos, parcerias, oportunidades, dúvidas ou sugestões sobre o IEEE e nossas atividades.',
+        'É importante que o Ramo esteja em contato com a comunidade, seja para novos projetos, parcerias, oportunidades, dúvidas ou sugestões sobre o IEEE e nossas atividades.',
       locationLabel: 'Nossa localização',
       location: 'Segundo andar da Faculdade de Engenharia da Universidade Federal de Juiz de Fora.',
       visit:
