@@ -1264,8 +1264,8 @@ function App() {
         }
       }
 
-      if (active && remoteProjects.length) {
-        setPublishedProjects(remoteProjects);
+      if (active) {
+        setPublishedProjects(mergePublishedProjects(projects, remoteProjects));
       }
     }
 
@@ -3198,6 +3198,33 @@ function normalizeRemoteProject(project) {
     subtitle,
     url: normalizeLinkUrl(project.linkUrl),
   };
+}
+
+function mergePublishedProjects(fixedProjects, remoteProjects) {
+  const mergedProjects = [...fixedProjects];
+  const seenKeys = new Set(
+    fixedProjects.flatMap((project) => [
+      String(project.id || '').toLowerCase(),
+      String(project.name || '').trim().toLowerCase(),
+    ]),
+  );
+
+  remoteProjects.forEach((project) => {
+    const keys = [
+      String(project.id || '').toLowerCase(),
+      String(project.name || '').trim().toLowerCase(),
+    ];
+    const alreadyExists = keys.some((key) => key && seenKeys.has(key));
+
+    if (alreadyExists) {
+      return;
+    }
+
+    mergedProjects.push(project);
+    keys.filter(Boolean).forEach((key) => seenKeys.add(key));
+  });
+
+  return mergedProjects;
 }
 
 function normalizeAdminMember(member) {
