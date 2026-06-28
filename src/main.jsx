@@ -1834,10 +1834,35 @@ function App() {
             <span className="section-kicker">{t.history.eyebrow}</span>
             <h2 id="historia-home-title">{t.history.homeTitle}</h2>
             <p>{t.history.homeTeaser}</p>
+            <a className="history-teaser__link" href={localizedPath(language, '/historia')}>
+              {t.history.homeCta}
+            </a>
           </div>
-          <a className="history-teaser__link" href={localizedPath(language, '/historia')}>
-            {t.history.homeCta}
-          </a>
+          <aside className="history-teaser__logos" aria-label={t.history.logosTitle}>
+            <div className="history-carousel history-carousel--home-logos">
+              <div className="history-carousel__track">
+                {[...historyLogoSlides, ...historyLogoSlides].map((slide, index) => {
+                  const isDuplicate = index >= historyLogoSlides.length;
+
+                  return (
+                    <figure
+                      className="history-carousel__slide"
+                      key={`home-${slide.src}-${index}`}
+                      aria-hidden={isDuplicate ? 'true' : undefined}
+                    >
+                      <img
+                        src={slide.src}
+                        alt={isDuplicate ? '' : slide.alt[language]}
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false"
+                      />
+                    </figure>
+                  );
+                })}
+              </div>
+            </div>
+          </aside>
         </div>
       </section>
 
@@ -2525,6 +2550,13 @@ function HistoryPage({
   setLanguage,
   t,
 }) {
+  const historyLogoTrackRef = useRef(null);
+  const historyLogoDragRef = useRef({
+    isDragging: false,
+    pointerId: null,
+    startOffset: 0,
+    startX: 0,
+  });
   const historyPhotoTrackRef = useRef(null);
   const historyPhotoDragRef = useRef({
     isDragging: false,
@@ -2533,8 +2565,8 @@ function HistoryPage({
     startX: 0,
   });
 
-  const getHistoryPhotoTrackOffset = () => {
-    const track = historyPhotoTrackRef.current;
+  const getHistoryCarouselTrackOffset = (trackRef) => {
+    const track = trackRef.current;
     if (!track) {
       return 0;
     }
@@ -2547,8 +2579,8 @@ function HistoryPage({
     return new DOMMatrixReadOnly(transform).m41;
   };
 
-  const normalizeHistoryPhotoOffset = (offset) => {
-    const track = historyPhotoTrackRef.current;
+  const normalizeHistoryCarouselOffset = (trackRef, offset) => {
+    const track = trackRef.current;
     if (!track) {
       return offset;
     }
@@ -2566,28 +2598,29 @@ function HistoryPage({
     return normalized;
   };
 
-  const setHistoryPhotoOffset = (offset) => {
-    const track = historyPhotoTrackRef.current;
+  const setHistoryCarouselOffset = (trackRef, offsetVariable, offset) => {
+    const track = trackRef.current;
     if (!track) {
       return;
     }
 
-    track.style.setProperty('--history-photo-offset', `${normalizeHistoryPhotoOffset(offset)}px`);
+    track.style.setProperty(offsetVariable, `${normalizeHistoryCarouselOffset(trackRef, offset)}px`);
   };
 
-  const handleHistoryPhotoPointerDown = (event) => {
+  const createHistoryCarouselDragHandlers = (trackRef, dragRef, offsetVariable, itemCount) => {
+    const handlePointerDown = (event) => {
     if (event.button !== undefined && event.button !== 0) {
       return;
     }
 
-    const track = historyPhotoTrackRef.current;
-    if (!track || historyPhotos.length < 2) {
+    const track = trackRef.current;
+    if (!track || itemCount < 2) {
       return;
     }
 
-    const startOffset = getHistoryPhotoTrackOffset();
-    setHistoryPhotoOffset(startOffset);
-    historyPhotoDragRef.current = {
+    const startOffset = getHistoryCarouselTrackOffset(trackRef);
+    setHistoryCarouselOffset(trackRef, offsetVariable, startOffset);
+    dragRef.current = {
       isDragging: true,
       pointerId: event.pointerId,
       startOffset,
@@ -2598,23 +2631,23 @@ function HistoryPage({
     event.currentTarget.classList.add('history-carousel--dragging');
   };
 
-  const handleHistoryPhotoPointerMove = (event) => {
-    const drag = historyPhotoDragRef.current;
+    const handlePointerMove = (event) => {
+    const drag = dragRef.current;
     if (!drag.isDragging || drag.pointerId !== event.pointerId) {
       return;
     }
 
-    setHistoryPhotoOffset(drag.startOffset + event.clientX - drag.startX);
+    setHistoryCarouselOffset(trackRef, offsetVariable, drag.startOffset + event.clientX - drag.startX);
   };
 
-  const finishHistoryPhotoDrag = (event) => {
-    const drag = historyPhotoDragRef.current;
+    const finishDrag = (event) => {
+    const drag = dragRef.current;
     if (!drag.isDragging || drag.pointerId !== event.pointerId) {
       return;
     }
 
-    setHistoryPhotoOffset(drag.startOffset + event.clientX - drag.startX);
-    historyPhotoDragRef.current = {
+    setHistoryCarouselOffset(trackRef, offsetVariable, drag.startOffset + event.clientX - drag.startX);
+    dragRef.current = {
       isDragging: false,
       pointerId: null,
       startOffset: 0,
@@ -2626,6 +2659,27 @@ function HistoryPage({
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
   };
+
+    return {
+      onPointerCancel: finishDrag,
+      onPointerDown: handlePointerDown,
+      onPointerMove: handlePointerMove,
+      onPointerUp: finishDrag,
+    };
+  };
+
+  const historyLogoDragHandlers = createHistoryCarouselDragHandlers(
+    historyLogoTrackRef,
+    historyLogoDragRef,
+    '--history-logo-offset',
+    historyLogoSlides.length,
+  );
+  const historyPhotoDragHandlers = createHistoryCarouselDragHandlers(
+    historyPhotoTrackRef,
+    historyPhotoDragRef,
+    '--history-photo-offset',
+    historyPhotos.length,
+  );
 
   return (
     <main className="history-page">
@@ -2669,8 +2723,12 @@ function HistoryPage({
           <h2>{t.history.logosTitle}</h2>
           <p>{t.history.logosDescription}</p>
         </div>
-        <div className="history-carousel history-carousel--logos" aria-label={t.history.logosTitle}>
-          <div className="history-carousel__track">
+        <div
+          className="history-carousel history-carousel--logos"
+          aria-label={t.history.logosTitle}
+          {...historyLogoDragHandlers}
+        >
+          <div className="history-carousel__track" ref={historyLogoTrackRef}>
             {[...historyLogoSlides, ...historyLogoSlides].map((slide, index) => {
               const isDuplicate = index >= historyLogoSlides.length;
 
@@ -2685,6 +2743,7 @@ function HistoryPage({
                     alt={isDuplicate ? '' : slide.alt[language]}
                     loading="lazy"
                     decoding="async"
+                    draggable="false"
                   />
                 </figure>
               );
@@ -2707,10 +2766,7 @@ function HistoryPage({
           <div
             className="history-carousel history-carousel--photos"
             aria-label={t.history.photosTitle}
-            onPointerCancel={finishHistoryPhotoDrag}
-            onPointerDown={handleHistoryPhotoPointerDown}
-            onPointerMove={handleHistoryPhotoPointerMove}
-            onPointerUp={finishHistoryPhotoDrag}
+            {...historyPhotoDragHandlers}
           >
             <div className="history-carousel__track" ref={historyPhotoTrackRef}>
               {[...historyPhotos, ...historyPhotos].map((slide, index) => {
