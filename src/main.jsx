@@ -1700,7 +1700,8 @@ function App() {
         </div>
 
         <div className="projects-grid">
-          {homepageProjects.map(({ id, name, chapter, url, description, preview, previewDark, galleryImages }) => {
+          {homepageProjects.map((project) => {
+            const { id, name, chapter, url, description, preview, previewDark, galleryImages } = project;
             const previewSrc = getProjectPreviewSrc({ preview, previewDark, galleryImages }, isDarkMode);
             const hasUrl = Boolean(url);
             const ProjectCardTag = hasUrl ? 'a' : 'button';
