@@ -533,6 +533,8 @@ const projects = [
     },
     preview: '/assets/ramo-ieee-ufjf-blue.svg',
     previewDark: '/assets/ramo-ieee-ufjf.svg',
+    showOnChapter: false,
+    showOnHome: true,
   },
   {
     id: 'entense',
@@ -545,6 +547,8 @@ const projects = [
       en: 'Technology and Engineering Meeting',
     },
     preview: '/assets/projects/entense-preview.png',
+    showOnChapter: false,
+    showOnHome: true,
   },
   {
     id: 'helpieee',
@@ -557,6 +561,8 @@ const projects = [
       en: 'Freshman Guide',
     },
     preview: '/assets/projects/helpieee-preview.png',
+    showOnChapter: false,
+    showOnHome: true,
   },
 ];
 
@@ -1080,6 +1086,10 @@ function App() {
     () => publishedProjects.find((project) => project.id === selectedProjectId),
     [publishedProjects, selectedProjectId],
   );
+  const homepageProjects = useMemo(
+    () => publishedProjects.filter((project) => project.showOnHome !== false),
+    [publishedProjects],
+  );
   const selectedChapterPresidentMember = useMemo(
     () => findPublishedMemberByName(publishedMembers, selectedChapter?.president?.nome),
     [publishedMembers, selectedChapter],
@@ -1102,8 +1112,7 @@ function App() {
   );
   const t = copy[language];
   const selectedProjectPreviewSrc = selectedProject
-    ? (isDarkMode && selectedProject.previewDark ? selectedProject.previewDark : selectedProject.preview) ||
-      '/assets/ramo-ieee-ufjf-blue.svg'
+    ? getProjectPreviewSrc(selectedProject, isDarkMode)
     : '';
   const selectedProjectGallery = useMemo(
     () =>
@@ -1598,8 +1607,8 @@ function App() {
         </div>
 
         <div className="projects-grid">
-          {publishedProjects.map(({ id, name, chapter, url, description, preview, previewDark }) => {
-            const previewSrc = (isDarkMode && previewDark ? previewDark : preview) || '/assets/ramo-ieee-ufjf-blue.svg';
+          {homepageProjects.map(({ id, name, chapter, url, description, preview, previewDark, galleryImages }) => {
+            const previewSrc = getProjectPreviewSrc({ preview, previewDark, galleryImages }, isDarkMode);
             const hasUrl = Boolean(url);
             const ProjectCardTag = hasUrl ? 'a' : 'button';
             const cardProps = hasUrl
@@ -1885,7 +1894,63 @@ function ChapterPage({
     language,
     t.chapters.presidentFallback,
   );
-  const relatedProjects = getChapterRelatedProjects(chapter, chapterPage, publishedProjects, language);
+  const relatedProjects = getChapterRelatedProjects(chapter, publishedProjects);
+  const [selectedChapterProjectId, setSelectedChapterProjectId] = useState(null);
+  const [selectedChapterProjectSlideIndex, setSelectedChapterProjectSlideIndex] = useState(0);
+  const chapterProjectDetailRef = useRef(null);
+  const selectedChapterProject = useMemo(
+    () => relatedProjects.find((project) => project.id === selectedChapterProjectId),
+    [relatedProjects, selectedChapterProjectId],
+  );
+  const selectedChapterProjectPreviewSrc = selectedChapterProject
+    ? getProjectPreviewSrc(selectedChapterProject, isDarkMode)
+    : '';
+  const selectedChapterProjectGallery = useMemo(
+    () =>
+      selectedChapterProject
+        ? getUniqueUrls([...(selectedChapterProject.galleryImages || []), selectedChapterProjectPreviewSrc])
+        : [],
+    [selectedChapterProject, selectedChapterProjectPreviewSrc],
+  );
+  const selectedChapterProjectSlide =
+    selectedChapterProjectGallery[selectedChapterProjectSlideIndex] || selectedChapterProjectPreviewSrc;
+
+  useEffect(() => {
+    if (!selectedChapterProject || !chapterProjectDetailRef.current) {
+      return undefined;
+    }
+
+    const focusTimer = window.setTimeout(() => {
+      chapterProjectDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      chapterProjectDetailRef.current?.focus({ preventScroll: true });
+    }, 80);
+
+    return () => window.clearTimeout(focusTimer);
+  }, [selectedChapterProject]);
+
+  useEffect(() => {
+    setSelectedChapterProjectSlideIndex(0);
+  }, [selectedChapterProjectId]);
+
+  useEffect(() => {
+    if (selectedChapterProjectGallery.length <= 1) {
+      return undefined;
+    }
+
+    const slideTimer = window.setInterval(() => {
+      setSelectedChapterProjectSlideIndex((currentIndex) => (
+        currentIndex + 1
+      ) % selectedChapterProjectGallery.length);
+    }, 4500);
+
+    return () => window.clearInterval(slideTimer);
+  }, [selectedChapterProjectGallery.length]);
+
+  useEffect(() => {
+    if (selectedChapterProjectId && !selectedChapterProject) {
+      setSelectedChapterProjectId(null);
+    }
+  }, [selectedChapterProject, selectedChapterProjectId]);
 
   return (
     <main className="chapter-page">
@@ -1954,15 +2019,124 @@ function ChapterPage({
           <h2>{language === 'pt' ? 'Projetos e iniciativas' : 'Projects and initiatives'}</h2>
         </div>
 
-        <div className="chapter-page__project-grid">
-          {relatedProjects.map((project) => (
-            <article className="chapter-page__project" key={project.title}>
-              <span>{project.source || chapter.sigla}</span>
-              <h3>{project.title}</h3>
-              <p>{project.text}</p>
-            </article>
-          ))}
-        </div>
+        {relatedProjects.length ? (
+          <>
+            <div className="projects-grid chapter-page__projects-grid">
+              {relatedProjects.map((project) => {
+                const previewSrc = getProjectPreviewSrc(project, isDarkMode);
+
+                return (
+                  <button
+                    className={`project-card project-card--button ${
+                      selectedChapterProjectId === project.id ? 'project-card--active' : ''
+                    }`}
+                    key={project.id}
+                    type="button"
+                    onClick={() => setSelectedChapterProjectId(project.id)}
+                    aria-controls="chapter-project-detail"
+                    aria-expanded={selectedChapterProjectId === project.id}
+                    aria-label={t.projects.openDetails(project.name)}
+                  >
+                    <div className="project-card__preview">
+                      <img
+                        className="project-card__image"
+                        src={previewSrc}
+                        alt={t.projects.previewAlt(project.name)}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <div className="project-card__copy">
+                      <span className="project-card__tag">{project.chapter}</span>
+                      <strong>{project.name}</strong>
+                      <p>{getLocalizedText(project.description, language, '')}</p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {selectedChapterProject ? (
+              <article
+                className="chapter-detail project-detail"
+                id="chapter-project-detail"
+                ref={chapterProjectDetailRef}
+                tabIndex={-1}
+                aria-labelledby="chapter-project-detail-title"
+                aria-live="polite"
+              >
+                <button
+                  className="chapter-detail__close"
+                  type="button"
+                  onClick={() => setSelectedChapterProjectId(null)}
+                  aria-label={t.projects.close}
+                >
+                  <X size={20} aria-hidden="true" />
+                </button>
+
+                <div className="chapter-detail__main project-detail__main">
+                  <div className="project-detail__image-wrap">
+                    <img
+                      className="project-detail__image"
+                      src={selectedChapterProjectSlide}
+                      alt={t.projects.previewAlt(selectedChapterProject.name)}
+                      style={getProjectPhotoStyle(selectedChapterProject)}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    {selectedChapterProjectGallery.length > 1 ? (
+                      <div className="project-detail__slides" aria-label="Fotos do projeto">
+                        {selectedChapterProjectGallery.map((slide, index) => (
+                          <button
+                            className={`project-detail__dot ${
+                              selectedChapterProjectSlideIndex === index ? 'project-detail__dot--active' : ''
+                            }`}
+                            key={slide}
+                            type="button"
+                            onClick={() => setSelectedChapterProjectSlideIndex(index)}
+                            aria-label={`Foto ${index + 1}`}
+                            aria-pressed={selectedChapterProjectSlideIndex === index}
+                          />
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="chapter-detail__copy project-detail__copy">
+                    <span>{selectedChapterProject.chapter}</span>
+                    <h3 id="chapter-project-detail-title">{selectedChapterProject.name}</h3>
+                    {selectedChapterProject.subtitle ? <strong>{selectedChapterProject.subtitle}</strong> : null}
+                    <p>
+                      {getLocalizedText(
+                        selectedChapterProject.detailDescription,
+                        language,
+                        selectedChapterProject.subtitle || '',
+                      )}
+                    </p>
+                    {selectedChapterProject.url ? (
+                      <div className="chapter-detail__links">
+                        <a
+                          className="chapter-link"
+                          href={selectedChapterProject.url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <ExternalLink aria-hidden="true" size={18} />
+                          {t.projects.open(selectedChapterProject.name)}
+                        </a>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </article>
+            ) : null}
+          </>
+        ) : (
+          <p className="chapter-page__empty">
+            {language === 'en'
+              ? 'No projects registered for this chapter yet.'
+              : 'Nenhum projeto cadastrado para este capÃ­tulo ainda.'}
+          </p>
+        )}
       </section>
 
     </main>
@@ -2016,30 +2190,19 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
   );
 }
 
-function getChapterRelatedProjects(chapter, chapterPage, publishedProjects, language) {
-  const baseProjects = (chapterPage?.projects?.[language] || []).map((project) => ({
-    source: chapter?.sigla || '',
-    text: project.text,
-    title: project.title,
-  }));
-  const seenTitles = new Set(baseProjects.map((project) => project.title.trim().toLowerCase()));
+function getChapterRelatedProjects(chapter, publishedProjects) {
   const chapterKeys = new Set(
     [chapter?.sigla, chapter?.id]
       .filter(Boolean)
       .map((value) => String(value).trim().toLowerCase()),
   );
-  const relatedHomepageProjects = (publishedProjects || [])
+  const seenTitles = new Set();
+
+  return (publishedProjects || [])
+    .filter((project) => project.showOnChapter !== false)
     .filter((project) => chapterKeys.has(String(project.chapter || '').trim().toLowerCase()))
-    .map((project) => ({
-      source: language === 'en' ? 'Featured on homepage' : 'Destaque na homepage',
-      text: getLocalizedText(project.detailDescription, language, '') ||
-        getLocalizedText(project.description, language, '') ||
-        project.subtitle ||
-        '',
-      title: project.name,
-    }))
     .filter((project) => {
-      const key = project.title.trim().toLowerCase();
+      const key = String(project.name || '').trim().toLowerCase();
       if (!key || seenTitles.has(key)) {
         return false;
       }
@@ -2047,8 +2210,6 @@ function getChapterRelatedProjects(chapter, chapterPage, publishedProjects, lang
       seenTitles.add(key);
       return true;
     });
-
-  return [...baseProjects, ...relatedHomepageProjects];
 }
 
 function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
@@ -2968,6 +3129,24 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
             <label className="admin-checkbox">
               <input
                 type="checkbox"
+                checked={projectForm.showOnHome}
+                onChange={(event) => updateProjectForm('showOnHome', event.target.checked)}
+                disabled={!canManage}
+              />
+              <span>{language === 'en' ? 'Show on homepage' : 'Mostrar na homepage'}</span>
+            </label>
+            <label className="admin-checkbox">
+              <input
+                type="checkbox"
+                checked={projectForm.showOnChapter}
+                onChange={(event) => updateProjectForm('showOnChapter', event.target.checked)}
+                disabled={!canManage}
+              />
+              <span>{language === 'en' ? 'Show on chapter page' : 'Mostrar na pÃ¡gina do capÃ­tulo'}</span>
+            </label>
+            <label className="admin-checkbox">
+              <input
+                type="checkbox"
                 checked={projectForm.isPublic}
                 onChange={(event) => updateProjectForm('isPublic', event.target.checked)}
                 disabled={!canManage}
@@ -3004,6 +3183,14 @@ function AdminPage({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
                   </div>
                   <div className="admin-user-row__meta">
                     <span>{project.chapter}</span>
+                    <span>
+                      {[
+                        project.showOnHome ? (language === 'en' ? 'Home' : 'Home') : '',
+                        project.showOnChapter ? (language === 'en' ? 'Chapter' : 'CapÃ­tulo') : '',
+                      ]
+                        .filter(Boolean)
+                        .join(' + ') || (language === 'en' ? 'No placement' : 'Sem local')}
+                    </span>
                     <span>{project.isPublic ? t.admin.published : t.admin.hidden}</span>
                   </div>
                   <div className="admin-user-row__actions">
@@ -3279,6 +3466,14 @@ function getProjectPhotoStyle(project) {
   };
 }
 
+function getProjectPreviewSrc(project, isDarkMode) {
+  return (
+    (isDarkMode && project?.previewDark ? project.previewDark : project?.preview) ||
+    project?.galleryImages?.[0] ||
+    '/assets/ramo-ieee-ufjf-blue.svg'
+  );
+}
+
 function normalizeRemoteMember(member) {
   if (!member?.name) {
     return null;
@@ -3328,6 +3523,8 @@ function normalizeRemoteProject(project) {
     photoZoom: clampPhotoZoom(project.photoZoom),
     position: Number.isFinite(Number(project.position)) ? Number(project.position) : 0,
     preview,
+    showOnChapter: typeof project.showOnChapter === 'boolean' ? project.showOnChapter : true,
+    showOnHome: typeof project.showOnHome === 'boolean' ? project.showOnHome : true,
     subtitle,
     url: normalizeLinkUrl(project.linkUrl),
   };
@@ -3397,6 +3594,8 @@ function normalizeAdminProject(project) {
     photoPositionY: clampPercentage(project.photoPositionY),
     photoZoom: clampPhotoZoom(project.photoZoom),
     position: Number.isFinite(Number(project.position)) ? Number(project.position) : 0,
+    showOnChapter: typeof project.showOnChapter === 'boolean' ? project.showOnChapter : true,
+    showOnHome: typeof project.showOnHome === 'boolean' ? project.showOnHome : true,
     subtitle: project.subtitle || '',
     title: project.title,
   };
@@ -3447,6 +3646,8 @@ function createAdminProjectForm(project) {
     photoPositionY: clampPercentage(project?.photoPositionY),
     photoZoom: clampPhotoZoom(project?.photoZoom),
     position: Number.isFinite(Number(project?.position)) ? Number(project.position) : 0,
+    showOnChapter: typeof project?.showOnChapter === 'boolean' ? project.showOnChapter : true,
+    showOnHome: typeof project?.showOnHome === 'boolean' ? project.showOnHome : true,
     subtitle: project?.subtitle || '',
     title: project?.title || '',
   };
@@ -3487,6 +3688,8 @@ function buildAdminProjectPayload(form, overrides = {}) {
     position: Number.isFinite(Number(overrides.position ?? form.position))
       ? Number(overrides.position ?? form.position)
       : 0,
+    showOnChapter: Boolean(form.showOnChapter),
+    showOnHome: Boolean(form.showOnHome),
     subtitle: String(form.subtitle || '').trim(),
     title: String(form.title || '').trim(),
     ...overrides,

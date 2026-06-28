@@ -573,6 +573,21 @@ a {
   line-height: 1.65;
 }
 
+.chapter-page__projects-grid {
+  margin-top: 0;
+}
+
+.chapter-page__empty {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding: 1.5rem;
+  border: 1px dashed rgba(0, 98, 155, 0.28);
+  background: var(--surface);
+  color: var(--muted);
+  font-weight: 800;
+  text-align: center;
+}
+
 .chapters {
   scroll-margin-top: var(--nav-height);
   min-height: calc(100svh - var(--nav-height));
