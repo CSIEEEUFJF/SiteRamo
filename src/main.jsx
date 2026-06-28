@@ -7,6 +7,7 @@ import {
   Github,
   Instagram,
   Languages,
+  Menu,
   Moon,
   X,
 } from 'lucide-react';
@@ -730,6 +731,8 @@ const copy = {
       disableDark: 'Desativar modo escuro',
       languageButton: 'EN',
       languageLabel: 'Alterar texto para inglês',
+      openMenu: 'Abrir menu',
+      closeMenu: 'Fechar menu',
       skip: 'Pular para o conteúdo',
     },
     about: {
@@ -845,6 +848,8 @@ const copy = {
       disableDark: 'Disable dark mode',
       languageButton: 'PT',
       languageLabel: 'Change text to Portuguese',
+      openMenu: 'Open menu',
+      closeMenu: 'Close menu',
       skip: 'Skip to content',
     },
     about: {
@@ -1043,6 +1048,7 @@ function App() {
   const [selectedMemberId, setSelectedMemberId] = useState(null);
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [selectedProjectSlideIndex, setSelectedProjectSlideIndex] = useState(0);
+  const [isNavOpen, setIsNavOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState(() => {
     if (typeof window === 'undefined') {
       return '/';
@@ -1344,7 +1350,7 @@ function App() {
       </section>
 
       <div className="nav-anchor" id="navegacao" aria-hidden="true" />
-      <nav className="mini-nav" aria-label={t.nav.aria}>
+      <nav className={`mini-nav ${isNavOpen ? 'mini-nav--open' : ''}`} aria-label={t.nav.aria}>
         <a className="mini-nav__brand" href={localizedHash(language, '#topo')} aria-label={t.nav.top}>
           <span className="mini-nav__mark" aria-hidden="true" />
           <span className="mini-nav__brand-text">
@@ -1353,21 +1359,13 @@ function App() {
           </span>
         </a>
         <div className="mini-nav__menu">
-          <div className="mini-nav__links">
-            <a href={localizedHash(language, '#o-ieee')}>{t.nav.about}</a>
-            <a href={localizedHash(language, '#capitulos')}>{t.nav.chapters}</a>
-            <a href={localizedHash(language, '#diretoria')}>{t.nav.board}</a>
-            <a href={localizedHash(language, '#projetos')}>{t.nav.projects}</a>
-            <a href={localizedHash(language, '#membros')}>{t.nav.members}</a>
-            <a href={localizedHash(language, '#contato')}>{t.nav.contact}</a>
-            <a href={localizedHash(language, '#localizacao')}>{t.nav.location}</a>
-          </div>
           <div className="mini-nav__actions">
             <button
               className="mini-nav__language"
               type="button"
               onClick={() => {
                 setLanguage(nextLanguage);
+                setIsNavOpen(false);
                 window.history.pushState({}, '', alternateLanguagePath(currentPath, nextLanguage));
                 setCurrentPath(window.location.pathname);
               }}
@@ -1385,7 +1383,26 @@ function App() {
             >
               <Moon aria-hidden="true" size={18} />
             </button>
+            <button
+              className="mini-nav__toggle"
+              type="button"
+              onClick={() => setIsNavOpen((current) => !current)}
+              aria-label={isNavOpen ? t.nav.closeMenu : t.nav.openMenu}
+              aria-expanded={isNavOpen}
+              aria-controls="site-navigation-links"
+            >
+              {isNavOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
+            </button>
           </div>
+        </div>
+        <div className="mini-nav__links" id="site-navigation-links">
+          <a href={localizedHash(language, '#o-ieee')} onClick={() => setIsNavOpen(false)}>{t.nav.about}</a>
+          <a href={localizedHash(language, '#capitulos')} onClick={() => setIsNavOpen(false)}>{t.nav.chapters}</a>
+          <a href={localizedHash(language, '#diretoria')} onClick={() => setIsNavOpen(false)}>{t.nav.board}</a>
+          <a href={localizedHash(language, '#projetos')} onClick={() => setIsNavOpen(false)}>{t.nav.projects}</a>
+          <a href={localizedHash(language, '#membros')} onClick={() => setIsNavOpen(false)}>{t.nav.members}</a>
+          <a href={localizedHash(language, '#contato')} onClick={() => setIsNavOpen(false)}>{t.nav.contact}</a>
+          <a href={localizedHash(language, '#localizacao')} onClick={() => setIsNavOpen(false)}>{t.nav.location}</a>
         </div>
       </nav>
 
@@ -2146,8 +2163,10 @@ function ChapterPage({
 }
 
 function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
   return (
-    <nav className="mini-nav mini-nav--page" aria-label={t.nav.aria}>
+    <nav className={`mini-nav mini-nav--page ${isNavOpen ? 'mini-nav--open' : ''}`} aria-label={t.nav.aria}>
       <a className="mini-nav__brand" href={localizedPath(language, '/')} aria-label={t.nav.top}>
         <span className="mini-nav__mark" aria-hidden="true" />
         <span className="mini-nav__brand-text">
@@ -2156,15 +2175,6 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
         </span>
       </a>
       <div className="mini-nav__menu">
-        <div className="mini-nav__links">
-          <a href={localizedPath(language, '/#o-ieee')}>{t.nav.about}</a>
-          <a href={localizedPath(language, '/#capitulos')}>{t.nav.chapters}</a>
-          <a href={localizedPath(language, '/#diretoria')}>{t.nav.board}</a>
-          <a href={localizedPath(language, '/#projetos')}>{t.nav.projects}</a>
-          <a href={localizedPath(language, '/#membros')}>{t.nav.members}</a>
-          <a href={localizedPath(language, '/#contato')}>{t.nav.contact}</a>
-          <a href={localizedPath(language, '/#localizacao')}>{t.nav.location}</a>
-        </div>
         <div className="mini-nav__actions">
           <button
             className="mini-nav__language"
@@ -2172,6 +2182,7 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
             onClick={() => {
               const nextLanguage = language === 'pt' ? 'en' : 'pt';
               setLanguage(nextLanguage);
+              setIsNavOpen(false);
               window.history.pushState({}, '', alternateLanguagePath(window.location.pathname, nextLanguage));
               window.dispatchEvent(new Event('popstate'));
             }}
@@ -2189,7 +2200,26 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
           >
             <Moon aria-hidden="true" size={18} />
           </button>
+          <button
+            className="mini-nav__toggle"
+            type="button"
+            onClick={() => setIsNavOpen((current) => !current)}
+            aria-label={isNavOpen ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={isNavOpen}
+            aria-controls="site-page-navigation-links"
+          >
+            {isNavOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
+          </button>
         </div>
+      </div>
+      <div className="mini-nav__links" id="site-page-navigation-links">
+        <a href={localizedPath(language, '/#o-ieee')} onClick={() => setIsNavOpen(false)}>{t.nav.about}</a>
+        <a href={localizedPath(language, '/#capitulos')} onClick={() => setIsNavOpen(false)}>{t.nav.chapters}</a>
+        <a href={localizedPath(language, '/#diretoria')} onClick={() => setIsNavOpen(false)}>{t.nav.board}</a>
+        <a href={localizedPath(language, '/#projetos')} onClick={() => setIsNavOpen(false)}>{t.nav.projects}</a>
+        <a href={localizedPath(language, '/#membros')} onClick={() => setIsNavOpen(false)}>{t.nav.members}</a>
+        <a href={localizedPath(language, '/#contato')} onClick={() => setIsNavOpen(false)}>{t.nav.contact}</a>
+        <a href={localizedPath(language, '/#localizacao')} onClick={() => setIsNavOpen(false)}>{t.nav.location}</a>
       </div>
     </nav>
   );
