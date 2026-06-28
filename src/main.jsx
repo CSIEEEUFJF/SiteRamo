@@ -3532,26 +3532,36 @@ function normalizeRemoteProject(project) {
 
 function mergePublishedProjects(fixedProjects, remoteProjects) {
   const mergedProjects = [...fixedProjects];
-  const seenKeys = new Set(
-    fixedProjects.flatMap((project) => [
-      String(project.id || '').toLowerCase(),
-      String(project.name || '').trim().toLowerCase(),
-    ]),
-  );
+  const projectIndexByKey = new Map();
+
+  fixedProjects.forEach((project, index) => {
+    [project.id, project.name]
+      .map((value) => String(value || '').trim().toLowerCase())
+      .filter(Boolean)
+      .forEach((key) => projectIndexByKey.set(key, index));
+  });
 
   remoteProjects.forEach((project) => {
     const keys = [
-      String(project.id || '').toLowerCase(),
+      String(project.id || '').trim().toLowerCase(),
       String(project.name || '').trim().toLowerCase(),
-    ];
-    const alreadyExists = keys.some((key) => key && seenKeys.has(key));
+    ].filter(Boolean);
+    const existingIndex = keys
+      .map((key) => projectIndexByKey.get(key))
+      .find((index) => Number.isInteger(index));
 
-    if (alreadyExists) {
+    if (Number.isInteger(existingIndex)) {
+      mergedProjects[existingIndex] = {
+        ...mergedProjects[existingIndex],
+        ...project,
+        id: mergedProjects[existingIndex].id,
+      };
       return;
     }
 
     mergedProjects.push(project);
-    keys.filter(Boolean).forEach((key) => seenKeys.add(key));
+    const nextIndex = mergedProjects.length - 1;
+    keys.forEach((key) => projectIndexByKey.set(key, nextIndex));
   });
 
   return mergedProjects;
