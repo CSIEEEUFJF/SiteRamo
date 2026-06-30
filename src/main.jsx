@@ -864,6 +864,7 @@ const copy = {
       aria: 'Navegação principal',
       top: 'Voltar ao topo',
       about: 'O IEEE',
+      opportunities: 'Oportunidades',
       chapters: 'Capítulos',
       board: 'Diretoria',
       projects: 'Projetos',
@@ -902,6 +903,7 @@ const copy = {
           text: 'Trabalho em equipe, união, desenvolvimento humano, criatividade, proatividade, inovação e orgulho de ser IEEE.',
         },
       ],
+      opportunitiesCta: 'Ver oportunidades do IEEE',
     },
     chapters: {
       eyebrow: 'Capítulos e Grupos de Afinidade',
@@ -973,6 +975,47 @@ const copy = {
         '',
     },
 
+    opportunities: {
+      eyebrow: 'Oportunidades',
+      title: 'Oportunidades do IEEE',
+      intro:
+        'Conheça caminhos para aproveitar melhor a rede global do IEEE: bolsas, premiações, competições, publicações, eventos, programas de voluntariado e desenvolvimento de liderança.',
+      back: 'Voltar ao site',
+      externalCta: 'Acessar portal IEEE Students',
+      cards: [
+        {
+          title: 'Bolsas e premiações',
+          text: 'Programas que reconhecem estudantes, projetos, pesquisa, liderança e trajetórias de destaque dentro da comunidade IEEE.',
+          url: 'https://students.ieee.org/awards-scholarships/',
+        },
+        {
+          title: 'Competições e desafios',
+          text: 'Desafios técnicos e atividades estudantis para transformar conhecimento em soluções reais, protótipos e experiências práticas.',
+          url: 'https://students.ieee.org/competitions/',
+        },
+        {
+          title: 'Eventos e conferências',
+          text: 'Oportunidades para participar de eventos regionais e internacionais, apresentar trabalhos e se conectar com profissionais da área.',
+          url: 'https://www.ieee.org/conferences/',
+        },
+        {
+          title: 'Voluntariado e liderança',
+          text: 'Espaços para desenvolver gestão, comunicação, organização de eventos e impacto social em uma comunidade global.',
+          url: 'https://students.ieee.org/volunteering/',
+        },
+        {
+          title: 'Publicações e pesquisa',
+          text: 'Acesso a ecossistemas de publicação, pesquisa e conhecimento técnico para apoiar a formação acadêmica e profissional.',
+          url: 'https://www.ieee.org/publications/',
+        },
+        {
+          title: 'Benefícios para membros',
+          text: 'Recursos de carreira, comunidades técnicas, descontos, redes profissionais e benefícios associados à membresia IEEE.',
+          url: 'https://www.ieee.org/membership/benefits/',
+        },
+      ],
+    },
+
     contact: {
       eyebrow: 'Contato',
       title: 'Fale com o Ramo',
@@ -1014,6 +1057,7 @@ const copy = {
       aria: 'Main navigation',
       top: 'Back to top',
       about: 'IEEE',
+      opportunities: 'Opportunities',
       chapters: 'Chapters',
       board: 'Board',
       projects: 'Projects',
@@ -1052,6 +1096,7 @@ const copy = {
           text: 'Teamwork, unity, human development, creativity, proactivity, innovation, and pride in being IEEE.',
         },
       ],
+      opportunitiesCta: 'View IEEE opportunities',
     },
     chapters: {
       eyebrow: 'Chapters and Affinity Groups',
@@ -1120,6 +1165,47 @@ const copy = {
       photosLoading: 'Loading historical photos',
       photosEmpty: 'No historical photos published yet.',
       photosDescription: '',
+    },
+
+    opportunities: {
+      eyebrow: 'Opportunities',
+      title: 'IEEE opportunities',
+      intro:
+        'Discover ways to make the most of the IEEE global network: scholarships, awards, competitions, publications, events, volunteering programs, and leadership development.',
+      back: 'Back to site',
+      externalCta: 'Open IEEE Students portal',
+      cards: [
+        {
+          title: 'Scholarships and awards',
+          text: 'Programs that recognize students, projects, research, leadership, and outstanding paths within the IEEE community.',
+          url: 'https://students.ieee.org/awards-scholarships/',
+        },
+        {
+          title: 'Competitions and challenges',
+          text: 'Technical challenges and student activities that turn knowledge into real solutions, prototypes, and hands-on experience.',
+          url: 'https://students.ieee.org/competitions/',
+        },
+        {
+          title: 'Events and conferences',
+          text: 'Opportunities to attend regional and international events, present work, and connect with professionals in the field.',
+          url: 'https://www.ieee.org/conferences/',
+        },
+        {
+          title: 'Volunteering and leadership',
+          text: 'Spaces to develop management, communication, event organization, and social impact skills in a global community.',
+          url: 'https://students.ieee.org/volunteering/',
+        },
+        {
+          title: 'Publications and research',
+          text: 'Access to publication, research, and technical knowledge ecosystems that support academic and professional growth.',
+          url: 'https://www.ieee.org/publications/',
+        },
+        {
+          title: 'Member benefits',
+          text: 'Career resources, technical communities, discounts, professional networks, and benefits connected to IEEE membership.',
+          url: 'https://www.ieee.org/membership/benefits/',
+        },
+      ],
     },
 
     contact: {
@@ -1411,6 +1497,22 @@ function App() {
   }, [selectedProject, selectedProjectId]);
 
   useEffect(() => {
+    function handleEscape(event) {
+      if (event.key !== 'Escape') {
+        return;
+      }
+
+      setSelectedChapterId(null);
+      setSelectedMemberId(null);
+      setSelectedProjectId(null);
+      setIsNavOpen(false);
+    }
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, []);
+
+  useEffect(() => {
     document.documentElement.dataset.theme = isDarkMode ? 'dark' : 'light';
     window.localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
@@ -1612,6 +1714,18 @@ function App() {
     );
   }
 
+  if (contentPath === '/oportunidades' || contentPath === '/oportunidades/') {
+    return (
+      <OpportunitiesPage
+        isDarkMode={isDarkMode}
+        language={language}
+        setIsDarkMode={setIsDarkMode}
+        setLanguage={setLanguage}
+        t={t}
+      />
+    );
+  }
+
   if (contentPath === '/projetos' || contentPath === '/projetos/') {
     return (
       <ProjectsPage
@@ -1641,10 +1755,11 @@ function App() {
   }
 
   return (
-    <main>
+    <>
       <a className="skip-link" href={localizedHash(language, '#conteudo-principal')}>
         {t.nav.skip}
       </a>
+      <main>
       <section className="hero" id="topo" aria-label={t.hero.aria}>
         <div className="hero__content">
           <div className="hero-brand" aria-label={t.hero.brandAria}>
@@ -1711,18 +1826,19 @@ function App() {
               onClick={() => setIsNavOpen((current) => !current)}
               aria-label={isNavOpen ? t.nav.closeMenu : t.nav.openMenu}
               aria-expanded={isNavOpen}
+              aria-haspopup="true"
               aria-controls="site-navigation-links"
             >
               {isNavOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
             </button>
           </div>
         </div>
-        <div className="mini-nav__links" id="site-navigation-links">
+        <div className="mini-nav__links" id="site-navigation-links" aria-label={t.nav.aria}>
           <a
             className={activeSectionId === 'o-ieee' ? 'mini-nav__link--active' : undefined}
             href={localizedHash(language, '#o-ieee')}
             onClick={() => setIsNavOpen(false)}
-            aria-current={activeSectionId === 'o-ieee' ? 'page' : undefined}
+            aria-current={activeSectionId === 'o-ieee' ? 'location' : undefined}
           >
             {t.nav.about}
           </a>
@@ -1730,15 +1846,18 @@ function App() {
             className={activeSectionId === 'historia' ? 'mini-nav__link--active' : undefined}
             href={localizedHash(language, '#historia')}
             onClick={() => setIsNavOpen(false)}
-            aria-current={activeSectionId === 'historia' ? 'page' : undefined}
+            aria-current={activeSectionId === 'historia' ? 'location' : undefined}
           >
             {t.nav.history}
+          </a>
+          <a href={localizedPath(language, '/oportunidades')} onClick={() => setIsNavOpen(false)}>
+            {t.nav.opportunities}
           </a>
           <a
             className={activeSectionId === 'capitulos' ? 'mini-nav__link--active' : undefined}
             href={localizedHash(language, '#capitulos')}
             onClick={() => setIsNavOpen(false)}
-            aria-current={activeSectionId === 'capitulos' ? 'page' : undefined}
+            aria-current={activeSectionId === 'capitulos' ? 'location' : undefined}
           >
             {t.nav.chapters}
           </a>
@@ -1746,7 +1865,7 @@ function App() {
             className={activeSectionId === 'diretoria' ? 'mini-nav__link--active' : undefined}
             href={localizedHash(language, '#diretoria')}
             onClick={() => setIsNavOpen(false)}
-            aria-current={activeSectionId === 'diretoria' ? 'page' : undefined}
+            aria-current={activeSectionId === 'diretoria' ? 'location' : undefined}
           >
             {t.nav.board}
           </a>
@@ -1754,7 +1873,7 @@ function App() {
             className={activeSectionId === 'projetos' ? 'mini-nav__link--active' : undefined}
             href={localizedHash(language, '#projetos')}
             onClick={() => setIsNavOpen(false)}
-            aria-current={activeSectionId === 'projetos' ? 'page' : undefined}
+            aria-current={activeSectionId === 'projetos' ? 'location' : undefined}
           >
             {t.nav.projects}
           </a>
@@ -1762,7 +1881,7 @@ function App() {
             className={activeSectionId === 'membros' ? 'mini-nav__link--active' : undefined}
             href={localizedHash(language, '#membros')}
             onClick={() => setIsNavOpen(false)}
-            aria-current={activeSectionId === 'membros' ? 'page' : undefined}
+            aria-current={activeSectionId === 'membros' ? 'location' : undefined}
           >
             {t.nav.members}
           </a>
@@ -1770,7 +1889,7 @@ function App() {
             className={activeSectionId === 'contato' ? 'mini-nav__link--active' : undefined}
             href={localizedHash(language, '#contato')}
             onClick={() => setIsNavOpen(false)}
-            aria-current={activeSectionId === 'contato' ? 'page' : undefined}
+            aria-current={activeSectionId === 'contato' ? 'location' : undefined}
           >
             {t.nav.contact}
           </a>
@@ -1778,7 +1897,7 @@ function App() {
             className={activeSectionId === 'localizacao' ? 'mini-nav__link--active' : undefined}
             href={localizedHash(language, '#localizacao')}
             onClick={() => setIsNavOpen(false)}
-            aria-current={activeSectionId === 'localizacao' ? 'page' : undefined}
+            aria-current={activeSectionId === 'localizacao' ? 'location' : undefined}
           >
             {t.nav.location}
           </a>
@@ -1811,10 +1930,13 @@ function App() {
             {t.about.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
+            <a className="section-action-link section-action-link--inline" href={localizedPath(language, '/oportunidades')}>
+              {t.about.opportunitiesCta}
+            </a>
           </div>
-          <div className="about-ieee__highlights" aria-label={t.about.eyebrow}>
+          <div className="about-ieee__highlights" role="list" aria-label={t.about.eyebrow}>
             {t.about.highlights.map((highlight) => (
-              <article className="about-ieee__highlight" key={highlight.label}>
+              <article className="about-ieee__highlight" role="listitem" key={highlight.label}>
                 <span>{highlight.label}</span>
                 <strong>{highlight.text}</strong>
               </article>
@@ -1877,7 +1999,7 @@ function App() {
           <h2 id="capitulos-title">{t.chapters.title}</h2>
         </div>
 
-        <div className="chapter-grid">
+        <div className="chapter-grid" aria-label={t.chapters.title}>
           {chapters.map(({ id, sigla, nome, logo, darkLogo }) => (
             <button
               className={`chapter-card chapter-card--${id} ${
@@ -2026,9 +2148,9 @@ function App() {
           <h2 id="diretoria-title">{t.board.title}</h2>
         </div>
 
-        <div className="board-grid">
+        <div className="board-grid" role="list" aria-label={t.board.title}>
           {visibleBoardMembers.map(({ role, name, photo, member, bio }) => (
-            <article className="board-card" key={`${role.pt}-${name}`}>
+            <article className="board-card" role="listitem" key={`${role.pt}-${name}`}>
               <div className="board-card__photo-wrap">
                 {photo ? (
                   <img
@@ -2072,7 +2194,7 @@ function App() {
           </a>
         </div>
 
-        <div className="projects-grid">
+        <div className="projects-grid" aria-label={t.projects.title}>
           {homepageProjects.map((project) => {
             const { id, name, chapter, url, description, preview, previewDark, galleryImages } = project;
             const previewSrc = getProjectPreviewSrc({ preview, previewDark, galleryImages }, isDarkMode);
@@ -2334,7 +2456,69 @@ function App() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
+  );
+}
+
+function OpportunitiesPage({
+  isDarkMode,
+  language,
+  setIsDarkMode,
+  setLanguage,
+  t,
+}) {
+  return (
+    <>
+      <a className="skip-link" href="#conteudo-principal">
+        {t.nav.skip}
+      </a>
+      <main className="opportunities-page">
+        <SiteNav
+          isDarkMode={isDarkMode}
+          language={language}
+          setIsDarkMode={setIsDarkMode}
+          setLanguage={setLanguage}
+          t={t}
+        />
+
+        <section className="history-page__hero opportunities-page__hero" id="conteudo-principal">
+          <a className="chapter-page__back" href={localizedPath(language, '/#o-ieee')}>
+            <ArrowLeft aria-hidden="true" size={18} />
+            {t.opportunities.back}
+          </a>
+          <p className="section-kicker">{t.opportunities.eyebrow}</p>
+          <h1>{t.opportunities.title}</h1>
+          <p>{t.opportunities.intro}</p>
+          <a
+            className="section-action-link opportunities-page__primary-link"
+            href="https://students.ieee.org/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {t.opportunities.externalCta}
+            <ExternalLink aria-hidden="true" size={18} />
+          </a>
+        </section>
+
+        <section className="opportunities-page__section" aria-labelledby="oportunidades-lista-title">
+          <div className="section-heading">
+            <span>{t.opportunities.eyebrow}</span>
+            <h2 id="oportunidades-lista-title">{t.opportunities.title}</h2>
+          </div>
+
+          <div className="opportunities-grid">
+            {t.opportunities.cards.map((card) => (
+              <a className="opportunity-card" href={card.url} key={card.title} target="_blank" rel="noreferrer">
+                <span>{card.title}</span>
+                <p>{card.text}</p>
+                <ExternalLink aria-hidden="true" size={18} />
+              </a>
+            ))}
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
 
@@ -2407,7 +2591,22 @@ function ProjectsPage({
     }
   }, [selectedProject, selectedProjectId]);
 
+  useEffect(() => {
+    function handleEscape(event) {
+      if (event.key === 'Escape') {
+        setSelectedProjectId(null);
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, []);
+
   return (
+    <>
+    <a className="skip-link" href="#conteudo-principal">
+      {t.nav.skip}
+    </a>
     <main className="projects-page">
       <SiteNav
         isDarkMode={isDarkMode}
@@ -2417,7 +2616,7 @@ function ProjectsPage({
         t={t}
       />
 
-      <section className="history-page__hero projects-page__hero">
+      <section className="history-page__hero projects-page__hero" id="conteudo-principal">
         <a className="chapter-page__back" href={localizedPath(language, '/#projetos')}>
           <ArrowLeft aria-hidden="true" size={18} />
           {t.projects.back}
@@ -2538,6 +2737,7 @@ function ProjectsPage({
         ) : null}
       </section>
     </main>
+    </>
   );
 }
 
@@ -2682,6 +2882,10 @@ function HistoryPage({
   );
 
   return (
+    <>
+    <a className="skip-link" href="#conteudo-principal">
+      {t.nav.skip}
+    </a>
     <main className="history-page">
       <SiteNav
         isDarkMode={isDarkMode}
@@ -2691,7 +2895,7 @@ function HistoryPage({
         t={t}
       />
 
-      <section className="history-page__section history-page__section--text">
+      <section className="history-page__section history-page__section--text" id="conteudo-principal">
         <div className="history-page__intro-grid">
           <div>
             <a className="chapter-page__back" href={localizedPath(language, '/')}>
@@ -2804,6 +3008,7 @@ function HistoryPage({
         )}
       </section>
     </main>
+    </>
   );
 }
 
@@ -2819,6 +3024,10 @@ function ChapterPage({
 }) {
   if (!chapter || !chapterPage) {
     return (
+      <>
+      <a className="skip-link" href="#conteudo-principal">
+        {t.nav.skip}
+      </a>
       <main className="chapter-page">
         <SiteNav
           isDarkMode={isDarkMode}
@@ -2827,7 +3036,7 @@ function ChapterPage({
           setLanguage={setLanguage}
           t={t}
         />
-        <section className="chapter-page__hero">
+        <section className="chapter-page__hero" id="conteudo-principal">
           <p className="section-kicker">{language === 'pt' ? 'Capítulo' : 'Chapter'}</p>
           <h1>{language === 'pt' ? 'Página não encontrada' : 'Page not found'}</h1>
           <a className="chapter-page__back" href={localizedPath(language, '/#capitulos')}>
@@ -2836,6 +3045,7 @@ function ChapterPage({
           </a>
         </section>
       </main>
+      </>
     );
   }
 
@@ -2903,7 +3113,22 @@ function ChapterPage({
     }
   }, [selectedChapterProject, selectedChapterProjectId]);
 
+  useEffect(() => {
+    function handleEscape(event) {
+      if (event.key === 'Escape') {
+        setSelectedChapterProjectId(null);
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, []);
+
   return (
+    <>
+    <a className="skip-link" href="#conteudo-principal">
+      {t.nav.skip}
+    </a>
     <main className="chapter-page">
       <SiteNav
         isDarkMode={isDarkMode}
@@ -2913,7 +3138,7 @@ function ChapterPage({
         t={t}
       />
 
-      <section className="chapter-page__hero">
+      <section className="chapter-page__hero" id="conteudo-principal">
         <a className="chapter-page__back" href={localizedPath(language, '/#capitulos')}>
           <ArrowLeft aria-hidden="true" size={18} />
           {language === 'pt' ? 'Voltar aos capítulos' : 'Back to chapters'}
@@ -3091,6 +3316,7 @@ function ChapterPage({
       </section>
 
     </main>
+    </>
   );
 }
 
@@ -3099,7 +3325,23 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
   const contentPath =
     typeof window === 'undefined' ? '/' : stripLanguagePrefix(window.location.pathname);
   const isHistoryPage = contentPath === '/historia' || contentPath === '/historia/';
+  const isOpportunitiesPage = contentPath === '/oportunidades' || contentPath === '/oportunidades/';
   const isProjectsPage = contentPath === '/projetos' || contentPath === '/projetos/';
+
+  useEffect(() => {
+    if (!isNavOpen) {
+      return undefined;
+    }
+
+    function handleEscape(event) {
+      if (event.key === 'Escape') {
+        setIsNavOpen(false);
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [isNavOpen]);
 
   return (
     <nav className={`mini-nav mini-nav--page ${isNavOpen ? 'mini-nav--open' : ''}`} aria-label={t.nav.aria}>
@@ -3142,13 +3384,14 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
             onClick={() => setIsNavOpen((current) => !current)}
             aria-label={isNavOpen ? t.nav.closeMenu : t.nav.openMenu}
             aria-expanded={isNavOpen}
+            aria-haspopup="true"
             aria-controls="site-page-navigation-links"
           >
             {isNavOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
           </button>
         </div>
       </div>
-      <div className="mini-nav__links" id="site-page-navigation-links">
+      <div className="mini-nav__links" id="site-page-navigation-links" aria-label={t.nav.aria}>
         <a href={localizedPath(language, '/#o-ieee')} onClick={() => setIsNavOpen(false)}>{t.nav.about}</a>
         <a
           className={isHistoryPage ? 'mini-nav__link--active' : undefined}
@@ -3157,6 +3400,14 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
           aria-current={isHistoryPage ? 'page' : undefined}
         >
           {t.nav.history}
+        </a>
+        <a
+          className={isOpportunitiesPage ? 'mini-nav__link--active' : undefined}
+          href={localizedPath(language, '/oportunidades')}
+          onClick={() => setIsNavOpen(false)}
+          aria-current={isOpportunitiesPage ? 'page' : undefined}
+        >
+          {t.nav.opportunities}
         </a>
         <a href={localizedPath(language, '/#capitulos')} onClick={() => setIsNavOpen(false)}>{t.nav.chapters}</a>
         <a href={localizedPath(language, '/#diretoria')} onClick={() => setIsNavOpen(false)}>{t.nav.board}</a>
