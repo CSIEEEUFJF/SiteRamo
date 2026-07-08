@@ -1104,6 +1104,9 @@ const copy = {
         'Para marcar uma visita ou conversar sobre uma parceria, entre em contato conosco por e-mail, redes sociais ou diretamente com os capítulos e grupos de afinidade.',
       emailLabel: 'E-mail',
       emails: ['ramo.ieeeufjf@gmail.com'],
+      suggestionLabel: 'Sugestões',
+      suggestionText: 'Tem alguma sugestão sobre o site? Entre em contato conosco',
+      suggestionEmails: ['rafael.nick@computer.org', 'thalita.mello@estudante.ufjf.br'],
       socialLabel: 'Redes sociais',
       mapLabel: 'Mapa do Ramo',
       mapTitle: 'Mapa do Ramo',
@@ -1347,6 +1350,9 @@ const copy = {
         'To schedule a visit or discuss a partnership, contact us by e-mail, social media, or directly through our chapters and affinity groups.',
       emailLabel: 'E-mail',
       emails: ['ramo.ieeeufjf@gmail.com'],
+      suggestionLabel: 'Suggestions',
+      suggestionText: 'Do you have a suggestion about the website? Contact us',
+      suggestionEmails: ['rafael.nick@computer.org', 'thalita.mello@estudante.ufjf.br'],
       socialLabel: 'Social media',
       mapLabel: 'Map of the IEEE UFJF Student Branch',
       mapTitle: 'Map of the IEEE UFJF Student Branch',
@@ -2667,6 +2673,18 @@ function App() {
                     <Instagram aria-hidden="true" size={18} />
                     @ieeeufjf
                   </a>
+                </div>
+              </article>
+
+              <article className="contact__info-card contact__info-card--wide">
+                <span>{t.contact.suggestionLabel}</span>
+                <p>{t.contact.suggestionText}</p>
+                <div className="contact__links">
+                  {t.contact.suggestionEmails.map((email) => (
+                    <a key={email} href={`mailto:${email}`}>
+                      {email}
+                    </a>
+                  ))}
                 </div>
               </article>
             </div>
