@@ -3,12 +3,16 @@ import { createRoot } from 'react-dom/client';
 import {
   ArrowDown,
   ArrowLeft,
+  Bell,
+  CalendarDays,
   ExternalLink,
   Github,
   Instagram,
   Languages,
+  Mail,
   Menu,
   Moon,
+  UserPlus,
   X,
 } from 'lucide-react';
 import './styles.css';
@@ -590,16 +594,16 @@ const boardMembers = [
       pt: 'Vice-Presidente',
       en: 'Vice-Chair',
     },
-    name: 'Lauro Abdallah',
-    photo: '/assets/presidents/lauro-abdallah.png',
+    name: 'Pedro Temponi',
+    photo: '/assets/presidents/pedro-temponi.jpg',
   },
   {
     role: {
       pt: 'Secretário',
       en: 'Secretary',
     },
-    name: 'Pedro Temponi',
-    photo: '/assets/presidents/pedro-temponi.jpg',
+    name: 'Lauro Abdallah',
+    photo: '/assets/presidents/lauro-abdallah.png',
   },
   {
     role: {
@@ -610,12 +614,23 @@ const boardMembers = [
     memberName: 'Fabrício',
     photo: '/assets/presidents/fabricio-prata.png',
   },
+  {
+    role: {
+      pt: 'Webmaster',
+      en: 'Webmaster',
+    },
+    name: 'Thalita Mello',
+  },
 ];
 
 const projects = [
   {
     id: 'atas',
     name: 'Sistema Interno',
+    nameTranslations: {
+      pt: 'Sistema Interno',
+      en: 'Internal System',
+    },
     chapter: 'CS',
     url: 'https://interno.ieeeufjf.com.br/demo',
     displayUrl: 'interno.ieeeufjf.com.br/demo',
@@ -690,23 +705,24 @@ const historyLogoSlides = [
 ];
 
 const ATAS_MEMBERS_API_URLS = [
-  '/api/atas-site-members',
   'https://interno.ieeeufjf.com.br/api/site-members',
+  '/api/atas-site-members',
 ];
 
 const ATAS_PROJECTS_API_URLS = [
-  '/api/atas-site-projects',
   'https://interno.ieeeufjf.com.br/api/site-projects',
+  '/api/atas-site-projects',
 ];
 
 const ATAS_HISTORY_PHOTOS_API_URLS = [
-  '/api/atas-site-history-photos',
   'https://interno.ieeeufjf.com.br/api/site-history-photos',
+  '/api/atas-site-history-photos',
 ];
 
 const HOME_SECTION_IDS = [
   'o-ieee',
   'historia',
+  'eventos',
   'capitulos',
   'diretoria',
   'projetos',
@@ -773,7 +789,7 @@ const ramoMembers = [
   {
     id: 'fabricio-prata',
     name: 'Fabrício Prata',
-    role: { pt: 'Tesoureiro e Presidente EdSoc', en: 'Treasurer and EdSoc Chair' },
+    role: { pt: 'Tesoureiro', en: 'Treasurer' },
     chapters: ['Ramo', 'EdSoc'],
     photoUrl: '/assets/presidents/fabricio-prata.png',
     bio: {
@@ -806,23 +822,33 @@ const ramoMembers = [
   {
     id: 'lauro-abdallah',
     name: 'Lauro Abdallah',
-    role: { pt: 'Presidente IAS', en: 'IAS Chair' },
-    chapters: ['IAS'],
+    role: { pt: 'Secretário', en: 'Secretary' },
+    chapters: ['Ramo', 'IAS'],
     photoUrl: '/assets/presidents/lauro-abdallah.png',
     bio: {
-      pt: 'Aproxima o Ramo de aplicações industriais, automação, máquinas elétricas e tecnologia aplicada a processos produtivos.',
-      en: 'Connects the Branch with industrial applications, automation, electric machines, and technology applied to production processes.',
+      pt: 'Organiza registros, documentos e rotinas administrativas para manter as atividades do Ramo alinhadas e bem acompanhadas.',
+      en: 'Organizes records, documents, and administrative routines so the Branch activities stay aligned and easy to follow.',
     },
   },
   {
     id: 'pedro-temponi',
     name: 'Pedro Temponi',
-    role: { pt: 'Presidente PES', en: 'PES Chair' },
-    chapters: ['PES'],
+    role: { pt: 'Vice-Presidente', en: 'Vice-Chair' },
+    chapters: ['Ramo', 'PES'],
     photoUrl: '/assets/presidents/pedro-temponi.jpg',
     bio: {
-      pt: 'Promove estudos e projetos sobre energia elétrica, sistemas de potência, distribuição e transição energética.',
-      en: 'Promotes studies and projects on electric energy, power systems, distribution, and the energy transition.',
+      pt: 'Apoia a coordenação executiva do Ramo e acompanha iniciativas de integração entre diretoria, capítulos e membros.',
+      en: 'Supports Student Branch coordination and follows initiatives that connect the board, chapters, and members.',
+    },
+  },
+  {
+    id: 'thalita',
+    name: 'Thalita Mello',
+    role: { pt: 'Webmaster', en: 'Webmaster' },
+    chapters: ['Ramo'],
+    bio: {
+      pt: 'Cuida da presença digital do Ramo e apoia a atualização das informações públicas do site.',
+      en: 'Maintains the Branch digital presence and supports updates to public website information.',
     },
   },
   {
@@ -865,6 +891,7 @@ const copy = {
       top: 'Voltar ao topo',
       about: 'O IEEE',
       opportunities: 'Oportunidades',
+      events: 'Eventos',
       chapters: 'Capítulos',
       board: 'Diretoria',
       projects: 'Projetos',
@@ -916,6 +943,56 @@ const copy = {
       presidentFallback: 'Presidente',
       logoAlt: (name) => `Logo ${name}`,
       photoAlt: (name) => `Foto de ${name}`,
+    },
+    events: {
+      eyebrow: 'Eventos e calendário',
+      title: 'Atividades abertas do Ramo',
+      description:
+        'O calendário inicial reúne chamadas abertas, encontros dos capítulos e oportunidades para estudantes acompanharem ou integrarem as atividades do IEEE UFJF.',
+      calendarLabel: 'Calendário inicial de eventos',
+      eventAction: 'Ver chamada',
+      cards: [
+        {
+          period: '2026.2',
+          title: 'Calendário de atividades do semestre',
+          text: 'Publicação contínua de reuniões abertas, oficinas, palestras, visitas técnicas e ações de integração organizadas pelo Ramo e pelos capítulos.',
+          url: 'https://www.instagram.com/ieeeufjf/',
+        },
+        {
+          period: 'Mensal',
+          title: 'Encontros abertos dos capítulos',
+          text: 'Espaços para conhecer sociedades técnicas, conversar com lideranças estudantis e descobrir projetos em andamento.',
+          url: '#capitulos',
+        },
+        {
+          period: 'Inscrições abertas',
+          title: 'Recrutamento e voluntariado',
+          text: 'Convites para novos membros participarem de organização de eventos, comunicação, projetos técnicos, ações sociais e gestão do Ramo.',
+          url: 'mailto:ramo.ieeeufjf@gmail.com?subject=Quero%20participar%20do%20IEEE%20UFJF',
+        },
+      ],
+      ctas: {
+        joinIeee: {
+          label: 'Associe-se ao IEEE',
+          text: 'Acesse a membresia global do IEEE.',
+        },
+        joinBranch: {
+          label: 'Entrar no IEEE UFJF',
+          text: 'Fale com o Ramo para começar.',
+        },
+        talk: {
+          label: 'Fale conosco',
+          text: 'Envie dúvidas, propostas ou parcerias.',
+        },
+        volunteer: {
+          label: 'Ser voluntário',
+          text: 'Participe da organização das atividades.',
+        },
+        follow: {
+          label: 'Siga nossos eventos',
+          text: 'Acompanhe chamadas e registros no Instagram.',
+        },
+      },
     },
     board: {
       eyebrow: 'Diretoria do Ramo',
@@ -986,12 +1063,12 @@ const copy = {
         {
           title: 'Bolsas e premiações',
           text: 'Programas que reconhecem estudantes, projetos, pesquisa, liderança e trajetórias de destaque dentro da comunidade IEEE.',
-          url: 'https://students.ieee.org/awards-scholarships/',
+          url: 'https://students.ieee.org/membership-benefits/ieee-benefits/funds-and-awards/',
         },
         {
           title: 'Competições e desafios',
           text: 'Desafios técnicos e atividades estudantis para transformar conhecimento em soluções reais, protótipos e experiências práticas.',
-          url: 'https://students.ieee.org/competitions/',
+          url: 'https://students.ieee.org/student-opportunities/contests-for-students/',
         },
         {
           title: 'Eventos e conferências',
@@ -1001,7 +1078,7 @@ const copy = {
         {
           title: 'Voluntariado e liderança',
           text: 'Espaços para desenvolver gestão, comunicação, organização de eventos e impacto social em uma comunidade global.',
-          url: 'https://students.ieee.org/volunteering/',
+          url: 'https://students.ieee.org/volunteer/',
         },
         {
           title: 'Publicações e pesquisa',
@@ -1058,6 +1135,7 @@ const copy = {
       top: 'Back to top',
       about: 'IEEE',
       opportunities: 'Opportunities',
+      events: 'Events',
       chapters: 'Chapters',
       board: 'Board',
       projects: 'Projects',
@@ -1109,6 +1187,56 @@ const copy = {
       presidentFallback: 'Chair',
       logoAlt: (name) => `${name} logo`,
       photoAlt: (name) => `Photo of ${name}`,
+    },
+    events: {
+      eyebrow: 'Events and calendar',
+      title: 'Open Student Branch activities',
+      description:
+        'The initial calendar brings together open calls, chapter meetings, and opportunities for students to follow or join IEEE UFJF activities.',
+      calendarLabel: 'Initial event calendar',
+      eventAction: 'Open call',
+      cards: [
+        {
+          period: '2026.2',
+          title: 'Semester activity calendar',
+          text: 'Continuous publication of open meetings, workshops, talks, technical visits, and integration activities organized by the Branch and its chapters.',
+          url: 'https://www.instagram.com/ieeeufjf/',
+        },
+        {
+          period: 'Monthly',
+          title: 'Chapter open meetings',
+          text: 'Spaces to meet technical societies, talk with student leaders, and discover ongoing projects.',
+          url: '#capitulos',
+        },
+        {
+          period: 'Open call',
+          title: 'Recruitment and volunteering',
+          text: 'Invitations for new members to join event organization, communication, technical projects, social activities, and Branch management.',
+          url: 'mailto:ramo.ieeeufjf@gmail.com?subject=I%20want%20to%20join%20IEEE%20UFJF',
+        },
+      ],
+      ctas: {
+        joinIeee: {
+          label: 'Join IEEE',
+          text: 'Access IEEE global membership.',
+        },
+        joinBranch: {
+          label: 'Join IEEE UFJF',
+          text: 'Talk to the Student Branch to get started.',
+        },
+        talk: {
+          label: 'Talk to us',
+          text: 'Send questions, proposals, or partnerships.',
+        },
+        volunteer: {
+          label: 'Become a volunteer',
+          text: 'Help organize activities and initiatives.',
+        },
+        follow: {
+          label: 'Follow our events',
+          text: 'Track calls and highlights on Instagram.',
+        },
+      },
     },
     board: {
       eyebrow: 'Student Branch Board',
@@ -1178,12 +1306,12 @@ const copy = {
         {
           title: 'Scholarships and awards',
           text: 'Programs that recognize students, projects, research, leadership, and outstanding paths within the IEEE community.',
-          url: 'https://students.ieee.org/awards-scholarships/',
+          url: 'https://students.ieee.org/membership-benefits/ieee-benefits/funds-and-awards/',
         },
         {
           title: 'Competitions and challenges',
           text: 'Technical challenges and student activities that turn knowledge into real solutions, prototypes, and hands-on experience.',
-          url: 'https://students.ieee.org/competitions/',
+          url: 'https://students.ieee.org/student-opportunities/contests-for-students/',
         },
         {
           title: 'Events and conferences',
@@ -1193,7 +1321,7 @@ const copy = {
         {
           title: 'Volunteering and leadership',
           text: 'Spaces to develop management, communication, event organization, and social impact skills in a global community.',
-          url: 'https://students.ieee.org/volunteering/',
+          url: 'https://students.ieee.org/volunteer/',
         },
         {
           title: 'Publications and research',
@@ -1228,6 +1356,12 @@ const copy = {
 
 const mapsEmbedUrl =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4558.946106024073!2d-43.37522762383733!3d-21.778392998521973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x989ba3d97601f7%3A0xcf9f2fb389a7f742!2sRamo%20Estudantil%20IEEE%20UFJF!5e1!3m2!1sen!2sbr!4v1779591238371!5m2!1sen!2sbr';
+
+const ieeeJoinUrl = 'https://www.ieee.org/membership/join/';
+const branchJoinMailto = 'mailto:ramo.ieeeufjf@gmail.com?subject=Quero%20participar%20do%20IEEE%20UFJF';
+const branchVolunteerMailto = 'mailto:ramo.ieeeufjf@gmail.com?subject=Quero%20ser%20voluntario%20do%20IEEE%20UFJF';
+const branchContactMailto = 'mailto:ramo.ieeeufjf@gmail.com';
+const branchInstagramUrl = 'https://www.instagram.com/ieeeufjf/';
 
 function setMetaContent(selector, content) {
   const meta = document.querySelector(selector);
@@ -1311,7 +1445,7 @@ async function fetchJsonWithTimeout(endpoint, options = {}) {
   const timeoutId = window.setTimeout(() => controller.abort(), options.timeoutMs || 4500);
 
   try {
-    const response = await fetch(endpoint, {
+    const response = await fetch(addRequestCacheBuster(endpoint), {
       cache: 'no-store',
       signal: controller.signal,
     });
@@ -1326,9 +1460,22 @@ async function fetchJsonWithTimeout(endpoint, options = {}) {
   }
 }
 
+function addRequestCacheBuster(endpoint) {
+  try {
+    const url = new URL(endpoint, window.location.origin);
+    url.searchParams.set('_siteRefresh', String(Date.now()));
+
+    return url.origin === window.location.origin
+      ? `${url.pathname}${url.search}${url.hash}`
+      : url.toString();
+  } catch {
+    return endpoint;
+  }
+}
+
 function projectImageAlt(project, language, slideIndex = null) {
-  const name = project?.name || project?.title || '';
-  const subtitle = getLocalizedText(project?.description, language, project?.subtitle || '');
+  const name = getProjectName(project, language);
+  const subtitle = getLocalizedText(project?.description, language, getProjectSubtitle(project, language));
   const suffix = subtitle ? `: ${subtitle}` : '';
   const prefix = Number.isInteger(slideIndex)
     ? language === 'en' ? `Photo ${slideIndex + 1} from project` : `Foto ${slideIndex + 1} do projeto`
@@ -1419,6 +1566,7 @@ function App() {
   const selectedProjectPreviewSrc = selectedProject
     ? getProjectPreviewSrc(selectedProject, isDarkMode)
     : '';
+  const selectedMemberBio = selectedMember ? getLocalizedText(selectedMember.bio, language, '') : '';
   const selectedProjectGallery = useMemo(
     () =>
       selectedProject
@@ -1601,8 +1749,9 @@ function App() {
         for (const endpoint of ATAS_MEMBERS_API_URLS) {
           try {
             const payload = await fetchJsonWithTimeout(endpoint);
+            const refreshVersion = Date.now();
             remoteMembers = Array.isArray(payload.members)
-              ? payload.members.map(normalizeRemoteMember).filter(Boolean)
+              ? payload.members.map((member) => normalizeRemoteMember(member, refreshVersion)).filter(Boolean)
               : [];
             break;
           } catch {
@@ -1638,8 +1787,9 @@ function App() {
       for (const endpoint of ATAS_HISTORY_PHOTOS_API_URLS) {
         try {
           const payload = await fetchJsonWithTimeout(endpoint);
+          const refreshVersion = Date.now();
           remotePhotos = Array.isArray(payload.photos)
-            ? payload.photos.map(normalizeRemoteHistoryPhoto).filter(Boolean)
+            ? payload.photos.map((photo) => normalizeRemoteHistoryPhoto(photo, refreshVersion)).filter(Boolean)
             : [];
           break;
         } catch {
@@ -1672,8 +1822,9 @@ function App() {
       for (const endpoint of ATAS_PROJECTS_API_URLS) {
         try {
           const payload = await fetchJsonWithTimeout(endpoint);
+          const refreshVersion = Date.now();
           remoteProjects = Array.isArray(payload.projects)
-            ? payload.projects.map(normalizeRemoteProject).filter(Boolean)
+            ? payload.projects.map((project) => normalizeRemoteProject(project, refreshVersion)).filter(Boolean)
             : [];
           break;
         } catch {
@@ -1850,8 +2001,13 @@ function App() {
           >
             {t.nav.history}
           </a>
-          <a href={localizedPath(language, '/oportunidades')} onClick={() => setIsNavOpen(false)}>
-            {t.nav.opportunities}
+          <a
+            className={activeSectionId === 'eventos' ? 'mini-nav__link--active' : undefined}
+            href={localizedHash(language, '#eventos')}
+            onClick={() => setIsNavOpen(false)}
+            aria-current={activeSectionId === 'eventos' ? 'location' : undefined}
+          >
+            {t.nav.events}
           </a>
           <a
             className={activeSectionId === 'capitulos' ? 'mini-nav__link--active' : undefined}
@@ -1985,6 +2141,89 @@ function App() {
               </div>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section
+        className="events"
+        id="eventos"
+        data-section-id="eventos"
+        aria-labelledby="eventos-title"
+      >
+        <div className="section-heading">
+          <span>{t.events.eyebrow}</span>
+          <h2 id="eventos-title">{t.events.title}</h2>
+        </div>
+
+        <div className="events__intro">
+          <p>{t.events.description}</p>
+        </div>
+
+        <div className="event-calendar" aria-label={t.events.calendarLabel}>
+          {t.events.cards.map((event) => {
+            const eventHref = event.url.startsWith('#') ? localizedHash(language, event.url) : event.url;
+            const isExternalEvent = eventHref.startsWith('http');
+
+            return (
+              <article className="event-card" key={`${event.period}-${event.title}`}>
+                <div className="event-card__icon" aria-hidden="true">
+                  <CalendarDays size={22} />
+                </div>
+                <div className="event-card__copy">
+                  <span>{event.period}</span>
+                  <strong>{event.title}</strong>
+                  <p>{event.text}</p>
+                </div>
+                <a
+                  className="event-card__link"
+                  href={eventHref}
+                  target={isExternalEvent ? '_blank' : undefined}
+                  rel={isExternalEvent ? 'noreferrer' : undefined}
+                >
+                  {t.events.eventAction}
+                  <ExternalLink aria-hidden="true" size={17} />
+                </a>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="event-actions" aria-label={t.events.eyebrow}>
+          <a className="event-action" href={ieeeJoinUrl} target="_blank" rel="noreferrer">
+            <UserPlus aria-hidden="true" size={22} />
+            <span>
+              <strong>{t.events.ctas.joinIeee.label}</strong>
+              <small>{t.events.ctas.joinIeee.text}</small>
+            </span>
+          </a>
+          <a className="event-action" href={branchJoinMailto}>
+            <UserPlus aria-hidden="true" size={22} />
+            <span>
+              <strong>{t.events.ctas.joinBranch.label}</strong>
+              <small>{t.events.ctas.joinBranch.text}</small>
+            </span>
+          </a>
+          <a className="event-action" href={branchContactMailto}>
+            <Mail aria-hidden="true" size={22} />
+            <span>
+              <strong>{t.events.ctas.talk.label}</strong>
+              <small>{t.events.ctas.talk.text}</small>
+            </span>
+          </a>
+          <a className="event-action" href={branchVolunteerMailto}>
+            <Bell aria-hidden="true" size={22} />
+            <span>
+              <strong>{t.events.ctas.volunteer.label}</strong>
+              <small>{t.events.ctas.volunteer.text}</small>
+            </span>
+          </a>
+          <a className="event-action" href={branchInstagramUrl} target="_blank" rel="noreferrer">
+            <Instagram aria-hidden="true" size={22} />
+            <span>
+              <strong>{t.events.ctas.follow.label}</strong>
+              <small>{t.events.ctas.follow.text}</small>
+            </span>
+          </a>
         </div>
       </section>
 
@@ -2149,7 +2388,7 @@ function App() {
         </div>
 
         <div className="board-grid" role="list" aria-label={t.board.title}>
-          {visibleBoardMembers.map(({ role, name, photo, member, bio }) => (
+          {visibleBoardMembers.map(({ role, name, photo, member }) => (
             <article className="board-card" role="listitem" key={`${role.pt}-${name}`}>
               <div className="board-card__photo-wrap">
                 {photo ? (
@@ -2170,7 +2409,6 @@ function App() {
               <div className="board-card__copy">
                 <span>{role[language]}</span>
                 <strong>{name}</strong>
-                <p>{getLocalizedText(bio, language, '')}</p>
               </div>
             </article>
           ))}
@@ -2197,6 +2435,7 @@ function App() {
         <div className="projects-grid" aria-label={t.projects.title}>
           {homepageProjects.map((project) => {
             const { id, name, chapter, url, description, preview, previewDark, galleryImages } = project;
+            const projectName = getProjectName(project, language);
             const previewSrc = getProjectPreviewSrc({ preview, previewDark, galleryImages }, isDarkMode);
             const hasUrl = Boolean(url);
             const ProjectCardTag = hasUrl ? 'a' : 'button';
@@ -2215,7 +2454,7 @@ function App() {
                   hasUrl ? '' : 'project-card--button'
                 } ${selectedProjectId === id ? 'project-card--active' : ''}`}
                 key={id}
-                aria-label={hasUrl ? t.projects.open(name) : t.projects.openDetails(name)}
+                aria-label={hasUrl ? t.projects.open(projectName) : t.projects.openDetails(projectName)}
                 {...cardProps}
               >
                 <div className="project-card__preview">
@@ -2229,7 +2468,7 @@ function App() {
               </div>
               <div className="project-card__copy">
                   <span className="project-card__tag">{chapter}</span>
-                  <strong>{name}</strong>
+                  <strong>{projectName}</strong>
                   <p>{getLocalizedText(description, language, '')}</p>
                 </div>
                 {hasUrl ? <ExternalLink className="project-card__icon" aria-hidden="true" size={20} /> : null}
@@ -2285,9 +2524,17 @@ function App() {
               </div>
               <div className="chapter-detail__copy project-detail__copy">
                 <span>{selectedProject.chapter}</span>
-                <h3 id="project-detail-title">{selectedProject.name}</h3>
-                {selectedProject.subtitle ? <strong>{selectedProject.subtitle}</strong> : null}
-                <p>{getLocalizedText(selectedProject.detailDescription, language, selectedProject.subtitle || '')}</p>
+                <h3 id="project-detail-title">{getProjectName(selectedProject, language)}</h3>
+                {getProjectSubtitle(selectedProject, language) ? (
+                  <strong>{getProjectSubtitle(selectedProject, language)}</strong>
+                ) : null}
+                <p>
+                  {getLocalizedText(
+                    selectedProject.detailDescription,
+                    language,
+                    getProjectSubtitle(selectedProject, language),
+                  )}
+                </p>
               </div>
             </div>
           </article>
@@ -2379,7 +2626,7 @@ function App() {
               <div className="chapter-detail__copy">
                 <span>{getRoleLabel(selectedMember.role, language)}</span>
                 <h3 id="member-detail-title">{selectedMember.name}</h3>
-                <p>{getLocalizedText(selectedMember.bio, language, '')}</p>
+                {selectedMemberBio ? <p>{selectedMemberBio}</p> : null}
               </div>
             </div>
           </article>
@@ -2634,6 +2881,7 @@ function ProjectsPage({
 
         <div className="projects-grid projects-page__grid">
           {allProjects.map((project) => {
+            const projectName = getProjectName(project, language);
             const previewSrc = getProjectPreviewSrc(project, isDarkMode);
             const hasUrl = Boolean(project.url);
             const ProjectCardTag = hasUrl ? 'a' : 'button';
@@ -2652,7 +2900,7 @@ function ProjectsPage({
                   hasUrl ? '' : 'project-card--button'
                 } ${selectedProjectId === project.id ? 'project-card--active' : ''}`}
                 key={project.id}
-                aria-label={hasUrl ? t.projects.open(project.name) : t.projects.openDetails(project.name)}
+                aria-label={hasUrl ? t.projects.open(projectName) : t.projects.openDetails(projectName)}
                 {...cardProps}
               >
                 <div className="project-card__preview">
@@ -2666,7 +2914,7 @@ function ProjectsPage({
                 </div>
                 <div className="project-card__copy">
                   <span className="project-card__tag">{project.chapter}</span>
-                  <strong>{project.name}</strong>
+                  <strong>{projectName}</strong>
                   <p>{getLocalizedText(project.description, language, '')}</p>
                 </div>
                 {hasUrl ? <ExternalLink className="project-card__icon" aria-hidden="true" size={20} /> : null}
@@ -2722,13 +2970,15 @@ function ProjectsPage({
               </div>
               <div className="chapter-detail__copy project-detail__copy">
                 <span>{selectedProject.chapter}</span>
-                <h3 id="all-project-detail-title">{selectedProject.name}</h3>
-                {selectedProject.subtitle ? <strong>{selectedProject.subtitle}</strong> : null}
+                <h3 id="all-project-detail-title">{getProjectName(selectedProject, language)}</h3>
+                {getProjectSubtitle(selectedProject, language) ? (
+                  <strong>{getProjectSubtitle(selectedProject, language)}</strong>
+                ) : null}
                 <p>
                   {getLocalizedText(
                     selectedProject.detailDescription,
                     language,
-                    selectedProject.subtitle || '',
+                    getProjectSubtitle(selectedProject, language),
                   )}
                 </p>
               </div>
@@ -3199,6 +3449,7 @@ function ChapterPage({
           <>
             <div className="projects-grid chapter-page__projects-grid">
               {relatedProjects.map((project) => {
+                const projectName = getProjectName(project, language);
                 const previewSrc = getProjectPreviewSrc(project, isDarkMode);
 
                 return (
@@ -3211,7 +3462,7 @@ function ChapterPage({
                     onClick={() => setSelectedChapterProjectId(project.id)}
                     aria-controls="chapter-project-detail"
                     aria-expanded={selectedChapterProjectId === project.id}
-                    aria-label={t.projects.openDetails(project.name)}
+                    aria-label={t.projects.openDetails(projectName)}
                   >
                     <div className="project-card__preview">
                       <img
@@ -3224,7 +3475,7 @@ function ChapterPage({
                     </div>
                     <div className="project-card__copy">
                       <span className="project-card__tag">{project.chapter}</span>
-                      <strong>{project.name}</strong>
+                      <strong>{projectName}</strong>
                       <p>{getLocalizedText(project.description, language, '')}</p>
                     </div>
                   </button>
@@ -3279,13 +3530,17 @@ function ChapterPage({
                   </div>
                   <div className="chapter-detail__copy project-detail__copy">
                     <span>{selectedChapterProject.chapter}</span>
-                    <h3 id="chapter-project-detail-title">{selectedChapterProject.name}</h3>
-                    {selectedChapterProject.subtitle ? <strong>{selectedChapterProject.subtitle}</strong> : null}
+                    <h3 id="chapter-project-detail-title">
+                      {getProjectName(selectedChapterProject, language)}
+                    </h3>
+                    {getProjectSubtitle(selectedChapterProject, language) ? (
+                      <strong>{getProjectSubtitle(selectedChapterProject, language)}</strong>
+                    ) : null}
                     <p>
                       {getLocalizedText(
                         selectedChapterProject.detailDescription,
                         language,
-                        selectedChapterProject.subtitle || '',
+                        getProjectSubtitle(selectedChapterProject, language),
                       )}
                     </p>
                     {selectedChapterProject.url ? (
@@ -3297,7 +3552,7 @@ function ChapterPage({
                           rel="noreferrer"
                         >
                           <ExternalLink aria-hidden="true" size={18} />
-                          {t.projects.open(selectedChapterProject.name)}
+                          {t.projects.open(getProjectName(selectedChapterProject, language))}
                         </a>
                       </div>
                     ) : null}
@@ -3325,7 +3580,6 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
   const contentPath =
     typeof window === 'undefined' ? '/' : stripLanguagePrefix(window.location.pathname);
   const isHistoryPage = contentPath === '/historia' || contentPath === '/historia/';
-  const isOpportunitiesPage = contentPath === '/oportunidades' || contentPath === '/oportunidades/';
   const isProjectsPage = contentPath === '/projetos' || contentPath === '/projetos/';
 
   useEffect(() => {
@@ -3401,14 +3655,7 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
         >
           {t.nav.history}
         </a>
-        <a
-          className={isOpportunitiesPage ? 'mini-nav__link--active' : undefined}
-          href={localizedPath(language, '/oportunidades')}
-          onClick={() => setIsNavOpen(false)}
-          aria-current={isOpportunitiesPage ? 'page' : undefined}
-        >
-          {t.nav.opportunities}
-        </a>
+        <a href={localizedPath(language, '/#eventos')} onClick={() => setIsNavOpen(false)}>{t.nav.events}</a>
         <a href={localizedPath(language, '/#capitulos')} onClick={() => setIsNavOpen(false)}>{t.nav.chapters}</a>
         <a href={localizedPath(language, '/#diretoria')} onClick={() => setIsNavOpen(false)}>{t.nav.board}</a>
         <a
@@ -3479,6 +3726,14 @@ function getLocalizedText(value, language, fallback) {
   return value[language] || value.pt || fallback;
 }
 
+function getProjectName(project, language) {
+  return getLocalizedText(project?.nameTranslations, language, project?.name || project?.title || '');
+}
+
+function getProjectSubtitle(project, language) {
+  return getLocalizedText(project?.subtitle, language, '');
+}
+
 function translateRole(role, language) {
   if (language !== 'en') {
     return role;
@@ -3543,7 +3798,7 @@ function getGoogleDriveFolderId(value) {
   }
 }
 
-function normalizeImageUrl(value) {
+function normalizeImageUrl(value, version) {
   const cleanValue = String(value || '').trim();
   if (!cleanValue) {
     return '';
@@ -3551,10 +3806,46 @@ function normalizeImageUrl(value) {
 
   const googleDriveFileId = getGoogleDriveFileId(cleanValue);
   if (googleDriveFileId) {
-    return `https://drive.google.com/thumbnail?id=${encodeURIComponent(googleDriveFileId)}&sz=w1000`;
+    return getDriveImageProxyUrl(googleDriveFileId, version);
   }
 
-  return cleanValue;
+  return addRemoteImageCacheBuster(cleanValue, version);
+}
+
+function getDriveImageProxyUrl(fileId, version) {
+  const params = new URLSearchParams({
+    id: fileId,
+  });
+
+  if (version) {
+    params.set('v', String(version));
+  }
+
+  return `/api/drive-image?${params.toString()}`;
+}
+
+function addRemoteImageCacheBuster(value, version) {
+  const cleanValue = String(value || '').trim();
+  if (!cleanValue || !version) {
+    return cleanValue;
+  }
+
+  try {
+    const url = new URL(cleanValue);
+    const host = url.hostname.toLowerCase();
+    const isGoogleHostedImage =
+      ['drive.google.com', 'drive.usercontent.google.com'].includes(host) ||
+      host.endsWith('.googleusercontent.com');
+
+    if (!isGoogleHostedImage) {
+      return cleanValue;
+    }
+
+    url.searchParams.set('v', String(version));
+    return url.toString();
+  } catch {
+    return cleanValue;
+  }
 }
 
 function normalizeDriveFolderUrl(value) {
@@ -3579,14 +3870,17 @@ function normalizeDriveFolderUrl(value) {
   }
 }
 
-function normalizeGalleryImages(value) {
+function normalizeGalleryImages(value, version) {
   const rawImages = Array.isArray(value)
     ? value
     : String(value || '')
         .split(/\r?\n|,/)
         .map((item) => item.trim());
 
-  return getUniqueUrls(rawImages.map(normalizeImageUrl).filter(Boolean)).slice(0, 24);
+  return getUniqueUrls(rawImages.map((imageUrl) => normalizeImageUrl(imageUrl, version)).filter(Boolean)).slice(
+    0,
+    24,
+  );
 }
 
 function getUniqueUrls(urls) {
@@ -3627,6 +3921,24 @@ function normalizeSearchText(value) {
     .toLowerCase();
 }
 
+function getSearchTokens(value) {
+  return normalizeSearchText(value).split(/\s+/).filter(Boolean);
+}
+
+function hasMatchingNameTokens(memberName, targetName) {
+  const memberTokens = getSearchTokens(memberName);
+  const targetTokens = getSearchTokens(targetName);
+
+  if (!memberTokens.length || !targetTokens.length) {
+    return false;
+  }
+
+  return (
+    targetTokens.every((token) => memberTokens.includes(token)) ||
+    memberTokens.every((token) => targetTokens.includes(token))
+  );
+}
+
 function findPublishedMemberByName(members, name) {
   const targetName = normalizeSearchText(name);
   if (!targetName) {
@@ -3639,6 +3951,7 @@ function findPublishedMemberByName(members, name) {
       const memberName = normalizeSearchText(member.name);
       return memberName.includes(targetName) || targetName.includes(memberName);
     }) ||
+    members.find((member) => hasMatchingNameTokens(member.name, name)) ||
     null
   );
 }
@@ -3698,10 +4011,14 @@ function getProjectPreviewSrc(project, isDarkMode) {
   );
 }
 
-function normalizeRemoteMember(member) {
+function normalizeRemoteMember(member, refreshVersion) {
   if (!member?.name) {
     return null;
   }
+
+  const photoVersion =
+    member.photoUpdatedAt || member.photoUpdated_at || member.updatedAt || member.updated_at || refreshVersion;
+  const photoUrl = normalizeImageUrl(member.photoUrl, photoVersion);
 
   return {
     bio: {
@@ -3711,7 +4028,7 @@ function normalizeRemoteMember(member) {
     chapters: Array.isArray(member.chapters) ? member.chapters : [],
     id: `atas-${member.id || member.name}`,
     name: member.name,
-    photoUrl: normalizeImageUrl(member.photoUrl),
+    photoUrl,
     photoPositionX: clampPercentage(member.photoPositionX),
     photoPositionY: clampPercentage(member.photoPositionY),
     photoZoom: clampPhotoZoom(member.photoZoom),
@@ -3720,31 +4037,45 @@ function normalizeRemoteMember(member) {
   };
 }
 
-function normalizeRemoteProject(project) {
+function normalizeRemoteProject(project, refreshVersion) {
   if (!project?.title) {
     return null;
   }
 
+  const title = project.title || '';
+  const translatedTitle = project.titleEn || title;
   const subtitle = project.subtitle || '';
+  const translatedSubtitle = project.subtitleEn || subtitle;
   const detailDescription = project.description || subtitle;
-  const galleryImages = normalizeGalleryImages(project.galleryImages);
-  const preview = normalizeImageUrl(project.imageUrl) || galleryImages[0] || '';
+  const translatedDetailDescription = project.descriptionEn || detailDescription;
+  const imageVersion =
+    project.imageUpdatedAt ||
+    project.imageUpdated_at ||
+    project.updatedAt ||
+    project.updated_at ||
+    refreshVersion;
+  const galleryImages = normalizeGalleryImages(project.galleryImages, imageVersion);
+  const preview = normalizeImageUrl(project.imageUrl, imageVersion) || galleryImages[0] || '';
 
   return {
     chapter: project.chapter || 'Ramo',
     description: {
-      en: subtitle,
+      en: translatedSubtitle,
       pt: subtitle,
     },
     detailDescription: {
-      en: detailDescription,
+      en: translatedDetailDescription,
       pt: detailDescription,
     },
     driveFolderUrl: normalizeDriveFolderUrl(project.driveFolderUrl),
     galleryImages,
     id: `project-${project.id || project.title}`,
     isPublic: Boolean(project.isPublic),
-    name: project.title,
+    name: title,
+    nameTranslations: {
+      en: translatedTitle,
+      pt: title,
+    },
     photoPositionX: clampPercentage(project.photoPositionX),
     photoPositionY: clampPercentage(project.photoPositionY),
     photoZoom: clampPhotoZoom(project.photoZoom),
@@ -3752,13 +4083,18 @@ function normalizeRemoteProject(project) {
     preview,
     showOnChapter: typeof project.showOnChapter === 'boolean' ? project.showOnChapter : true,
     showOnHome: typeof project.showOnHome === 'boolean' ? project.showOnHome : true,
-    subtitle,
+    subtitle: {
+      en: translatedSubtitle,
+      pt: subtitle,
+    },
     url: normalizeLinkUrl(project.linkUrl),
   };
 }
 
-function normalizeRemoteHistoryPhoto(photo) {
-  const src = normalizeImageUrl(photo?.imageUrl);
+function normalizeRemoteHistoryPhoto(photo, refreshVersion) {
+  const imageVersion =
+    photo?.imageUpdatedAt || photo?.imageUpdated_at || photo?.updatedAt || photo?.updated_at || refreshVersion;
+  const src = normalizeImageUrl(photo?.imageUrl, imageVersion);
   if (!src) {
     return null;
   }
