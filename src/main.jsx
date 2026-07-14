@@ -55,7 +55,7 @@ const chapters = [
       en: 'Chapter focused on networks, telecommunications, connectivity, protocols, and the technologies behind communication systems.',
     },
     instagram: '',
-    president: { nome: 'Pedro Fuzimoto', foto: '/assets/presidents/pedro-fuzimoto.png' },
+    president: { nome: 'Rafael Campos', foto: '' },
   },
   {
     id: 'cs',
@@ -750,11 +750,21 @@ const ramoMembers = [
     id: 'pedro-fuzimoto',
     name: 'Pedro Fuzimoto',
     role: { pt: 'Vice-Presidente', en: 'Vice-Chair' },
-    chapters: ['Ramo', 'APS', 'ComSoc'],
+    chapters: ['Ramo', 'APS'],
     photoUrl: '/assets/presidents/pedro-fuzimoto.png',
     bio: {
-      pt: 'Apoia a coordenação executiva do Ramo e atua em frentes ligadas a antenas, propagação, comunicações e integração entre capítulos.',
-      en: 'Supports Student Branch coordination and contributes to initiatives connected to antennas, propagation, communications, and chapter integration.',
+      pt: 'Apoia a coordenação executiva do Ramo e atua em frentes ligadas a antenas, propagação e integração entre capítulos.',
+      en: 'Supports Student Branch coordination and contributes to initiatives connected to antennas, propagation, and chapter integration.',
+    },
+  },
+  {
+    id: 'rafael-campos',
+    name: 'Rafael Campos',
+    role: { pt: 'Presidente ComSoc', en: 'ComSoc Chair' },
+    chapters: ['ComSoc'],
+    bio: {
+      pt: 'Lidera iniciativas do capítulo ComSoc voltadas a redes, telecomunicações, conectividade e tecnologias de comunicação.',
+      en: 'Leads ComSoc chapter initiatives around networks, telecommunications, connectivity, and communication technologies.',
     },
   },
   {
