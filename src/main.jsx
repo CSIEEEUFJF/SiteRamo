@@ -42,7 +42,7 @@ const chapters = [
       en: 'Chapter dedicated to antennas, electromagnetic propagation, radio frequency, and wireless communications.',
     },
     instagram: '',
-    president: { nome: 'Pedro Fuzimoto', foto: '/assets/presidents/pedro-fuzimoto.png' },
+    president: { nome: 'Pedro de Oliveira Fuzimoto', foto: '/assets/presidents/pedro-fuzimoto.png' },
   },
   {
     id: 'comsoc',
@@ -55,7 +55,14 @@ const chapters = [
       en: 'Chapter focused on networks, telecommunications, connectivity, protocols, and the technologies behind communication systems.',
     },
     instagram: '',
-    president: { nome: 'Rafael Campos', foto: '' },
+    president: {
+      nome: 'Rafael Ferreira Campos',
+      foto: '',
+      label: {
+        pt: 'Presidente',
+        en: 'Chair',
+      },
+    },
   },
   {
     id: 'cs',
@@ -73,7 +80,7 @@ const chapters = [
   },
   {
     id: 'cas',
-    sigla: 'CAS',
+    sigla: 'CASS',
     nome: 'Circuits and Systems Society',
     logo: '/assets/chapters/cas.png',
     darkLogo: '/assets/chapters/dark/cas-white-transparent.png',
@@ -82,7 +89,7 @@ const chapters = [
       en: 'Chapter focused on circuits, electronic systems, signal processing, hardware integration, and embedded systems technologies.',
     },
     instagram: '',
-    president: { nome: 'Arthur Araújo', foto: '' },
+    president: { nome: 'Arthur Araújo Martins', foto: '' },
   },
   {
     id: 'edsoc',
@@ -95,7 +102,7 @@ const chapters = [
       en: 'Chapter focused on engineering education, learning, teaching methodologies, and technical training initiatives.',
     },
     instagram: 'https://www.instagram.com/ieeescolasufjf/',
-    president: { nome: 'Fabrício Prata', foto: '/assets/presidents/fabricio-prata.png' },
+    president: { nome: 'Fabrício Prata Rodrigues', foto: '/assets/presidents/fabricio-prata.png' },
   },
   {
     id: 'ias',
@@ -108,7 +115,7 @@ const chapters = [
       en: 'Chapter that connects industrial applications, automation, electric machines, production processes, and applied technology.',
     },
     instagram: 'https://www.instagram.com/ieeeiasufjf/',
-    president: { nome: 'Mariana Guimarães', foto: '' },
+    president: { nome: 'Mariana Guimarães Machado', foto: '' },
   },
   {
     id: 'pes',
@@ -121,7 +128,7 @@ const chapters = [
       en: 'Chapter focused on electric energy, power systems, generation, transmission, distribution, and the energy transition.',
     },
     instagram: 'https://www.instagram.com/ieeepesufjf/',
-    president: { nome: 'Nicolas Ávila', foto: '' },
+    president: { nome: 'Nicolas Augusto de Oliveira Ávila', foto: '' },
   },
   {
     id: 'ras',
@@ -135,7 +142,7 @@ const chapters = [
     },
     instagram: 'https://www.instagram.com/ras.ieee.ufjf/',
     github: 'https://github.com/RASIEEEUFJF',
-    president: { nome: 'Endhel Andrade', foto: '/assets/presidents/endhel-andrade.jpg' },
+    president: { nome: 'Endhel Andrade de Jesus', foto: '/assets/presidents/endhel-andrade.jpg' },
   },
   {
     id: 'sight',
@@ -148,7 +155,7 @@ const chapters = [
       en: 'Group focused on humanitarian technology, social impact, accessibility, sustainability, and solutions for communities.',
     },
     instagram: 'https://www.instagram.com/ieeesightufjf/',
-    president: { nome: 'Carlos Alexandre', foto: '/assets/presidents/carlos-alexandre.png' },
+    president: { nome: 'Carlos Alexandre de Almeida Pires Vital', foto: '/assets/presidents/carlos-alexandre.png' },
   },
   {
     id: 'vts',
@@ -174,7 +181,7 @@ const chapters = [
       en: 'Affinity group dedicated to strengthening the presence, retention, and leadership of women in engineering and technology.',
     },
     instagram: 'https://www.instagram.com/ieeewieufjf/',
-    president: { nome: 'Maria Eduarda de Sá', foto: '' },
+    president: { nome: 'Maria Eduarda de Sá Amorim Pereira', foto: '' },
   },
 ];
 
@@ -234,11 +241,11 @@ const chapterPages = {
     body: {
       pt: [
         'O Capítulo Estudantil IEEE Circuits and Systems Society UFJF é voltado ao estudo de circuitos, sistemas eletrônicos, processamento de sinais, integração de hardware e tecnologias de sistemas embarcados.',
-        'Fundado em 2016, o CAS UFJF promove atividades técnicas e projetos que conectam teoria e prática em eletrônica, automação, sistemas digitais e soluções de engenharia para problemas reais.',
+        'Fundado em 2016, o CASS UFJF promove atividades técnicas e projetos que conectam teoria e prática em eletrônica, automação, sistemas digitais e soluções de engenharia para problemas reais.',
       ],
       en: [
         'The IEEE Circuits and Systems Society Student Branch Chapter at UFJF focuses on circuits, electronic systems, signal processing, hardware integration, and embedded systems technologies.',
-        'Founded in 2016, CAS UFJF promotes technical activities and projects that connect theory and practice in electronics, automation, digital systems, and engineering solutions for real problems.',
+        'Founded in 2016, CASS UFJF promotes technical activities and projects that connect theory and practice in electronics, automation, digital systems, and engineering solutions for real problems.',
       ],
     },
     projects: { pt: [], en: [] },
@@ -573,6 +580,65 @@ const chapterPages = {
   },
 };
 
+const chapterBoards = {
+  aps: [
+    { role: { pt: 'Presidente', en: 'Chair' }, name: 'Pedro de Oliveira Fuzimoto' },
+    { role: { pt: 'Vice-Presidente', en: 'Vice-Chair' }, name: 'Maria Eduarda de Sá Amorim Pereira' },
+    { role: { pt: 'Tesoureiro(a)', en: 'Treasurer' }, name: 'Fabrício Prata Rodrigues' },
+    { role: { pt: 'Orientador', en: 'Advisor' }, name: 'Ulysses Roberto Chaves Vitor' },
+  ],
+  cas: [
+    { role: { pt: 'Presidente', en: 'Chair' }, name: 'Arthur Araújo Martins' },
+    { role: { pt: 'Vice-Presidente', en: 'Vice-Chair' }, name: 'Endhel Andrade de Jesus' },
+    { role: { pt: 'Tesoureiro(a)', en: 'Treasurer' }, name: 'Fabrício Prata Rodrigues' },
+  ],
+  comsoc: [
+    { role: { pt: 'Presidente', en: 'Chair' }, name: 'Rafael Ferreira Campos' },
+    { role: { pt: 'Tesoureiro(a)', en: 'Treasurer' }, name: 'Fabrício Prata Rodrigues' },
+    { role: { pt: 'Orientador', en: 'Advisor' }, name: 'João Lucas de Castro Santos' },
+  ],
+  edsoc: [
+    { role: { pt: 'Presidente', en: 'Chair' }, name: 'Fabrício Prata Rodrigues' },
+    { role: { pt: 'Vice-Presidente', en: 'Vice-Chair' }, name: 'Endhel Andrade de Jesus' },
+    { role: { pt: 'Secretário(a)', en: 'Secretary' }, name: 'Breno Lamha Barbosa' },
+    { role: { pt: 'Tesoureiro(a)', en: 'Treasurer' }, name: 'Fabrício Prata Rodrigues' },
+    { role: { pt: 'Orientador', en: 'Advisor' }, name: 'Luis Henrique Lopes Lima' },
+  ],
+  ias: [
+    { role: { pt: 'Presidente', en: 'Chair' }, name: 'Mariana Guimarães Machado' },
+    { role: { pt: 'Vice-Presidente', en: 'Vice-Chair' }, name: 'Lauro Abdallah Ritti de Oliveira' },
+    { role: { pt: 'Secretário(a)', en: 'Secretary' }, name: 'Conrado Simões Silva' },
+    { role: { pt: 'Tesoureiro(a)', en: 'Treasurer' }, name: 'Fabrício Prata Rodrigues' },
+    { role: { pt: 'Orientador', en: 'Advisor' }, name: 'Leonardo Willer de Oliveira' },
+  ],
+  pes: [
+    { role: { pt: 'Presidente', en: 'Chair' }, name: 'Nicolas Augusto de Oliveira Ávila' },
+    { role: { pt: 'Vice-Presidente', en: 'Vice-Chair' }, name: 'João Paulo Nazareth da Silva' },
+    { role: { pt: 'Tesoureiro(a)', en: 'Treasurer' }, name: 'Thalita Mello e Silva' },
+    { role: { pt: 'Orientador', en: 'Advisor' }, name: 'Alexandre Haruiti Anzai' },
+  ],
+  ras: [
+    { role: { pt: 'Presidente', en: 'Chair' }, name: 'Endhel Andrade de Jesus' },
+    { role: { pt: 'Vice-Presidente', en: 'Vice-Chair' }, name: 'Arthur Araújo Martins' },
+    { role: { pt: 'Secretário(a)', en: 'Secretary' }, name: 'Breno Lamha Barbosa' },
+    { role: { pt: 'Tesoureiro(a)', en: 'Treasurer' }, name: 'Livia Lourenço Nadalin' },
+    { role: { pt: 'Orientador', en: 'Advisor' }, name: 'André Luís Marques Marcato' },
+  ],
+  wie: [
+    { role: { pt: 'Presidente', en: 'Chair' }, name: 'Maria Eduarda de Sá Amorim Pereira' },
+    { role: { pt: 'Vice-Presidente', en: 'Vice-Chair' }, name: 'Mariana Guimarães Machado' },
+    { role: { pt: 'Secretário(a)', en: 'Secretary' }, name: 'Thalita Mello e Silva' },
+    { role: { pt: 'Tesoureiro(a)', en: 'Treasurer' }, name: 'Livia Lourenço Nadalin' },
+    { role: { pt: 'Orientadora', en: 'Advisor' }, name: 'Letícia Costa Martins' },
+  ],
+  sight: [
+    { role: { pt: 'Presidente', en: 'Chair' }, name: 'Carlos Alexandre de Almeida Pires Vital' },
+    { role: { pt: 'Secretário(a)', en: 'Secretary' }, name: 'Carlos Alexandre de Almeida Pires Vital' },
+    { role: { pt: 'Tesoureiro(a)', en: 'Treasurer' }, name: 'Fabrício Prata Rodrigues' },
+    { role: { pt: 'Orientador', en: 'Advisor' }, name: 'Luis Henrique Lopes Lima' },
+  ],
+};
+
 const boardMembers = [
   {
     role: {
@@ -759,7 +825,7 @@ const ramoMembers = [
   },
   {
     id: 'rafael-campos',
-    name: 'Rafael Campos',
+    name: 'Rafael Ferreira Campos',
     role: { pt: 'Presidente ComSoc', en: 'ComSoc Chair' },
     chapters: ['ComSoc'],
     bio: {
@@ -3346,6 +3412,7 @@ function ChapterPage({
     language,
     t.chapters.presidentFallback,
   );
+  const chapterBoard = chapterBoards[chapter.id] || [];
   const relatedProjects = getChapterRelatedProjects(chapter, publishedProjects);
   const [selectedChapterProjectId, setSelectedChapterProjectId] = useState(null);
   const [selectedChapterProjectSlideIndex, setSelectedChapterProjectSlideIndex] = useState(0);
@@ -3479,6 +3546,27 @@ function ChapterPage({
           </div>
         </aside>
       </section>
+
+      {chapterBoard.length ? (
+        <section className="chapter-page__section chapter-page__section--board">
+          <div className="section-heading">
+            <span>{language === 'pt' ? 'Equipe' : 'Team'}</span>
+            <h2>{language === 'pt' ? 'Diretoria do capítulo' : 'Chapter board'}</h2>
+          </div>
+
+          <dl
+            className="chapter-board"
+            aria-label={language === 'pt' ? `Diretoria ${chapter.sigla}` : `${chapter.sigla} board`}
+          >
+            {chapterBoard.map((member) => (
+              <div className="chapter-board__member" key={`${member.role.pt}-${member.name}`}>
+                <dt>{getLocalizedText(member.role, language, member.role.pt)}</dt>
+                <dd>{member.name}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ) : null}
 
       <section className="chapter-page__section chapter-page__section--stack">
         <div className="section-heading">

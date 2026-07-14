@@ -648,6 +648,48 @@ html[data-theme="dark"] .mini-nav__links a.mini-nav__link--active {
   color: var(--link-color);
 }
 
+.chapter-page__section--board {
+  display: block;
+}
+
+.chapter-board {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+
+.chapter-board__member {
+  min-width: 0;
+  min-height: 118px;
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  padding: 1.15rem;
+  background: var(--surface);
+}
+
+.chapter-board__member dt {
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.chapter-board__member dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.02rem;
+  font-weight: 850;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
 .chapter-page__project-grid {
   width: min(100%, 1120px);
   margin: 0 auto;
