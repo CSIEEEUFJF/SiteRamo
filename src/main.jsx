@@ -157,18 +157,11 @@ const chapters = [
     logo: '/assets/chapters/vts.webp',
     darkLogo: '/assets/chapters/dark/vts.png',
     descricao: {
-      pt: 'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas. No Ramo, é uma parceria com a equipe RAMPAGE BAJA.',
-      en: 'Chapter dedicated to mobility, vehicular systems, intelligent transportation, vehicular communication, and automotive technologies. At the IEEE UFJF Student Branch, it is a partnership with the RAMPAGE BAJA team.',
+      pt: 'Capítulo dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas.',
+      en: 'Chapter dedicated to mobility, vehicular systems, intelligent transportation, vehicular communication, and automotive technologies.',
     },
-    instagram: 'https://www.instagram.com/rampagebaja/',
-    president: {
-      nome: 'RAMPAGE BAJA',
-      foto: '/assets/presidents/rampage-baja.png',
-      label: {
-        pt: 'Equipe parceira',
-        en: 'Partner team',
-      },
-    },
+    instagram: '',
+    president: { nome: 'Matheus Nery', foto: '' },
   },
   {
     id: 'wie',
@@ -569,11 +562,11 @@ const chapterPages = {
     body: {
       pt: [
         'O Capítulo Estudantil IEEE Vehicular Technology Society UFJF é dedicado à mobilidade, sistemas veiculares, transporte inteligente, comunicação veicular e tecnologias automotivas.',
-        'Fundado em 2025, o VTS UFJF aproxima o Ramo de projetos e discussões sobre engenharia veicular. Na UFJF, sua atuação se conecta à equipe RAMPAGE BAJA, fortalecendo a integração entre competição, projeto mecânico, eletrônica e inovação em mobilidade.',
+        'Fundado em 2025, o VTS UFJF aproxima o Ramo de projetos e discussões sobre engenharia veicular, conectando estudantes a temas como projeto mecânico, eletrônica, transporte inteligente e inovação em mobilidade.',
       ],
       en: [
         'The IEEE Vehicular Technology Society Student Branch Chapter at UFJF is dedicated to mobility, vehicular systems, intelligent transportation, vehicular communication, and automotive technologies.',
-        'Founded in 2025, VTS UFJF connects the Branch with projects and discussions in vehicular engineering. At UFJF, its work is connected to the RAMPAGE BAJA team, strengthening the integration between competition, mechanical design, electronics, and mobility innovation.',
+        'Founded in 2025, VTS UFJF connects the Branch with projects and discussions in vehicular engineering, linking students to topics such as mechanical design, electronics, intelligent transportation, and mobility innovation.',
       ],
     },
     projects: { pt: [], en: [] },
@@ -838,6 +831,16 @@ const ramoMembers = [
     bio: {
       pt: 'Lidera iniciativas do capítulo IAS voltadas a aplicações industriais, automação, máquinas elétricas e tecnologia aplicada.',
       en: 'Leads IAS chapter initiatives around industrial applications, automation, electric machines, and applied technology.',
+    },
+  },
+  {
+    id: 'matheus-nery',
+    name: 'Matheus Nery',
+    role: { pt: 'Presidente VTS', en: 'VTS Chair' },
+    chapters: ['VTS'],
+    bio: {
+      pt: 'Lidera iniciativas do capítulo VTS voltadas a mobilidade, sistemas veiculares, transporte inteligente e tecnologias automotivas.',
+      en: 'Leads VTS chapter initiatives around mobility, vehicular systems, intelligent transportation, and automotive technologies.',
     },
   },
   {
