@@ -108,7 +108,7 @@ const chapters = [
       en: 'Chapter that connects industrial applications, automation, electric machines, production processes, and applied technology.',
     },
     instagram: 'https://www.instagram.com/ieeeiasufjf/',
-    president: { nome: 'Lauro Abdallah', foto: '/assets/presidents/lauro-abdallah.png' },
+    president: { nome: 'Mariana Guimarães', foto: '' },
   },
   {
     id: 'pes',
@@ -823,11 +823,21 @@ const ramoMembers = [
     id: 'lauro-abdallah',
     name: 'Lauro Abdallah',
     role: { pt: 'Secretário', en: 'Secretary' },
-    chapters: ['Ramo', 'IAS'],
+    chapters: ['Ramo'],
     photoUrl: '/assets/presidents/lauro-abdallah.png',
     bio: {
       pt: 'Organiza registros, documentos e rotinas administrativas para manter as atividades do Ramo alinhadas e bem acompanhadas.',
       en: 'Organizes records, documents, and administrative routines so the Branch activities stay aligned and easy to follow.',
+    },
+  },
+  {
+    id: 'mariana-guimaraes',
+    name: 'Mariana Guimarães',
+    role: { pt: 'Presidente IAS', en: 'IAS Chair' },
+    chapters: ['IAS'],
+    bio: {
+      pt: 'Lidera iniciativas do capítulo IAS voltadas a aplicações industriais, automação, máquinas elétricas e tecnologia aplicada.',
+      en: 'Leads IAS chapter initiatives around industrial applications, automation, electric machines, and applied technology.',
     },
   },
   {
