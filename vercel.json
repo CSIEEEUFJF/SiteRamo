@@ -1,10 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "git": {
-    "deploymentEnabled": {
-      "main": false
-    }
-  },
   "headers": [
     {
       "source": "/api/(.*)",
@@ -55,7 +50,31 @@
   ],
   "rewrites": [
     {
-      "source": "/admin",
+      "source": "/en",
+      "destination": "/en.html"
+    },
+    {
+      "source": "/en/capitulos/(.*)",
+      "destination": "/en.html"
+    },
+    {
+      "source": "/en/historia",
+      "destination": "/en.html"
+    },
+    {
+      "source": "/en/projetos",
+      "destination": "/en.html"
+    },
+    {
+      "source": "/capitulos/(.*)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/historia",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/projetos",
       "destination": "/index.html"
     }
   ]

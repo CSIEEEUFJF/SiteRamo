@@ -5,14 +5,14 @@ export default async function handler(request, response) {
 
   try {
     if (request.method === 'GET') {
-      return proxyJson(response, '/api/site-members', { method: 'GET' });
+      return proxyJson(response, '/api/site-history-photos', { method: 'GET' });
     }
 
     response.setHeader('Allow', 'GET');
     return response.status(405).json({ detail: 'Metodo nao permitido.' });
   } catch (error) {
     return response.status(error.statusCode || 502).json({
-      detail: error.message || 'Nao foi possivel conectar ao sistema de atas.',
+      detail: error.message || 'Nao foi possivel conectar ao sistema interno.',
     });
   }
 }

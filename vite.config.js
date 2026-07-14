@@ -1,12 +1,20 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-const ATAS_ORIGIN = process.env.ATAS_API_ORIGIN || 'https://atas.ieeeufjf.com.br';
+const ATAS_ORIGIN = process.env.ATAS_API_ORIGIN || 'https://interno.ieeeufjf.com.br';
 const SESSION_COOKIE = 'atas_ieee_session';
 const MAX_JSON_BODY_BYTES = 64 * 1024;
 
 export default defineConfig({
   plugins: [react(), atasAdminProxy()],
+  build: {
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        en: 'en.html',
+      },
+    },
+  },
 });
 
 function atasAdminProxy() {
@@ -60,7 +68,7 @@ function atasAdminProxy() {
       server.middlewares.use('/api/atas-site-members', async (request, response) => {
         try {
           if (request.method === 'GET') {
-            return proxyJson(request, response, '/api/site-members/manage', { method: 'GET' }, { local: true });
+            return proxyJson(request, response, '/api/site-members', { method: 'GET' }, { local: true });
           }
 
           if (request.method === 'POST') {
@@ -133,6 +141,54 @@ function atasAdminProxy() {
           });
         }
       });
+
+      server.middlewares.use('/api/drive-image', async (request, response) => {
+        try {
+          if (!['GET', 'HEAD'].includes(request.method || '')) {
+            response.setHeader('Allow', 'GET, HEAD');
+            return sendJson(response, 405, { detail: 'Metodo nao permitido.' });
+          }
+
+          const fileId = getDriveImageId(request);
+          if (!fileId) {
+            return sendJson(response, 400, { detail: 'Imagem invalida.' });
+          }
+
+          const upstream = await fetch(
+            `https://drive.usercontent.google.com/download?id=${encodeURIComponent(fileId)}&export=view`,
+            { cache: 'no-store' },
+          );
+
+          if (!upstream.ok) {
+            return sendJson(response, upstream.status, { detail: 'Imagem indisponivel.' });
+          }
+
+          const contentType = upstream.headers.get('content-type') || '';
+          if (!contentType.startsWith('image/')) {
+            return sendJson(response, 502, { detail: 'Arquivo nao e uma imagem publica.' });
+          }
+
+          response.statusCode = 200;
+          response.setHeader('Cache-Control', 'no-store, max-age=0');
+          response.setHeader('Content-Type', contentType);
+          response.setHeader('X-Content-Type-Options', 'nosniff');
+          const contentLength = upstream.headers.get('content-length');
+          if (contentLength) {
+            response.setHeader('Content-Length', contentLength);
+          }
+
+          if (request.method === 'HEAD') {
+            return response.end();
+          }
+
+          const buffer = Buffer.from(await upstream.arrayBuffer());
+          return response.end(buffer);
+        } catch (error) {
+          return sendJson(response, 502, {
+            detail: error.message || 'Nao foi possivel carregar a imagem.',
+          });
+        }
+      });
     },
   };
 }
@@ -171,6 +227,12 @@ async function proxyFetch(request, pathname, init = {}) {
 function getMemberId(request) {
   const url = new URL(request.url || '', 'http://localhost');
   return url.searchParams.get('id');
+}
+
+function getDriveImageId(request) {
+  const url = new URL(request.url || '', 'http://localhost');
+  const fileId = String(url.searchParams.get('id') || '').trim();
+  return /^[A-Za-z0-9_-]{10,}$/.test(fileId) ? fileId : '';
 }
 
 function sendJson(response, status, payload) {

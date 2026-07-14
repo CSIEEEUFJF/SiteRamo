@@ -5,7 +5,7 @@ export default async function handler(request, response) {
 
   try {
     if (request.method === 'GET') {
-      return proxyJson(response, '/api/site-members', { method: 'GET' });
+      return proxyJson(response, '/api/site-projects', { method: 'GET' });
     }
 
     response.setHeader('Allow', 'GET');
