@@ -200,7 +200,20 @@ const chapterPages = {
         'Founded in 2026, the chapter connects the academic community with strategic engineering topics, encouraging studies, technical projects, and training activities focused on advanced electronic systems.',
       ],
     },
-    projects: { pt: [], en: [] },
+    projects: {
+      pt: [
+        {
+          title: 'Ciclo de estudos em sistemas aeroespaciais',
+          text: 'Plano 2026.2: encontros introdutórios sobre sensoriamento, navegação e eletrônica embarcada, com definição de um primeiro protótipo demonstrativo.',
+        },
+      ],
+      en: [
+        {
+          title: 'Aerospace systems study cycle',
+          text: '2026.2 plan: introductory meetings on sensing, navigation, and embedded electronics, followed by the definition of a first demonstration prototype.',
+        },
+      ],
+    },
   },
   aps: {
     foundation: '2026',
@@ -216,7 +229,20 @@ const chapterPages = {
         'Founded in 2026, AP-S UFJF aims to develop projects, training activities, and academic initiatives that bring students closer to practical applications in telecommunications, radiating systems, and connectivity technologies.',
       ],
     },
-    projects: { pt: [], en: [] },
+    projects: {
+      pt: [
+        {
+          title: 'Oficina introdutória de antenas',
+          text: 'Plano 2026.2: atividade prática sobre fundamentos de antenas, propagação e medição, preparando uma trilha inicial de capacitação para novos membros.',
+        },
+      ],
+      en: [
+        {
+          title: 'Introductory antenna workshop',
+          text: '2026.2 plan: a practical activity on antenna, propagation, and measurement fundamentals, establishing an initial training path for new members.',
+        },
+      ],
+    },
   },
   comsoc: {
     foundation: '2016',
@@ -232,7 +258,20 @@ const chapterPages = {
         'Founded in 2016, ComSoc UFJF encourages the study and application of communication technologies through projects, training, technical discussions, and integration among students interested in digital infrastructure.',
       ],
     },
-    projects: { pt: [], en: [] },
+    projects: {
+      pt: [
+        {
+          title: 'Ciclo de redes e conectividade',
+          text: 'Plano 2026.2: encontros sobre redes, protocolos e telecomunicações, com uma demonstração prática de monitoramento e diagnóstico de conectividade.',
+        },
+      ],
+      en: [
+        {
+          title: 'Networks and connectivity cycle',
+          text: '2026.2 plan: meetings on networks, protocols, and telecommunications, including a practical connectivity monitoring and diagnostics demonstration.',
+        },
+      ],
+    },
   },
   cas: {
     foundation: '2016',
@@ -248,7 +287,20 @@ const chapterPages = {
         'Founded in 2016, CASS UFJF promotes technical activities and projects that connect theory and practice in electronics, automation, digital systems, and engineering solutions for real problems.',
       ],
     },
-    projects: { pt: [], en: [] },
+    projects: {
+      pt: [
+        {
+          title: 'Laboratório de circuitos e sistemas embarcados',
+          text: 'Plano 2026.2: oficina de prototipagem que integra circuitos, aquisição de sinais e microcontroladores em uma aplicação de bancada documentada.',
+        },
+      ],
+      en: [
+        {
+          title: 'Circuits and embedded systems lab',
+          text: '2026.2 plan: a prototyping workshop combining circuits, signal acquisition, and microcontrollers in a documented bench-top application.',
+        },
+      ],
+    },
   },
   edsoc: {
     foundation: '2025',
@@ -264,7 +316,20 @@ const chapterPages = {
         'Founded in 2025, EdSoc UFJF connects students with educational practices, material development, school outreach, and projects that strengthen technical education inside and outside the university.',
       ],
     },
-    projects: { pt: [], en: [] },
+    projects: {
+      pt: [
+        {
+          title: 'Oficina de educação em engenharia',
+          text: 'Plano 2026.2: criação e teste de uma atividade didática curta para apoiar ações de capacitação técnica e aproximação com escolas.',
+        },
+      ],
+      en: [
+        {
+          title: 'Engineering education workshop',
+          text: '2026.2 plan: creation and testing of a short learning activity to support technical training and outreach initiatives with schools.',
+        },
+      ],
+    },
   },
   ras: {
     foundation: '2009',
@@ -576,7 +641,20 @@ const chapterPages = {
         'Founded in 2025, VTS UFJF connects the Branch with projects and discussions in vehicular engineering, linking students to topics such as mechanical design, electronics, intelligent transportation, and mobility innovation.',
       ],
     },
-    projects: { pt: [], en: [] },
+    projects: {
+      pt: [
+        {
+          title: 'Grupo de estudos em mobilidade inteligente',
+          text: 'Plano 2026.2: encontros sobre eletrônica veicular, comunicação entre veículos e transporte inteligente, culminando em uma proposta de demonstração técnica.',
+        },
+      ],
+      en: [
+        {
+          title: 'Intelligent mobility study group',
+          text: '2026.2 plan: meetings on vehicular electronics, vehicle communications, and intelligent transportation, culminating in a technical demonstration proposal.',
+        },
+      ],
+    },
   },
 };
 
@@ -1037,27 +1115,39 @@ const copy = {
       eyebrow: 'Eventos e calendário',
       title: 'Atividades abertas do Ramo',
       description:
-        'O calendário inicial reúne chamadas abertas, encontros dos capítulos e oportunidades para estudantes acompanharem ou integrarem as atividades do IEEE UFJF.',
-      calendarLabel: 'Calendário inicial de eventos',
-      eventAction: 'Ver chamada',
+        'Agenda verificada de eventos, oportunidades e chamadas abertas para estudantes acompanharem ou integrarem atividades do IEEE.',
+      calendarLabel: 'Agenda de eventos e chamadas com data, modalidade e inscrição',
+      eventAction: 'Ver inscrição',
+      dateLabel: 'Data',
+      formatLabel: 'Modalidade',
+      registrationLabel: 'Inscrição',
       cards: [
         {
+          period: '13–15 ago 2026',
+          date: '13 a 15 de agosto de 2026',
+          format: 'Presencial · CEFET/RJ, Rio de Janeiro',
+          registration: 'Inscrições abertas no site do evento',
+          title: 'IEEE IES SYP Congress 2026',
+          text: 'Congresso internacional para estudantes e jovens profissionais, com workshops, painéis, visitas técnicas e networking em eletrônica industrial.',
+          url: 'https://syp-congress.ieee-ies.org/',
+        },
+        {
+          period: 'Até 15 set 2026',
+          date: 'Prazo em 15 de setembro de 2026',
+          format: 'Online · formulário de candidatura',
+          registration: 'Para integrantes de projetos EPICS in IEEE financiados',
+          title: 'EPICS in IEEE Travel Grant',
+          text: 'Auxílio de até US$ 1.000 para estudantes apresentarem projetos EPICS in IEEE em conferências ou workshops do IEEE.',
+          url: 'https://epics.ieee.org/resources/epics-in-ieee-travel-grant-program/',
+        },
+        {
           period: '2026.2',
-          title: 'Calendário de atividades do semestre',
-          text: 'Publicação contínua de reuniões abertas, oficinas, palestras, visitas técnicas e ações de integração organizadas pelo Ramo e pelos capítulos.',
-          url: 'https://www.instagram.com/ieeeufjf/',
-        },
-        {
-          period: 'Mensal',
-          title: 'Encontros abertos dos capítulos',
-          text: 'Espaços para conhecer sociedades técnicas, conversar com lideranças estudantis e descobrir projetos em andamento.',
-          url: '#capitulos',
-        },
-        {
-          period: 'Inscrições abertas',
+          date: 'Inscrições em fluxo contínuo',
+          format: 'Online · contato com a diretoria',
+          registration: 'Formulário disponível nesta página',
           title: 'Recrutamento e voluntariado',
-          text: 'Convites para novos membros participarem de organização de eventos, comunicação, projetos técnicos, ações sociais e gestão do Ramo.',
-          url: 'mailto:ramo.ieeeufjf@gmail.com?subject=Quero%20participar%20do%20IEEE%20UFJF',
+          text: 'Canal permanente para estudantes interessados em eventos, comunicação, projetos técnicos, ações sociais e gestão do Ramo.',
+          url: '#voluntariado',
         },
       ],
       ctas: {
@@ -1081,6 +1171,29 @@ const copy = {
           label: 'Siga nossos eventos',
           text: 'Acompanhe chamadas e registros no Instagram.',
         },
+      },
+      volunteerForm: {
+        eyebrow: 'Recrutamento e voluntariado',
+        title: 'Encontre seu espaço no IEEE UFJF',
+        description:
+          'Conte brevemente seus interesses para que a diretoria encaminhe seu contato ao capítulo ou frente de trabalho mais adequada.',
+        nameLabel: 'Nome completo',
+        emailLabel: 'E-mail',
+        interestLabel: 'Área de interesse',
+        interestPlaceholder: 'Selecione uma área',
+        interests: [
+          'Capítulos técnicos',
+          'Projetos e desenvolvimento',
+          'Eventos e capacitações',
+          'Comunicação e design',
+          'Ações sociais e voluntariado',
+          'Gestão do Ramo',
+        ],
+        messageLabel: 'Mensagem',
+        messagePlaceholder: 'Conte quais temas, experiências ou atividades despertam seu interesse.',
+        consent: 'Autorizo o uso destes dados apenas para retorno sobre participação no IEEE UFJF.',
+        submit: 'Preparar contato',
+        privacy: 'O contato é preparado para envio direto ao e-mail institucional do Ramo.',
       },
     },
     board: {
@@ -1153,6 +1266,11 @@ const copy = {
           title: 'Bolsas e premiações',
           text: 'Programas que reconhecem estudantes, projetos, pesquisa, liderança e trajetórias de destaque dentro da comunidade IEEE.',
           url: 'https://students.ieee.org/membership-benefits/ieee-benefits/funds-and-awards/',
+        },
+        {
+          title: 'Auxílios de viagem e financiamento',
+          text: 'Catálogo de Travel Grants, bolsas e fundos para apoiar participação estudantil em conferências, projetos e atividades IEEE.',
+          url: 'https://students.ieee.org/student-opportunities/',
         },
         {
           title: 'Competições e desafios',
@@ -1284,27 +1402,39 @@ const copy = {
       eyebrow: 'Events and calendar',
       title: 'Open Student Branch activities',
       description:
-        'The initial calendar brings together open calls, chapter meetings, and opportunities for students to follow or join IEEE UFJF activities.',
-      calendarLabel: 'Initial event calendar',
-      eventAction: 'Open call',
+        'A verified schedule of events, opportunities, and open calls for students to follow or join IEEE activities.',
+      calendarLabel: 'Event and call schedule with date, format, and registration',
+      eventAction: 'View registration',
+      dateLabel: 'Date',
+      formatLabel: 'Format',
+      registrationLabel: 'Registration',
       cards: [
         {
+          period: '13–15 Aug 2026',
+          date: 'August 13–15, 2026',
+          format: 'In person · CEFET/RJ, Rio de Janeiro',
+          registration: 'Registration open on the event website',
+          title: 'IEEE IES SYP Congress 2026',
+          text: 'An international congress for students and young professionals featuring workshops, panels, technical visits, and industrial electronics networking.',
+          url: 'https://syp-congress.ieee-ies.org/',
+        },
+        {
+          period: 'By 15 Sep 2026',
+          date: 'Deadline: September 15, 2026',
+          format: 'Online · application form',
+          registration: 'For participants in funded EPICS in IEEE projects',
+          title: 'EPICS in IEEE Travel Grant',
+          text: 'Up to US$1,000 in support for students presenting EPICS in IEEE projects at IEEE conferences or workshops.',
+          url: 'https://epics.ieee.org/resources/epics-in-ieee-travel-grant-program/',
+        },
+        {
           period: '2026.2',
-          title: 'Semester activity calendar',
-          text: 'Continuous publication of open meetings, workshops, talks, technical visits, and integration activities organized by the Branch and its chapters.',
-          url: 'https://www.instagram.com/ieeeufjf/',
-        },
-        {
-          period: 'Monthly',
-          title: 'Chapter open meetings',
-          text: 'Spaces to meet technical societies, talk with student leaders, and discover ongoing projects.',
-          url: '#capitulos',
-        },
-        {
-          period: 'Open call',
+          date: 'Rolling applications',
+          format: 'Online · direct contact with the board',
+          registration: 'Form available on this page',
           title: 'Recruitment and volunteering',
-          text: 'Invitations for new members to join event organization, communication, technical projects, social activities, and Branch management.',
-          url: 'mailto:ramo.ieeeufjf@gmail.com?subject=I%20want%20to%20join%20IEEE%20UFJF',
+          text: 'An ongoing channel for students interested in events, communication, technical projects, social initiatives, and Branch management.',
+          url: '#voluntariado',
         },
       ],
       ctas: {
@@ -1328,6 +1458,29 @@ const copy = {
           label: 'Follow our events',
           text: 'Track calls and highlights on Instagram.',
         },
+      },
+      volunteerForm: {
+        eyebrow: 'Recruitment and volunteering',
+        title: 'Find your place at IEEE UFJF',
+        description:
+          'Tell us briefly about your interests so the board can direct your contact to the most relevant chapter or workstream.',
+        nameLabel: 'Full name',
+        emailLabel: 'Email',
+        interestLabel: 'Area of interest',
+        interestPlaceholder: 'Select an area',
+        interests: [
+          'Technical chapters',
+          'Projects and development',
+          'Events and training',
+          'Communication and design',
+          'Social initiatives and volunteering',
+          'Student Branch management',
+        ],
+        messageLabel: 'Message',
+        messagePlaceholder: 'Share the topics, experiences, or activities that interest you.',
+        consent: 'I authorize these details to be used only for a reply about joining IEEE UFJF.',
+        submit: 'Prepare contact',
+        privacy: 'The contact is prepared for direct delivery to the Student Branch institutional email.',
       },
     },
     board: {
@@ -1399,6 +1552,11 @@ const copy = {
           title: 'Scholarships and awards',
           text: 'Programs that recognize students, projects, research, leadership, and outstanding paths within the IEEE community.',
           url: 'https://students.ieee.org/membership-benefits/ieee-benefits/funds-and-awards/',
+        },
+        {
+          title: 'Travel Grants and Funding',
+          text: 'A catalog of travel grants, scholarships, and funds supporting student participation in IEEE conferences, projects, and activities.',
+          url: 'https://students.ieee.org/student-opportunities/',
         },
         {
           title: 'Competitions and challenges',
@@ -1606,7 +1764,7 @@ function App() {
       return 'en';
     }
 
-    return window.localStorage.getItem('language') === 'en' ? 'en' : 'pt';
+    return 'pt';
   });
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window === 'undefined') {
@@ -1754,6 +1912,13 @@ function App() {
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
   }, []);
+
+  useEffect(() => {
+    const routeLanguage = currentPath === '/en' || currentPath.startsWith('/en/') ? 'en' : 'pt';
+    setLanguage((currentLanguage) => (
+      currentLanguage === routeLanguage ? currentLanguage : routeLanguage
+    ));
+  }, [currentPath]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = isDarkMode ? 'dark' : 'light';
@@ -2268,6 +2433,20 @@ function App() {
                   <span>{event.period}</span>
                   <strong>{event.title}</strong>
                   <p>{event.text}</p>
+                  <dl className="event-card__meta">
+                    <div>
+                      <dt>{t.events.dateLabel}</dt>
+                      <dd>{event.date}</dd>
+                    </div>
+                    <div>
+                      <dt>{t.events.formatLabel}</dt>
+                      <dd>{event.format}</dd>
+                    </div>
+                    <div>
+                      <dt>{t.events.registrationLabel}</dt>
+                      <dd>{event.registration}</dd>
+                    </div>
+                  </dl>
                 </div>
                 <a
                   className="event-card__link"
@@ -2320,6 +2499,8 @@ function App() {
             </span>
           </a>
         </div>
+
+        <VolunteerForm language={language} t={t.events.volunteerForm} />
       </section>
 
       <section
@@ -2836,29 +3017,14 @@ function OpportunitiesPage({
           t={t}
         />
 
-        <section className="history-page__hero opportunities-page__hero" id="conteudo-principal">
-          <a className="chapter-page__back" href={localizedPath(language, '/#o-ieee')}>
-            <ArrowLeft aria-hidden="true" size={18} />
-            {t.opportunities.back}
-          </a>
-          <p className="section-kicker">{t.opportunities.eyebrow}</p>
-          <h1>{t.opportunities.title}</h1>
-          <p>{t.opportunities.intro}</p>
-          <a
-            className="section-action-link opportunities-page__primary-link"
-            href="https://students.ieee.org/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            {t.opportunities.externalCta}
-            <ExternalLink aria-hidden="true" size={18} />
-          </a>
-        </section>
-
-        <section className="opportunities-page__section" aria-labelledby="oportunidades-lista-title">
+        <section
+          className="opportunities-page__section"
+          id="conteudo-principal"
+          aria-labelledby="oportunidades-lista-title"
+        >
           <div className="section-heading">
             <span>{t.opportunities.eyebrow}</span>
-            <h2 id="oportunidades-lista-title">{t.opportunities.title}</h2>
+            <h1 id="oportunidades-lista-title">{t.opportunities.title}</h1>
           </div>
 
           <div className="opportunities-grid">
@@ -2873,6 +3039,88 @@ function OpportunitiesPage({
         </section>
       </main>
     </>
+  );
+}
+
+function VolunteerForm({ language, t }) {
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const values = Object.fromEntries(new FormData(event.currentTarget).entries());
+    const name = String(values.name || '').trim();
+    const email = String(values.email || '').trim();
+    const interest = String(values.interest || '').trim();
+    const message = String(values.message || '').trim();
+    const subject = language === 'pt'
+      ? `Interesse em participar do IEEE UFJF - ${name}`
+      : `Interest in joining IEEE UFJF - ${name}`;
+    const body = language === 'pt'
+      ? [
+          `Nome: ${name}`,
+          `E-mail: ${email}`,
+          `Área de interesse: ${interest}`,
+          '',
+          message || 'Gostaria de receber mais informações sobre como participar.',
+        ].join('\n')
+      : [
+          `Name: ${name}`,
+          `Email: ${email}`,
+          `Area of interest: ${interest}`,
+          '',
+          message || 'I would like more information about how to participate.',
+        ].join('\n');
+    const query = new URLSearchParams({ subject, body });
+
+    window.location.href = `mailto:ramo.ieeeufjf@gmail.com?${query.toString()}`;
+  }
+
+  return (
+    <div className="volunteer-form" id="voluntariado">
+      <div className="volunteer-form__heading">
+        <span>{t.eyebrow}</span>
+        <h3>{t.title}</h3>
+        <p>{t.description}</p>
+      </div>
+
+      <form onSubmit={handleSubmit} aria-describedby="volunteer-form-note">
+        <div className="volunteer-form__fields">
+          <label htmlFor="volunteer-name">
+            <span>{t.nameLabel}</span>
+            <input id="volunteer-name" name="name" type="text" autoComplete="name" required />
+          </label>
+          <label htmlFor="volunteer-email">
+            <span>{t.emailLabel}</span>
+            <input id="volunteer-email" name="email" type="email" autoComplete="email" required />
+          </label>
+          <label htmlFor="volunteer-interest" className="volunteer-form__field--wide">
+            <span>{t.interestLabel}</span>
+            <select id="volunteer-interest" name="interest" defaultValue="" required>
+              <option value="" disabled>{t.interestPlaceholder}</option>
+              {t.interests.map((interest) => (
+                <option value={interest} key={interest}>{interest}</option>
+              ))}
+            </select>
+          </label>
+          <label htmlFor="volunteer-message" className="volunteer-form__field--wide">
+            <span>{t.messageLabel}</span>
+            <textarea id="volunteer-message" name="message" rows="4" placeholder={t.messagePlaceholder} />
+          </label>
+        </div>
+
+        <label className="volunteer-form__consent" htmlFor="volunteer-consent">
+          <input id="volunteer-consent" name="consent" type="checkbox" required />
+          <span>{t.consent}</span>
+        </label>
+
+        <div className="volunteer-form__footer">
+          <button type="submit">
+            <Mail aria-hidden="true" size={18} />
+            {t.submit}
+          </button>
+          <small id="volunteer-form-note">{t.privacy}</small>
+        </div>
+      </form>
+    </div>
   );
 }
 
@@ -3413,6 +3661,7 @@ function ChapterPage({
     t.chapters.presidentFallback,
   );
   const chapterBoard = chapterBoards[chapter.id] || [];
+  const chapterInitiatives = chapterPage.projects?.[language] || [];
   const relatedProjects = getChapterRelatedProjects(chapter, publishedProjects);
   const [selectedChapterProjectId, setSelectedChapterProjectId] = useState(null);
   const [selectedChapterProjectSlideIndex, setSelectedChapterProjectSlideIndex] = useState(0);
@@ -3690,13 +3939,27 @@ function ChapterPage({
               </article>
             ) : null}
           </>
-        ) : (
+        ) : null}
+
+        {chapterInitiatives.length ? (
+          <div className="chapter-page__project-grid">
+            {chapterInitiatives.map((initiative) => (
+              <article className="chapter-page__project" key={initiative.title}>
+                <span>{language === 'pt' ? 'Projeto ou plano' : 'Project or plan'}</span>
+                <h3>{initiative.title}</h3>
+                <p>{initiative.text}</p>
+              </article>
+            ))}
+          </div>
+        ) : null}
+
+        {!relatedProjects.length && !chapterInitiatives.length ? (
           <p className="chapter-page__empty">
             {language === 'en'
               ? 'No projects registered for this chapter yet.'
               : 'Nenhum projeto cadastrado para este capítulo ainda.'}
           </p>
-        )}
+        ) : null}
       </section>
 
     </main>
@@ -3709,6 +3972,7 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
   const contentPath =
     typeof window === 'undefined' ? '/' : stripLanguagePrefix(window.location.pathname);
   const isHistoryPage = contentPath === '/historia' || contentPath === '/historia/';
+  const isOpportunitiesPage = contentPath === '/oportunidades' || contentPath === '/oportunidades/';
   const isProjectsPage = contentPath === '/projetos' || contentPath === '/projetos/';
 
   useEffect(() => {
@@ -3776,6 +4040,14 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
       </div>
       <div className="mini-nav__links" id="site-page-navigation-links" aria-label={t.nav.aria}>
         <a href={localizedPath(language, '/#o-ieee')} onClick={() => setIsNavOpen(false)}>{t.nav.about}</a>
+        <a
+          className={isOpportunitiesPage ? 'mini-nav__link--active' : undefined}
+          href={localizedPath(language, '/oportunidades')}
+          onClick={() => setIsNavOpen(false)}
+          aria-current={isOpportunitiesPage ? 'page' : undefined}
+        >
+          {t.nav.opportunities}
+        </a>
         <a
           className={isHistoryPage ? 'mini-nav__link--active' : undefined}
           href={localizedPath(language, '/historia')}

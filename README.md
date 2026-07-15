@@ -2,7 +2,7 @@
 
 Documentacao principal do projeto `SiteRamo`.
 
-Ultima revisao desta documentacao: `2026-06-28`
+Ultima revisao desta documentacao: `2026-07-14`
 
 ## 1. Visao geral
 
@@ -23,6 +23,9 @@ Funciona hoje:
 
 - homepage com hero, bloco sobre o IEEE, historia resumida, capitulos, diretoria, projetos, membros, contato e localizacao;
 - rotas internas para historia, todos os projetos e paginas individuais de capitulos;
+- pagina de oportunidades em portugues e ingles, com bolsas, auxilios de viagem, eventos, competicoes, voluntariado e beneficios;
+- agenda publica com data, modalidade e link de inscricao;
+- formulario bilingue de recrutamento e voluntariado, preparado para contato pelo e-mail institucional;
 - alternancia de tema claro/escuro;
 - alternancia de idioma portugues/ingles;
 - navbar responsiva, com menu expansivel em telas menores;
@@ -33,6 +36,8 @@ Funciona hoje:
 - consumo de APIs publicas do Sistema Interno com fallback para dados estaticos;
 - metadados e SEO basicos em portugues e ingles;
 - sitemap e robots em `public`.
+- teste automatizado de 32 paginas publicas e tres APIs;
+- verificacao diaria de saude publica durante setembro de 2026 pelo GitHub Actions.
 
 Pontos importantes do estado atual:
 
@@ -58,6 +63,7 @@ Scripts disponiveis:
 npm run dev
 npm run build
 npm run preview
+npm run test:site
 ```
 
 ## 4. Estrutura do repositorio
@@ -128,6 +134,8 @@ Secoes principais:
 - **Hero**: chamada principal do Ramo e identidade visual.
 - **O IEEE**: texto institucional sobre IEEE e Ramo, com blocos de missao, visao e valores.
 - **Historia**: resumo historico do Ramo, botao para a pagina completa e carrossel de logos do Ramo.
+- **Eventos**: agenda com datas, modalidade, disponibilidade de inscricao e chamadas de recrutamento.
+- **Recrutamento e voluntariado**: formulario bilingue que prepara o contato com a diretoria.
 - **Capitulos**: grade com logos dos capitulos e grupos de afinidade.
 - **Diretoria**: membros da diretoria atual.
 - **Projetos**: cards de projetos em destaque e botao para ver todos.
@@ -143,7 +151,21 @@ Comportamentos:
 - o botao de historia leva para `/historia`;
 - o botao de projetos leva para `/projetos`.
 
-## 6.2 Pagina de historia
+## 6.2 Pagina de oportunidades
+
+Rotas:
+
+- `/oportunidades`
+- `/en/oportunidades`
+
+Funcoes:
+
+- reunir bolsas, premios, competicoes, eventos, publicacoes, voluntariado e beneficios de membros;
+- destacar explicitamente `Travel Grants and Funding` na versao inglesa e seu equivalente em portugues;
+- direcionar o visitante a paginas oficiais do IEEE;
+- manter uma rota dedicada e indexavel em cada idioma.
+
+## 6.3 Pagina de historia
 
 Rotas:
 
@@ -167,7 +189,7 @@ O carrossel de fotos historicas:
 - aceita arraste com mouse ou toque;
 - mantem animacao automatica lenta.
 
-## 6.3 Pagina de todos os projetos
+## 6.4 Pagina de todos os projetos
 
 Rotas:
 
@@ -183,7 +205,7 @@ Funcoes:
 - exibir slideshow de imagens quando o projeto tiver galeria;
 - respeitar recorte, zoom e posicao definidos no Sistema Interno.
 
-## 6.4 Paginas de capitulos
+## 6.5 Paginas de capitulos
 
 Rotas:
 
@@ -209,14 +231,14 @@ Cada pagina de capitulo pode conter:
 
 - hero com logo e descricao;
 - ano de fundacao;
-- presidente;
+- diretoria, com presidente, vice-presidente, secretario, tesoureiro e orientador quando informados;
 - links externos, como Instagram;
-- projetos relacionados ao capitulo;
+- projetos relacionados ao capitulo ou uma atividade/plano local quando ainda nao houver projeto publicado;
 - popup de projeto no mesmo formato da homepage.
 
 Os projetos relacionados sao puxados do mesmo conjunto de projetos publicos e filtrados por capitulo.
 
-## 6.5 Popups de membros
+## 6.6 Popups de membros
 
 Na secao de membros da homepage:
 
@@ -226,7 +248,7 @@ Na secao de membros da homepage:
 - as biografias podem vir do banco do Sistema Interno;
 - a traducao pode ser preenchida automaticamente no Sistema Interno usando DeepL.
 
-## 6.6 Popups de capitulos
+## 6.7 Popups de capitulos
 
 Na secao de capitulos:
 
@@ -391,8 +413,11 @@ npm run preview
 Deploy esperado:
 
 - Vercel;
-- branch configurada conforme fluxo do projeto;
+- commits na `main` nao iniciam deploy automatico, conforme `git.deploymentEnabled.main = false`;
+- deploys de producao devem ser iniciados de forma manual/controlada;
 - rewrites em [`vercel.json`](./vercel.json) para rotas da SPA.
+
+As rotas `/oportunidades` e `/en/oportunidades` possuem rewrites explicitos para suas respectivas entradas HTML.
 
 ## 13. Variaveis e integracoes externas
 
@@ -476,22 +501,22 @@ Cuidados:
 Depois de mudancas importantes, validar:
 
 1. `npm run build`.
-2. Homepage em portugues.
-3. Homepage em ingles.
-4. Tema claro e tema escuro.
-5. Navbar desktop.
-6. Navbar mobile.
-7. Scroll para secoes da homepage.
-8. Rota `/historia`.
-9. Rota `/projetos`.
-10. Pelo menos uma rota `/capitulos/:id`.
-11. Popup de membro.
-12. Popup de projeto sem link externo.
-13. Projeto com link externo.
-14. Carrossel de logos historicas.
-15. Carrossel de fotos historicas.
-16. Consumo das APIs publicas com Sistema Interno online.
-17. Fallback visual quando dados dinamicos demorarem.
+2. `npm run test:site` com o servidor local ativo.
+3. Homepage em portugues e ingles.
+4. Rotas `/historia`, `/projetos`, `/oportunidades` e equivalentes em `/en`.
+5. Todas as 12 paginas de capitulos em portugues e ingles.
+6. Tema claro e tema escuro.
+7. Navbar desktop e mobile.
+8. Scroll para secoes da homepage.
+9. Formulario de recrutamento e voluntariado.
+10. Popup de membro.
+11. Popup de projeto sem link externo.
+12. Projeto com link externo.
+13. Carrosseis de logos e fotos historicas.
+14. Consumo das APIs publicas com Sistema Interno online.
+15. Fallback visual quando dados dinamicos demorarem.
+
+O resultado detalhado da rodada de 14 de julho de 2026 esta em [`docs/public-site-validation-2026-07-14.md`](./docs/public-site-validation-2026-07-14.md).
 
 ## 17. Arquivos mais importantes para manutencao
 

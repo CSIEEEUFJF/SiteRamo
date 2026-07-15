@@ -142,6 +142,26 @@ function atasAdminProxy() {
         }
       });
 
+      for (const [route, upstreamPath] of [
+        ['/api/atas-site-projects', '/api/site-projects'],
+        ['/api/atas-site-history-photos', '/api/site-history-photos'],
+      ]) {
+        server.middlewares.use(route, async (request, response) => {
+          try {
+            if (request.method === 'GET') {
+              return proxyJson(request, response, upstreamPath, { method: 'GET' }, { local: true });
+            }
+
+            response.setHeader('Allow', 'GET');
+            return sendJson(response, 405, { detail: 'Metodo nao permitido.' });
+          } catch (error) {
+            return sendJson(response, error.statusCode || 502, {
+              detail: error.message || 'Nao foi possivel conectar ao sistema de atas.',
+            });
+          }
+        });
+      }
+
       server.middlewares.use('/api/drive-image', async (request, response) => {
         try {
           if (!['GET', 'HEAD'].includes(request.method || '')) {

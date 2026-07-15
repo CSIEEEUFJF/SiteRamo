@@ -1,0 +1,48 @@
+name: Public site health - September 2026
+
+on:
+  schedule:
+    - cron: '17 11 * 9 *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check monitoring window
+        id: window
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(date -u +%Y-%m)" == "2026-09" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check out repository
+        if: steps.window.outputs.run == 'true'
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        if: steps.window.outputs.run == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.window.outputs.run == 'true'
+        run: npm ci
+
+      - name: Verify production build
+        if: steps.window.outputs.run == 'true'
+        run: npm run build
+
+      - name: Verify public routes and APIs
+        if: steps.window.outputs.run == 'true'
+        env:
+          SITE_BASE_URL: https://ieeeufjf.com.br
+        run: node scripts/verify-public-site.mjs
