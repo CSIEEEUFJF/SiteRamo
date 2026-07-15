@@ -1,5 +1,6 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import { loadIeeeOpportunities } from './api/ieee-opportunities.js';
 
 const ATAS_ORIGIN = process.env.ATAS_API_ORIGIN || 'https://interno.ieeeufjf.com.br';
 const SESSION_COOKIE = 'atas_ieee_session';
@@ -161,6 +162,23 @@ function atasAdminProxy() {
           }
         });
       }
+
+      server.middlewares.use('/api/ieee-opportunities', async (request, response) => {
+        try {
+          if (request.method === 'GET') {
+            return sendJson(response, 200, await loadIeeeOpportunities());
+          }
+
+          response.setHeader('Allow', 'GET');
+          return sendJson(response, 405, { detail: 'Metodo nao permitido.' });
+        } catch (error) {
+          return sendJson(response, error.statusCode || 502, {
+            detail: error.message || 'Nao foi possivel consultar as oportunidades do IEEE.',
+            events: [],
+            funding: [],
+          });
+        }
+      });
 
       server.middlewares.use('/api/drive-image', async (request, response) => {
         try {

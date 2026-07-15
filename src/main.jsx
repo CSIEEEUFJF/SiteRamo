@@ -10,8 +10,11 @@ import {
   Instagram,
   Languages,
   Mail,
+  MapPin,
   Menu,
+  Monitor,
   Moon,
+  RefreshCw,
   UserPlus,
   X,
 } from 'lucide-react';
@@ -1261,6 +1264,45 @@ const copy = {
         'Conheça caminhos para aproveitar melhor a rede global do IEEE: bolsas, premiações, competições, publicações, eventos, programas de voluntariado e desenvolvimento de liderança.',
       back: 'Voltar ao site',
       externalCta: 'Acessar portal IEEE Students',
+      live: {
+        eyebrow: 'Atualização automática',
+        title: 'Oportunidades em destaque',
+        fundingTitle: 'Bolsas, auxílios e premiações',
+        fundingDescription:
+          'Oportunidades publicadas pelo IEEE Students, atualizadas diretamente da fonte oficial.',
+        eventsTitle: 'Próximos eventos da IEEE Região 9',
+        eventsDescription:
+          'Atividades futuras na América Latina e no Caribe com data, modalidade e acesso à inscrição.',
+        resourcesTitle: 'Catálogos e recursos permanentes',
+        resourcesDescription:
+          'Atalhos oficiais para explorar outras oportunidades em toda a rede IEEE.',
+        loading: 'Consultando as fontes oficiais do IEEE...',
+        empty: 'Nenhuma oportunidade foi encontrada nas fontes oficiais neste momento.',
+        unavailable:
+          'A atualização automática está temporariamente indisponível. Os catálogos oficiais continuam acessíveis abaixo.',
+        partial:
+          'Uma das fontes oficiais está temporariamente indisponível; os demais resultados seguem atualizados.',
+        updatedLabel: 'Atualizado em',
+        sourceLabel: 'Fontes oficiais: IEEE Students e IEEE Região 9',
+        openFunding: 'Ver oportunidade',
+        openEvent: 'Ver evento e inscrição',
+        dateLabel: 'Data',
+        formatLabel: 'Modalidade',
+        locationLabel: 'Local',
+        categories: {
+          award: 'Premiação',
+          fellowship: 'Bolsa',
+          funding: 'Financiamento',
+          grant: 'Auxílio',
+          scholarship: 'Bolsa de estudos',
+          travelGrant: 'Auxílio de viagem',
+        },
+        formats: {
+          hybrid: 'Híbrido',
+          inPerson: 'Presencial',
+          virtual: 'Online',
+        },
+      },
       cards: [
         {
           title: 'Bolsas e premiações',
@@ -1547,6 +1589,45 @@ const copy = {
         'Discover ways to make the most of the IEEE global network: scholarships, awards, competitions, publications, events, volunteering programs, and leadership development.',
       back: 'Back to site',
       externalCta: 'Open IEEE Students portal',
+      live: {
+        eyebrow: 'Automatically updated',
+        title: 'Featured opportunities',
+        fundingTitle: 'Grants, scholarships, and awards',
+        fundingDescription:
+          'Opportunities published by IEEE Students and updated directly from the official source.',
+        eventsTitle: 'Upcoming IEEE Region 9 events',
+        eventsDescription:
+          'Upcoming activities across Latin America and the Caribbean with dates, formats, and registration access.',
+        resourcesTitle: 'Permanent catalogs and resources',
+        resourcesDescription:
+          'Official shortcuts for exploring more opportunities across the IEEE network.',
+        loading: 'Checking official IEEE sources...',
+        empty: 'No opportunities are currently listed by the official sources.',
+        unavailable:
+          'Automatic updates are temporarily unavailable. The official catalogs remain accessible below.',
+        partial:
+          'One official source is temporarily unavailable; the remaining results are still up to date.',
+        updatedLabel: 'Updated',
+        sourceLabel: 'Official sources: IEEE Students and IEEE Region 9',
+        openFunding: 'View opportunity',
+        openEvent: 'View event and registration',
+        dateLabel: 'Date',
+        formatLabel: 'Format',
+        locationLabel: 'Location',
+        categories: {
+          award: 'Award',
+          fellowship: 'Fellowship',
+          funding: 'Funding',
+          grant: 'Grant',
+          scholarship: 'Scholarship',
+          travelGrant: 'Travel grant',
+        },
+        formats: {
+          hybrid: 'Hybrid',
+          inPerson: 'In person',
+          virtual: 'Online',
+        },
+      },
       cards: [
         {
           title: 'Scholarships and awards',
@@ -1696,10 +1777,13 @@ function runAfterFirstPaint(callback) {
 async function fetchJsonWithTimeout(endpoint, options = {}) {
   const controller = new AbortController();
   const timeoutId = window.setTimeout(() => controller.abort(), options.timeoutMs || 4500);
+  const requestEndpoint = options.cacheBuster === false
+    ? endpoint
+    : addRequestCacheBuster(endpoint);
 
   try {
-    const response = await fetch(addRequestCacheBuster(endpoint), {
-      cache: 'no-store',
+    const response = await fetch(requestEndpoint, {
+      cache: options.cache || 'no-store',
       signal: controller.signal,
     });
 
@@ -3003,6 +3087,56 @@ function OpportunitiesPage({
   setLanguage,
   t,
 }) {
+  const [liveOpportunities, setLiveOpportunities] = useState({
+    events: [],
+    funding: [],
+    generatedAt: null,
+    partial: false,
+    status: 'loading',
+  });
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetchJsonWithTimeout('/api/ieee-opportunities', {
+      cache: 'default',
+      cacheBuster: false,
+      timeoutMs: 10000,
+    })
+      .then((payload) => {
+        if (!Array.isArray(payload?.funding) || !Array.isArray(payload?.events)) {
+          throw new Error('invalid-opportunities-payload');
+        }
+
+        if (!cancelled) {
+          setLiveOpportunities({
+            events: payload.events,
+            funding: payload.funding,
+            generatedAt: payload.generatedAt || null,
+            partial: Boolean(payload.partial),
+            status: 'ready',
+          });
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setLiveOpportunities((current) => ({
+            ...current,
+            status: 'error',
+          }));
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const live = t.opportunities.live;
+  const hasLiveResults = liveOpportunities.funding.length > 0
+    || liveOpportunities.events.length > 0;
+  const updatedAt = formatOpportunityDateTime(liveOpportunities.generatedAt, language);
+
   return (
     <>
       <a className="skip-link" href="#conteudo-principal">
@@ -3027,19 +3161,186 @@ function OpportunitiesPage({
             <h1 id="oportunidades-lista-title">{t.opportunities.title}</h1>
           </div>
 
-          <div className="opportunities-grid">
-            {t.opportunities.cards.map((card) => (
-              <a className="opportunity-card" href={card.url} key={card.title} target="_blank" rel="noreferrer">
-                <span>{card.title}</span>
-                <p>{card.text}</p>
-                <ExternalLink aria-hidden="true" size={18} />
-              </a>
-            ))}
-          </div>
+          <p className="opportunities-page__intro">{t.opportunities.intro}</p>
+
+          <section
+            className="opportunities-live"
+            aria-labelledby="oportunidades-destaques-title"
+            aria-busy={liveOpportunities.status === 'loading'}
+          >
+            <div className="opportunities-live__heading">
+              <div>
+                <span>{live.eyebrow}</span>
+                <h2 id="oportunidades-destaques-title">{live.title}</h2>
+              </div>
+              {updatedAt && liveOpportunities.status === 'ready' ? (
+                <p className="opportunities-live__updated">
+                  <RefreshCw aria-hidden="true" size={16} />
+                  <span>{live.updatedLabel} {updatedAt} · {live.sourceLabel}</span>
+                </p>
+              ) : null}
+            </div>
+
+            {liveOpportunities.status === 'loading' ? (
+              <p className="opportunities-feed-status" role="status">
+                <RefreshCw aria-hidden="true" size={17} />
+                {live.loading}
+              </p>
+            ) : null}
+
+            {liveOpportunities.status === 'error' ? (
+              <p className="opportunities-feed-status opportunities-feed-status--warning" role="status">
+                {live.unavailable}
+              </p>
+            ) : null}
+
+            {liveOpportunities.status === 'ready' && liveOpportunities.partial ? (
+              <p className="opportunities-feed-status opportunities-feed-status--warning" role="status">
+                {live.partial}
+              </p>
+            ) : null}
+
+            {liveOpportunities.status === 'ready' && !hasLiveResults ? (
+              <p className="opportunities-feed-status" role="status">{live.empty}</p>
+            ) : null}
+
+            {liveOpportunities.funding.length > 0 ? (
+              <div className="opportunities-live__group">
+                <div className="opportunities-live__group-heading">
+                  <h2>{live.fundingTitle}</h2>
+                  <p>{live.fundingDescription}</p>
+                </div>
+                <div className="live-opportunities-grid">
+                  {liveOpportunities.funding.map((opportunity) => (
+                    <a
+                      className="live-opportunity-card"
+                      href={opportunity.url}
+                      key={opportunity.id}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <div>
+                        <span className="live-opportunity-card__kind">
+                          {live.categories[opportunity.category] || live.categories.funding}
+                        </span>
+                        <h3>{opportunity.title}</h3>
+                      </div>
+                      {opportunity.description ? <p>{opportunity.description}</p> : null}
+                      <div className="live-opportunity-card__footer">
+                        <small>{opportunity.source}</small>
+                        <span>
+                          {live.openFunding}
+                          <ExternalLink aria-hidden="true" size={16} />
+                        </span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {liveOpportunities.events.length > 0 ? (
+              <div className="opportunities-live__group">
+                <div className="opportunities-live__group-heading">
+                  <h2>{live.eventsTitle}</h2>
+                  <p>{live.eventsDescription}</p>
+                </div>
+                <div className="live-opportunities-grid">
+                  {liveOpportunities.events.map((event) => (
+                    <a
+                      className="live-opportunity-card live-opportunity-card--event"
+                      href={event.url}
+                      key={event.id}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <div>
+                        <span className="live-opportunity-card__kind">{event.source}</span>
+                        <h3>{event.title}</h3>
+                      </div>
+                      <dl className="live-opportunity-card__meta">
+                        <div>
+                          <dt>
+                            <CalendarDays aria-hidden="true" size={16} />
+                            {live.dateLabel}
+                          </dt>
+                          <dd>
+                            <time dateTime={event.startsAt}>
+                              {formatOpportunityDateTime(event.startsAt, language)}
+                            </time>
+                          </dd>
+                        </div>
+                        <div>
+                          <dt>
+                            <Monitor aria-hidden="true" size={16} />
+                            {live.formatLabel}
+                          </dt>
+                          <dd>{live.formats[event.format] || live.formats.inPerson}</dd>
+                        </div>
+                        {event.location ? (
+                          <div>
+                            <dt>
+                              <MapPin aria-hidden="true" size={16} />
+                              {live.locationLabel}
+                            </dt>
+                            <dd>{event.location}</dd>
+                          </div>
+                        ) : null}
+                      </dl>
+                      <div className="live-opportunity-card__footer">
+                        <small>{event.source}</small>
+                        <span>
+                          {live.openEvent}
+                          <ExternalLink aria-hidden="true" size={16} />
+                        </span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </section>
+
+          <section className="opportunities-resources" aria-labelledby="oportunidades-recursos-title">
+            <div className="opportunities-live__group-heading">
+              <h2 id="oportunidades-recursos-title">{live.resourcesTitle}</h2>
+              <p>{live.resourcesDescription}</p>
+            </div>
+            <div className="opportunities-grid">
+              {t.opportunities.cards.map((card) => (
+                <a className="opportunity-card" href={card.url} key={card.title} target="_blank" rel="noreferrer">
+                  <span>{card.title}</span>
+                  <p>{card.text}</p>
+                  <ExternalLink aria-hidden="true" size={18} />
+                </a>
+              ))}
+            </div>
+          </section>
         </section>
       </main>
     </>
   );
+}
+
+function formatOpportunityDateTime(value, language) {
+  if (!value) {
+    return '';
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return '';
+  }
+
+  return new Intl.DateTimeFormat(language === 'pt' ? 'pt-BR' : 'en-US', {
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    month: 'short',
+    timeZone: 'America/Sao_Paulo',
+    timeZoneName: 'short',
+    year: 'numeric',
+  }).format(date);
 }
 
 function VolunteerForm({ language, t }) {

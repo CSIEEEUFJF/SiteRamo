@@ -36,13 +36,14 @@ Funciona hoje:
 - consumo de APIs publicas do Sistema Interno com fallback para dados estaticos;
 - metadados e SEO basicos em portugues e ingles;
 - sitemap e robots em `public`.
-- teste automatizado de 32 paginas publicas e tres APIs;
+- teste automatizado de 32 paginas publicas e quatro APIs;
 - verificacao diaria de saude publica durante setembro de 2026 pelo GitHub Actions.
 
 Pontos importantes do estado atual:
 
 - a rota publica `/admin` foi removida; a administracao do conteudo do site fica dentro do Sistema Interno;
-- os dados dinamicos vem das rotas `/api/atas-site-*` deste projeto e, como fallback, de `https://interno.ieeeufjf.com.br/api/site-*`;
+- os dados dinamicos institucionais vem das rotas `/api/atas-site-*` deste projeto e, como fallback, de `https://interno.ieeeufjf.com.br/api/site-*`;
+- oportunidades em destaque sao agregadas automaticamente de fontes oficiais do IEEE pela rota `/api/ieee-opportunities`;
 - as fotos do Google Drive sao normalizadas para thumbnails publicas quando cadastradas pelo Sistema Interno;
 - o site e uma SPA com rotas tratadas no cliente e rewrites configurados para Vercel.
 
@@ -161,6 +162,7 @@ Rotas:
 Funcoes:
 
 - reunir bolsas, premios, competicoes, eventos, publicacoes, voluntariado e beneficios de membros;
+- atualizar automaticamente destaques de financiamento do IEEE Students e eventos dos proximos 90 dias da IEEE Region 9;
 - destacar explicitamente `Travel Grants and Funding` na versao inglesa e seu equivalente em portugues;
 - direcionar o visitante a paginas oficiais do IEEE;
 - manter uma rota dedicada e indexavel em cada idioma.
@@ -348,6 +350,18 @@ Retorna:
 - posicao e zoom;
 - ordem de exibicao.
 
+## 8.4 `/api/ieee-opportunities`
+
+Agregador publico de oportunidades vindas de fontes oficiais do IEEE.
+
+Retorna:
+
+- ate seis bolsas, premios e auxilios de viagem publicados pelo IEEE Students;
+- ate seis eventos da IEEE Region 9 previstos para os proximos 90 dias;
+- data de atualizacao, fontes consultadas e indicador de resposta parcial.
+
+A resposta fica em cache na Vercel por 30 minutos e continua disponivel por ate 24 horas durante uma atualizacao. Se apenas uma fonte falhar, a API preserva os dados obtidos da outra.
+
 ## 9. Internacionalizacao
 
 O idioma e controlado por prefixo de rota:
@@ -525,6 +539,7 @@ O resultado detalhado da rodada de 14 de julho de 2026 esta em [`docs/public-sit
 - [`api/atas-site-members.js`](./api/atas-site-members.js): proxy de membros.
 - [`api/atas-site-projects.js`](./api/atas-site-projects.js): proxy de projetos.
 - [`api/atas-site-history-photos.js`](./api/atas-site-history-photos.js): proxy de fotos historicas.
+- [`api/ieee-opportunities.js`](./api/ieee-opportunities.js): agregador de oportunidades oficiais do IEEE.
 - [`public/assets`](./public/assets): imagens e logos.
 - [`public/@font`](./public/@font): fontes Formata.
 - [`vercel.json`](./vercel.json): deploy e rewrites.

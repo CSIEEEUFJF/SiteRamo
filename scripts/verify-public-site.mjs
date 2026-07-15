@@ -31,9 +31,10 @@ const pagePaths = [
 ];
 
 const apiChecks = [
-  { path: '/api/atas-site-members', arrayKey: 'members' },
-  { path: '/api/atas-site-projects', arrayKey: 'projects' },
-  { path: '/api/atas-site-history-photos', arrayKey: 'photos' },
+  { path: '/api/atas-site-members', arrayKeys: ['members'] },
+  { path: '/api/atas-site-projects', arrayKeys: ['projects'] },
+  { path: '/api/atas-site-history-photos', arrayKeys: ['photos'] },
+  { path: '/api/ieee-opportunities', arrayKeys: ['funding', 'events'] },
 ];
 
 async function fetchWithTimeout(path, timeoutMs = 15000) {
@@ -67,7 +68,7 @@ async function checkPage(path) {
   };
 }
 
-async function checkApi({ path, arrayKey }) {
+async function checkApi({ path, arrayKeys }) {
   const startedAt = Date.now();
   const response = await fetchWithTimeout(path);
   let payload = null;
@@ -83,7 +84,7 @@ async function checkApi({ path, arrayKey }) {
     path,
     status: response.status,
     durationMs: Date.now() - startedAt,
-    valid: response.ok && Array.isArray(payload?.[arrayKey]),
+    valid: response.ok && arrayKeys.every((key) => Array.isArray(payload?.[key])),
   };
 }
 
