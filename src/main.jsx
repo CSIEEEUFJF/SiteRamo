@@ -1265,7 +1265,7 @@ const copy = {
       back: 'Voltar ao site',
       externalCta: 'Acessar portal IEEE Students',
       live: {
-        eyebrow: 'Atualização automática',
+        eyebrow: 'Atualizado em',
         title: 'Oportunidades em destaque',
         fundingTitle: 'Bolsas, auxílios e premiações',
         fundingDescription:
@@ -1282,7 +1282,6 @@ const copy = {
           'A atualização automática está temporariamente indisponível. Os catálogos oficiais continuam acessíveis abaixo.',
         partial:
           'Uma das fontes oficiais está temporariamente indisponível; os demais resultados seguem atualizados.',
-        updatedLabel: 'Atualizado em',
         sourceLabel: 'Fontes oficiais: IEEE Students e IEEE Região 9',
         openFunding: 'Ver oportunidade',
         openEvent: 'Ver evento e inscrição',
@@ -1590,7 +1589,7 @@ const copy = {
       back: 'Back to site',
       externalCta: 'Open IEEE Students portal',
       live: {
-        eyebrow: 'Automatically updated',
+        eyebrow: 'Updated',
         title: 'Featured opportunities',
         fundingTitle: 'Grants, scholarships, and awards',
         fundingDescription:
@@ -1607,7 +1606,6 @@ const copy = {
           'Automatic updates are temporarily unavailable. The official catalogs remain accessible below.',
         partial:
           'One official source is temporarily unavailable; the remaining results are still up to date.',
-        updatedLabel: 'Updated',
         sourceLabel: 'Official sources: IEEE Students and IEEE Region 9',
         openFunding: 'View opportunity',
         openEvent: 'View event and registration',
@@ -3176,7 +3174,7 @@ function OpportunitiesPage({
               {updatedAt && liveOpportunities.status === 'ready' ? (
                 <p className="opportunities-live__updated">
                   <RefreshCw aria-hidden="true" size={16} />
-                  <span>{live.updatedLabel} {updatedAt} · {live.sourceLabel}</span>
+                  <span>{updatedAt} · {live.sourceLabel}</span>
                 </p>
               ) : null}
             </div>

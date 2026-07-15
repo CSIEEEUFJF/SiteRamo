@@ -1970,6 +1970,10 @@ html[data-theme="dark"] .mini-nav__links a.mini-nav__link--active {
   line-height: 1.2;
 }
 
+.opportunities-live__heading h2 {
+  color: var(--link-color);
+}
+
 .opportunities-live__updated {
   flex: 0 0 auto;
   margin: 0;
