@@ -364,7 +364,7 @@ A resposta fica em cache na Vercel por 30 minutos e continua disponivel por ate 
 
 ## 9. Internacionalizacao
 
-O idioma e controlado por prefixo de rota:
+As rotas com prefixo de idioma continuam disponiveis para acesso direto e indexacao:
 
 - portugues: `/`
 - ingles: `/en`
@@ -373,6 +373,8 @@ O conteudo traduzido fica em objetos internos de `src/main.jsx`.
 
 Regras atuais:
 
+- o seletor de idioma persiste a escolha no navegador sem adicionar `/en` ao caminho durante o uso normal;
+- links de secoes rolam a pagina sem adicionar hashes como `#diretoria` a URL;
 - navbar, titulos, botoes e textos institucionais trocam de idioma;
 - biografias de membros usam `bio` em portugues e `bioEn` em ingles;
 - projetos podem usar conteudo vindo do Sistema Interno;

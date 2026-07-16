@@ -870,6 +870,8 @@ const HOME_SECTION_IDS = [
   'contato',
   'localizacao',
 ];
+const HOME_SECTION_HISTORY_KEY = 'homeSectionId';
+const SECTION_NAVIGATION_DELAY_MS = 240;
 
 const roleTranslations = {
   Conselheiro: 'Advisor',
@@ -1725,13 +1727,59 @@ function localizedPath(language, path = '/') {
   return path === '/' ? '/en' : `/en${path}`;
 }
 
-function localizedHash(language, hash) {
-  return language === 'en' ? `/en${hash}` : hash;
+function scrollToPageTarget(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) {
+    return;
+  }
+
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function alternateLanguagePath(currentPath, nextLanguage) {
-  const cleanPath = stripLanguagePrefix(currentPath);
-  return localizedPath(nextLanguage, cleanPath);
+function handleSectionLinkClick(event, targetId, onNavigate) {
+  event.preventDefault();
+  onNavigate?.();
+  window.setTimeout(
+    () => scrollToPageTarget(targetId),
+    onNavigate ? SECTION_NAVIGATION_DELAY_MS : 0,
+  );
+}
+
+function handleHomeSectionLinkClick(event, targetId, onNavigate) {
+  event.preventDefault();
+  onNavigate?.();
+
+  if (stripLanguagePrefix(window.location.pathname) === '/') {
+    window.setTimeout(
+      () => scrollToPageTarget(targetId),
+      onNavigate ? SECTION_NAVIGATION_DELAY_MS : 0,
+    );
+    return;
+  }
+
+  const historyState = window.history.state && typeof window.history.state === 'object'
+    ? window.history.state
+    : {};
+  window.history.pushState(
+    { ...historyState, [HOME_SECTION_HISTORY_KEY]: targetId },
+    '',
+    '/',
+  );
+  window.dispatchEvent(new Event('popstate'));
+}
+
+function clearEnglishPrefixFromUrl() {
+  const cleanPath = stripLanguagePrefix(window.location.pathname);
+  if (cleanPath === window.location.pathname) {
+    return false;
+  }
+
+  window.history.replaceState(
+    window.history.state,
+    '',
+    `${cleanPath}${window.location.search}`,
+  );
+  return true;
 }
 
 function absoluteSiteUrl(path = '/') {
@@ -1846,7 +1894,7 @@ function App() {
       return 'en';
     }
 
-    return 'pt';
+    return window.localStorage.getItem('language') === 'en' ? 'en' : 'pt';
   });
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window === 'undefined') {
@@ -1996,10 +2044,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const routeLanguage = currentPath === '/en' || currentPath.startsWith('/en/') ? 'en' : 'pt';
-    setLanguage((currentLanguage) => (
-      currentLanguage === routeLanguage ? currentLanguage : routeLanguage
-    ));
+    if (currentPath === '/en' || currentPath.startsWith('/en/')) {
+      setLanguage('en');
+    }
   }, [currentPath]);
 
   useEffect(() => {
@@ -2030,6 +2077,29 @@ function App() {
 
     return () => window.removeEventListener('popstate', handlePathChange);
   }, []);
+
+  useEffect(() => {
+    if (contentPath !== '/') {
+      return undefined;
+    }
+
+    const historyState = window.history.state;
+    const targetId = historyState?.[HOME_SECTION_HISTORY_KEY];
+    if (!HOME_SECTION_IDS.includes(targetId)) {
+      return undefined;
+    }
+
+    const nextHistoryState = { ...historyState };
+    delete nextHistoryState[HOME_SECTION_HISTORY_KEY];
+    window.history.replaceState(
+      nextHistoryState,
+      '',
+      `${window.location.pathname}${window.location.search}`,
+    );
+
+    const frameId = window.requestAnimationFrame(() => scrollToPageTarget(targetId));
+    return () => window.cancelAnimationFrame(frameId);
+  }, [contentPath]);
 
   useEffect(() => {
     if (contentPath !== '/') {
@@ -2249,7 +2319,7 @@ function App() {
 
   return (
     <>
-      <a className="skip-link" href={localizedHash(language, '#conteudo-principal')}>
+      <a className="skip-link" href="#conteudo-principal">
         {t.nav.skip}
       </a>
       <main>
@@ -2273,7 +2343,12 @@ function App() {
               <p>{t.hero.branch}</p>
             </div>
           </div>
-          <a className="hero__scroll" href={localizedHash(language, '#navegacao')} aria-label={t.hero.scroll}>
+          <a
+            className="hero__scroll"
+            href="#navegacao"
+            onClick={(event) => handleSectionLinkClick(event, 'navegacao')}
+            aria-label={t.hero.scroll}
+          >
             <ArrowDown aria-hidden="true" size={22} />
           </a>
         </div>
@@ -2281,7 +2356,12 @@ function App() {
 
       <div className="nav-anchor" id="navegacao" aria-hidden="true" />
       <nav className={`mini-nav ${isNavOpen ? 'mini-nav--open' : ''}`} aria-label={t.nav.aria}>
-        <a className="mini-nav__brand" href={localizedHash(language, '#topo')} aria-label={t.nav.top}>
+        <a
+          className="mini-nav__brand"
+          href="#topo"
+          onClick={(event) => handleSectionLinkClick(event, 'topo', () => setIsNavOpen(false))}
+          aria-label={t.nav.top}
+        >
           <span className="mini-nav__mark" aria-hidden="true" />
           <span className="mini-nav__brand-text">
             <strong>{t.hero.universityDesktop}</strong>
@@ -2296,8 +2376,9 @@ function App() {
               onClick={() => {
                 setLanguage(nextLanguage);
                 setIsNavOpen(false);
-                window.history.pushState({}, '', alternateLanguagePath(currentPath, nextLanguage));
-                setCurrentPath(window.location.pathname);
+                if (nextLanguage === 'pt' && clearEnglishPrefixFromUrl()) {
+                  setCurrentPath(window.location.pathname);
+                }
               }}
               aria-label={t.nav.languageLabel}
             >
@@ -2329,72 +2410,72 @@ function App() {
         <div className="mini-nav__links" id="site-navigation-links" aria-label={t.nav.aria}>
           <a
             className={activeSectionId === 'o-ieee' ? 'mini-nav__link--active' : undefined}
-            href={localizedHash(language, '#o-ieee')}
-            onClick={() => setIsNavOpen(false)}
+            href="#o-ieee"
+            onClick={(event) => handleSectionLinkClick(event, 'o-ieee', () => setIsNavOpen(false))}
             aria-current={activeSectionId === 'o-ieee' ? 'location' : undefined}
           >
             {t.nav.about}
           </a>
           <a
             className={activeSectionId === 'historia' ? 'mini-nav__link--active' : undefined}
-            href={localizedHash(language, '#historia')}
-            onClick={() => setIsNavOpen(false)}
+            href="#historia"
+            onClick={(event) => handleSectionLinkClick(event, 'historia', () => setIsNavOpen(false))}
             aria-current={activeSectionId === 'historia' ? 'location' : undefined}
           >
             {t.nav.history}
           </a>
           <a
             className={activeSectionId === 'eventos' ? 'mini-nav__link--active' : undefined}
-            href={localizedHash(language, '#eventos')}
-            onClick={() => setIsNavOpen(false)}
+            href="#eventos"
+            onClick={(event) => handleSectionLinkClick(event, 'eventos', () => setIsNavOpen(false))}
             aria-current={activeSectionId === 'eventos' ? 'location' : undefined}
           >
             {t.nav.events}
           </a>
           <a
             className={activeSectionId === 'capitulos' ? 'mini-nav__link--active' : undefined}
-            href={localizedHash(language, '#capitulos')}
-            onClick={() => setIsNavOpen(false)}
+            href="#capitulos"
+            onClick={(event) => handleSectionLinkClick(event, 'capitulos', () => setIsNavOpen(false))}
             aria-current={activeSectionId === 'capitulos' ? 'location' : undefined}
           >
             {t.nav.chapters}
           </a>
           <a
             className={activeSectionId === 'diretoria' ? 'mini-nav__link--active' : undefined}
-            href={localizedHash(language, '#diretoria')}
-            onClick={() => setIsNavOpen(false)}
+            href="#diretoria"
+            onClick={(event) => handleSectionLinkClick(event, 'diretoria', () => setIsNavOpen(false))}
             aria-current={activeSectionId === 'diretoria' ? 'location' : undefined}
           >
             {t.nav.board}
           </a>
           <a
             className={activeSectionId === 'projetos' ? 'mini-nav__link--active' : undefined}
-            href={localizedHash(language, '#projetos')}
-            onClick={() => setIsNavOpen(false)}
+            href="#projetos"
+            onClick={(event) => handleSectionLinkClick(event, 'projetos', () => setIsNavOpen(false))}
             aria-current={activeSectionId === 'projetos' ? 'location' : undefined}
           >
             {t.nav.projects}
           </a>
           <a
             className={activeSectionId === 'membros' ? 'mini-nav__link--active' : undefined}
-            href={localizedHash(language, '#membros')}
-            onClick={() => setIsNavOpen(false)}
+            href="#membros"
+            onClick={(event) => handleSectionLinkClick(event, 'membros', () => setIsNavOpen(false))}
             aria-current={activeSectionId === 'membros' ? 'location' : undefined}
           >
             {t.nav.members}
           </a>
           <a
             className={activeSectionId === 'contato' ? 'mini-nav__link--active' : undefined}
-            href={localizedHash(language, '#contato')}
-            onClick={() => setIsNavOpen(false)}
+            href="#contato"
+            onClick={(event) => handleSectionLinkClick(event, 'contato', () => setIsNavOpen(false))}
             aria-current={activeSectionId === 'contato' ? 'location' : undefined}
           >
             {t.nav.contact}
           </a>
           <a
             className={activeSectionId === 'localizacao' ? 'mini-nav__link--active' : undefined}
-            href={localizedHash(language, '#localizacao')}
-            onClick={() => setIsNavOpen(false)}
+            href="#localizacao"
+            onClick={(event) => handleSectionLinkClick(event, 'localizacao', () => setIsNavOpen(false))}
             aria-current={activeSectionId === 'localizacao' ? 'location' : undefined}
           >
             {t.nav.location}
@@ -2428,7 +2509,7 @@ function App() {
             {t.about.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
-            <a className="section-action-link section-action-link--inline" href={localizedPath(language, '/oportunidades')}>
+            <a className="section-action-link section-action-link--inline" href="/oportunidades">
               {t.about.opportunitiesCta}
             </a>
           </div>
@@ -2454,7 +2535,7 @@ function App() {
             <span className="section-kicker">{t.history.eyebrow}</span>
             <h2 id="historia-home-title">{t.history.homeTitle}</h2>
             <p>{t.history.homeTeaser}</p>
-            <a className="history-teaser__link" href={localizedPath(language, '/historia')}>
+            <a className="history-teaser__link" href="/historia">
               {t.history.homeCta}
             </a>
           </div>
@@ -2503,7 +2584,8 @@ function App() {
 
         <div className="event-calendar" aria-label={t.events.calendarLabel}>
           {t.events.cards.map((event) => {
-            const eventHref = event.url.startsWith('#') ? localizedHash(language, event.url) : event.url;
+            const internalTargetId = event.url.startsWith('#') ? event.url.slice(1) : null;
+            const eventHref = event.url;
             const isExternalEvent = eventHref.startsWith('http');
 
             return (
@@ -2533,6 +2615,9 @@ function App() {
                 <a
                   className="event-card__link"
                   href={eventHref}
+                  onClick={internalTargetId
+                    ? (clickEvent) => handleSectionLinkClick(clickEvent, internalTargetId)
+                    : undefined}
                   target={isExternalEvent ? '_blank' : undefined}
                   rel={isExternalEvent ? 'noreferrer' : undefined}
                 >
@@ -2684,7 +2769,7 @@ function App() {
                     />
                   )}
                   {chapterPages[selectedChapter.id] ? (
-                    <a className="chapter-link" href={localizedPath(language, `/capitulos/${selectedChapter.id}`)}>
+                    <a className="chapter-link" href={`/capitulos/${selectedChapter.id}`}>
                       <ExternalLink aria-hidden="true" size={18} />
                       <span>{language === 'pt' ? 'Ver página' : 'Open page'}</span>
                     </a>
@@ -2785,7 +2870,7 @@ function App() {
         </div>
 
         <div className="section-actions">
-          <a className="section-action-link" href={localizedPath(language, '/projetos')}>
+          <a className="section-action-link" href="/projetos">
             {t.projects.allProjectsCta}
           </a>
         </div>
@@ -3518,7 +3603,11 @@ function ProjectsPage({
       />
 
       <section className="history-page__hero projects-page__hero" id="conteudo-principal">
-        <a className="chapter-page__back" href={localizedPath(language, '/#projetos')}>
+        <a
+          className="chapter-page__back"
+          href="/"
+          onClick={(event) => handleHomeSectionLinkClick(event, 'projetos')}
+        >
           <ArrowLeft aria-hidden="true" size={18} />
           {t.projects.back}
         </a>
@@ -3802,7 +3891,7 @@ function HistoryPage({
       <section className="history-page__section history-page__section--text" id="conteudo-principal">
         <div className="history-page__intro-grid">
           <div>
-            <a className="chapter-page__back" href={localizedPath(language, '/')}>
+            <a className="chapter-page__back" href="/">
               <ArrowLeft aria-hidden="true" size={18} />
               {t.history.back}
             </a>
@@ -3943,7 +4032,11 @@ function ChapterPage({
         <section className="chapter-page__hero" id="conteudo-principal">
           <p className="section-kicker">{language === 'pt' ? 'Capítulo' : 'Chapter'}</p>
           <h1>{language === 'pt' ? 'Página não encontrada' : 'Page not found'}</h1>
-          <a className="chapter-page__back" href={localizedPath(language, '/#capitulos')}>
+          <a
+            className="chapter-page__back"
+            href="/"
+            onClick={(event) => handleHomeSectionLinkClick(event, 'capitulos')}
+          >
             <ArrowLeft aria-hidden="true" size={18} />
             {language === 'pt' ? 'Voltar aos capítulos' : 'Back to chapters'}
           </a>
@@ -4045,7 +4138,11 @@ function ChapterPage({
       />
 
       <section className="chapter-page__hero" id="conteudo-principal">
-        <a className="chapter-page__back" href={localizedPath(language, '/#capitulos')}>
+        <a
+          className="chapter-page__back"
+          href="/"
+          onClick={(event) => handleHomeSectionLinkClick(event, 'capitulos')}
+        >
           <ArrowLeft aria-hidden="true" size={18} />
           {language === 'pt' ? 'Voltar aos capítulos' : 'Back to chapters'}
         </a>
@@ -4291,7 +4388,7 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
 
   return (
     <nav className={`mini-nav mini-nav--page ${isNavOpen ? 'mini-nav--open' : ''}`} aria-label={t.nav.aria}>
-      <a className="mini-nav__brand" href={localizedPath(language, '/')} aria-label={t.nav.top}>
+      <a className="mini-nav__brand" href="/" aria-label={t.nav.top}>
         <span className="mini-nav__mark" aria-hidden="true" />
         <span className="mini-nav__brand-text">
           <strong>{t.hero.universityDesktop}</strong>
@@ -4307,8 +4404,9 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
               const nextLanguage = language === 'pt' ? 'en' : 'pt';
               setLanguage(nextLanguage);
               setIsNavOpen(false);
-              window.history.pushState({}, '', alternateLanguagePath(window.location.pathname, nextLanguage));
-              window.dispatchEvent(new Event('popstate'));
+              if (nextLanguage === 'pt' && clearEnglishPrefixFromUrl()) {
+                window.dispatchEvent(new Event('popstate'));
+              }
             }}
             aria-label={t.nav.languageLabel}
           >
@@ -4338,10 +4436,15 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
         </div>
       </div>
       <div className="mini-nav__links" id="site-page-navigation-links" aria-label={t.nav.aria}>
-        <a href={localizedPath(language, '/#o-ieee')} onClick={() => setIsNavOpen(false)}>{t.nav.about}</a>
+        <a
+          href="/"
+          onClick={(event) => handleHomeSectionLinkClick(event, 'o-ieee', () => setIsNavOpen(false))}
+        >
+          {t.nav.about}
+        </a>
         <a
           className={isOpportunitiesPage ? 'mini-nav__link--active' : undefined}
-          href={localizedPath(language, '/oportunidades')}
+          href="/oportunidades"
           onClick={() => setIsNavOpen(false)}
           aria-current={isOpportunitiesPage ? 'page' : undefined}
         >
@@ -4349,26 +4452,56 @@ function SiteNav({ isDarkMode, language, setIsDarkMode, setLanguage, t }) {
         </a>
         <a
           className={isHistoryPage ? 'mini-nav__link--active' : undefined}
-          href={localizedPath(language, '/historia')}
+          href="/historia"
           onClick={() => setIsNavOpen(false)}
           aria-current={isHistoryPage ? 'page' : undefined}
         >
           {t.nav.history}
         </a>
-        <a href={localizedPath(language, '/#eventos')} onClick={() => setIsNavOpen(false)}>{t.nav.events}</a>
-        <a href={localizedPath(language, '/#capitulos')} onClick={() => setIsNavOpen(false)}>{t.nav.chapters}</a>
-        <a href={localizedPath(language, '/#diretoria')} onClick={() => setIsNavOpen(false)}>{t.nav.board}</a>
+        <a
+          href="/"
+          onClick={(event) => handleHomeSectionLinkClick(event, 'eventos', () => setIsNavOpen(false))}
+        >
+          {t.nav.events}
+        </a>
+        <a
+          href="/"
+          onClick={(event) => handleHomeSectionLinkClick(event, 'capitulos', () => setIsNavOpen(false))}
+        >
+          {t.nav.chapters}
+        </a>
+        <a
+          href="/"
+          onClick={(event) => handleHomeSectionLinkClick(event, 'diretoria', () => setIsNavOpen(false))}
+        >
+          {t.nav.board}
+        </a>
         <a
           className={isProjectsPage ? 'mini-nav__link--active' : undefined}
-          href={localizedPath(language, '/#projetos')}
+          href="/projetos"
           onClick={() => setIsNavOpen(false)}
           aria-current={isProjectsPage ? 'page' : undefined}
         >
           {t.nav.projects}
         </a>
-        <a href={localizedPath(language, '/#membros')} onClick={() => setIsNavOpen(false)}>{t.nav.members}</a>
-        <a href={localizedPath(language, '/#contato')} onClick={() => setIsNavOpen(false)}>{t.nav.contact}</a>
-        <a href={localizedPath(language, '/#localizacao')} onClick={() => setIsNavOpen(false)}>{t.nav.location}</a>
+        <a
+          href="/"
+          onClick={(event) => handleHomeSectionLinkClick(event, 'membros', () => setIsNavOpen(false))}
+        >
+          {t.nav.members}
+        </a>
+        <a
+          href="/"
+          onClick={(event) => handleHomeSectionLinkClick(event, 'contato', () => setIsNavOpen(false))}
+        >
+          {t.nav.contact}
+        </a>
+        <a
+          href="/"
+          onClick={(event) => handleHomeSectionLinkClick(event, 'localizacao', () => setIsNavOpen(false))}
+        >
+          {t.nav.location}
+        </a>
       </div>
     </nav>
   );
