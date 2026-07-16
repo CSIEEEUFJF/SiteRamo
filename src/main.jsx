@@ -1284,7 +1284,6 @@ const copy = {
           'A atualização automática está temporariamente indisponível. Os catálogos oficiais continuam acessíveis abaixo.',
         partial:
           'Uma das fontes oficiais está temporariamente indisponível; os demais resultados seguem atualizados.',
-        sourceLabel: 'Fontes oficiais: IEEE Students e IEEE Região 9',
         openFunding: 'Ver oportunidade',
         openEvent: 'Ver evento e inscrição',
         dateLabel: 'Data',
@@ -1608,7 +1607,6 @@ const copy = {
           'Automatic updates are temporarily unavailable. The official catalogs remain accessible below.',
         partial:
           'One official source is temporarily unavailable; the remaining results are still up to date.',
-        sourceLabel: 'Official sources: IEEE Students and IEEE Region 9',
         openFunding: 'View opportunity',
         openEvent: 'View event and registration',
         dateLabel: 'Date',
@@ -3292,7 +3290,7 @@ function OpportunitiesPage({
                 <p className="opportunities-live__updated">
                   <RefreshCw aria-hidden="true" size={16} />
                   <span>
-                    <strong>{live.updatedLabel}</strong> {updatedAt} · {live.sourceLabel}
+                    <strong>{live.updatedLabel}</strong> {updatedAt}
                   </span>
                 </p>
               ) : null}
