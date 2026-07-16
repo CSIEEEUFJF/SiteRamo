@@ -1190,22 +1190,44 @@ const copy = {
         emailLabel: 'E-mail',
         interestLabel: 'Área de interesse',
         interestPlaceholder: 'Selecione uma área',
-        interests: [
-          'Capítulos técnicos',
-          'Projetos e desenvolvimento',
-          'Eventos e capacitações',
-          'Comunicação e design',
-          'Ações sociais e voluntariado',
-          'Gestão do Ramo',
+        interestGroups: [
+          {
+            label: 'Sociedades e grupos',
+            options: [
+              'AESS — Sistemas aeroespaciais e eletrônica embarcada',
+              'AP-S — Antenas, propagação e radiofrequência',
+              'ComSoc — Comunicações, redes e telecomunicações',
+              'CS — Computação, software e inteligência artificial',
+              'CASS — Circuitos, sinais e sistemas',
+              'EdSoc — Educação em engenharia e capacitação',
+              'IAS — Aplicações industriais, automação e máquinas elétricas',
+              'PES — Energia e sistemas elétricos de potência',
+              'RAS — Robótica, automação e controle',
+              'SIGHT — Tecnologia para impacto humanitário',
+              'VTS — Mobilidade, transportes e eletrônica veicular',
+              'WIE — Diversidade e mulheres na engenharia',
+            ],
+          },
+          {
+            label: 'Frentes do Ramo',
+            options: [
+              'Projetos e desenvolvimento',
+              'Eventos e capacitações',
+              'Comunicação e design',
+              'Ações sociais e voluntariado',
+              'Gestão do Ramo',
+            ],
+          },
         ],
         messageLabel: 'Mensagem',
         messagePlaceholder: 'Conte quais temas, experiências ou atividades despertam seu interesse.',
-        consent: 'Autorizo o uso destes dados apenas para retorno sobre participação no IEEE UFJF.',
+        consent: 'Autorizo o envio e armazenamento destes dados apenas para retorno sobre participação no IEEE UFJF.',
         submit: 'Enviar interesse',
         submitting: 'Enviando...',
         success: 'Interesse enviado. A diretoria entrará em contato pelo e-mail informado.',
+        duplicate: 'Este e-mail já enviou um interesse. A diretoria entrará em contato pelo endereço informado.',
         error: 'Não foi possível enviar seu interesse agora. Tente novamente em alguns instantes.',
-        privacy: 'Seus dados serão usados apenas para retorno sobre participação no IEEE UFJF.',
+        privacy: 'Os dados ficam no Sistema Interno e serão usados apenas para retorno sobre participação.',
       },
     },
     board: {
@@ -1517,22 +1539,44 @@ const copy = {
         emailLabel: 'Email',
         interestLabel: 'Area of interest',
         interestPlaceholder: 'Select an area',
-        interests: [
-          'Technical chapters',
-          'Projects and development',
-          'Events and training',
-          'Communication and design',
-          'Social initiatives and volunteering',
-          'Student Branch management',
+        interestGroups: [
+          {
+            label: 'Societies and groups',
+            options: [
+              'AESS — Aerospace systems and embedded electronics',
+              'AP-S — Antennas, propagation, and radio frequency',
+              'ComSoc — Communications, networks, and telecommunications',
+              'CS — Computing, software, and artificial intelligence',
+              'CASS — Circuits, signals, and systems',
+              'EdSoc — Engineering education and training',
+              'IAS — Industrial applications, automation, and electrical machines',
+              'PES — Energy and electric power systems',
+              'RAS — Robotics, automation, and control',
+              'SIGHT — Technology for humanitarian impact',
+              'VTS — Mobility, transportation, and vehicular electronics',
+              'WIE — Diversity and women in engineering',
+            ],
+          },
+          {
+            label: 'Student Branch workstreams',
+            options: [
+              'Projects and development',
+              'Events and training',
+              'Communication and design',
+              'Social initiatives and volunteering',
+              'Student Branch management',
+            ],
+          },
         ],
         messageLabel: 'Message',
         messagePlaceholder: 'Share the topics, experiences, or activities that interest you.',
-        consent: 'I authorize these details to be used only for a reply about joining IEEE UFJF.',
+        consent: 'I authorize these details to be sent and stored only for a reply about joining IEEE UFJF.',
         submit: 'Send interest',
         submitting: 'Sending...',
         success: 'Interest sent. The board will contact you at the email address provided.',
+        duplicate: 'This email has already submitted an interest. The board will contact the address provided.',
         error: 'We could not send your interest right now. Please try again in a few moments.',
-        privacy: 'Your data will only be used to respond about participating in IEEE UFJF.',
+        privacy: 'The data is stored in the Internal System and used only to respond about participation.',
       },
     },
     board: {
@@ -3500,6 +3544,10 @@ function VolunteerForm({ containerRef, language, t }) {
       const payload = await response.json().catch(() => ({}));
 
       if (!response.ok) {
+        if (response.status === 409 && payload.code === 'email_already_used') {
+          throw new Error(t.duplicate);
+        }
+
         const detail = language === 'pt' ? payload.detail : '';
         throw new Error(detail || t.error);
       }
@@ -3547,8 +3595,12 @@ function VolunteerForm({ containerRef, language, t }) {
             <span>{t.interestLabel}</span>
             <select id="volunteer-interest" name="interest" defaultValue="" required>
               <option value="" disabled>{t.interestPlaceholder}</option>
-              {t.interests.map((interest) => (
-                <option value={interest} key={interest}>{interest}</option>
+              {t.interestGroups.map((group) => (
+                <optgroup label={group.label} key={group.label}>
+                  {group.options.map((interest) => (
+                    <option value={interest} key={`${group.label}-${interest}`}>{interest}</option>
+                  ))}
+                </optgroup>
               ))}
             </select>
           </label>

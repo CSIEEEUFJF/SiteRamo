@@ -355,7 +355,8 @@ Retorna:
 Proxy `POST` do formulario de recrutamento para `/api/site-interest` no Sistema Interno.
 O proxy preserva as credenciais do Resend no servidor, limita o payload e pode usar
 `ATAS_SITE_INTEREST_TOKEN` como token compartilhado com `SITE_INTEREST_API_TOKEN`
-do Sistema Interno.
+do Sistema Interno. Cada e-mail pode concluir um unico envio; a API responde `409`
+quando o endereço ja foi utilizado.
 
 ## 8.5 `/api/ieee-opportunities`
 
