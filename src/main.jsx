@@ -1149,10 +1149,10 @@ const copy = {
           period: '2026.2',
           date: 'Inscrições em fluxo contínuo',
           format: 'Online · contato com a diretoria',
-          registration: 'Formulário disponível nesta página',
+          registration: 'Formulário disponível após clicar em Entrar no IEEE UFJF',
           title: 'Recrutamento e voluntariado',
           text: 'Canal permanente para estudantes interessados em eventos, comunicação, projetos técnicos, ações sociais e gestão do Ramo.',
-          url: '#voluntariado',
+          url: '#join-ieee-ufjf',
         },
       ],
       ctas: {
@@ -1474,10 +1474,10 @@ const copy = {
           period: '2026.2',
           date: 'Rolling applications',
           format: 'Online · direct contact with the board',
-          registration: 'Form available on this page',
+          registration: 'Form available after selecting Join IEEE UFJF',
           title: 'Recruitment and volunteering',
           text: 'An ongoing channel for students interested in events, communication, technical projects, social initiatives, and Branch management.',
-          url: '#voluntariado',
+          url: '#join-ieee-ufjf',
         },
       ],
       ctas: {
@@ -1692,7 +1692,6 @@ const mapsEmbedUrl =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4558.946106024073!2d-43.37522762383733!3d-21.778392998521973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x989ba3d97601f7%3A0xcf9f2fb389a7f742!2sRamo%20Estudantil%20IEEE%20UFJF!5e1!3m2!1sen!2sbr!4v1779591238371!5m2!1sen!2sbr';
 
 const ieeeJoinUrl = 'https://www.ieee.org/membership/join/';
-const branchJoinMailto = 'mailto:ramo.ieeeufjf@gmail.com?subject=Quero%20participar%20do%20IEEE%20UFJF';
 const branchVolunteerMailto = 'mailto:ramo.ieeeufjf@gmail.com?subject=Quero%20ser%20voluntario%20do%20IEEE%20UFJF';
 const branchContactMailto = 'mailto:ramo.ieeeufjf@gmail.com';
 const branchInstagramUrl = 'https://www.instagram.com/ieeeufjf/';
@@ -1873,6 +1872,7 @@ function App() {
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [selectedProjectSlideIndex, setSelectedProjectSlideIndex] = useState(0);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isVolunteerFormOpen, setIsVolunteerFormOpen] = useState(false);
   const [activeSectionId, setActiveSectionId] = useState('o-ieee');
   const [currentPath, setCurrentPath] = useState(() => {
     if (typeof window === 'undefined') {
@@ -1906,6 +1906,7 @@ function App() {
   const chapterDetailRef = useRef(null);
   const memberDetailRef = useRef(null);
   const projectDetailRef = useRef(null);
+  const volunteerFormRef = useRef(null);
   const selectedChapter = useMemo(
     () => chapters.find((chapter) => chapter.id === selectedChapterId),
     [selectedChapterId],
@@ -1998,6 +1999,21 @@ function App() {
 
     return () => window.clearTimeout(focusTimer);
   }, [selectedProject]);
+
+  useEffect(() => {
+    if (!isVolunteerFormOpen || !volunteerFormRef.current) {
+      return undefined;
+    }
+
+    const frameId = window.requestAnimationFrame(() => {
+      volunteerFormRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      volunteerFormRef.current
+        ?.querySelector('#volunteer-form-title')
+        ?.focus({ preventScroll: true });
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [isVolunteerFormOpen]);
 
   useEffect(() => {
     setSelectedProjectSlideIndex(0);
@@ -2637,13 +2653,26 @@ function App() {
               <small>{t.events.ctas.joinIeee.text}</small>
             </span>
           </a>
-          <a className="event-action" href={branchJoinMailto}>
+          <button
+            className="event-action"
+            id="join-ieee-ufjf"
+            type="button"
+            onClick={() => {
+              if (isVolunteerFormOpen) {
+                scrollToPageTarget('voluntariado');
+              } else {
+                setIsVolunteerFormOpen(true);
+              }
+            }}
+            aria-controls={isVolunteerFormOpen ? 'voluntariado' : undefined}
+            aria-expanded={isVolunteerFormOpen}
+          >
             <UserPlus aria-hidden="true" size={22} />
             <span>
               <strong>{t.events.ctas.joinBranch.label}</strong>
               <small>{t.events.ctas.joinBranch.text}</small>
             </span>
-          </a>
+          </button>
           <a className="event-action" href={branchContactMailto}>
             <Mail aria-hidden="true" size={22} />
             <span>
@@ -2667,7 +2696,13 @@ function App() {
           </a>
         </div>
 
-        <VolunteerForm language={language} t={t.events.volunteerForm} />
+        {isVolunteerFormOpen ? (
+          <VolunteerForm
+            containerRef={volunteerFormRef}
+            language={language}
+            t={t.events.volunteerForm}
+          />
+        ) : null}
       </section>
 
       <section
@@ -3426,7 +3461,7 @@ function formatOpportunityDateTime(value, language) {
   }).format(date);
 }
 
-function VolunteerForm({ language, t }) {
+function VolunteerForm({ containerRef, language, t }) {
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -3459,10 +3494,15 @@ function VolunteerForm({ language, t }) {
   }
 
   return (
-    <div className="volunteer-form" id="voluntariado">
+    <div
+      className="volunteer-form"
+      id="voluntariado"
+      ref={containerRef}
+      aria-labelledby="volunteer-form-title"
+    >
       <div className="volunteer-form__heading">
         <span>{t.eyebrow}</span>
-        <h3>{t.title}</h3>
+        <h3 id="volunteer-form-title" tabIndex={-1}>{t.title}</h3>
         <p>{t.description}</p>
       </div>
 

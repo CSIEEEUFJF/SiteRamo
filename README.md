@@ -25,7 +25,7 @@ Funciona hoje:
 - rotas internas para historia, todos os projetos e paginas individuais de capitulos;
 - pagina de oportunidades em portugues e ingles, com bolsas, auxilios de viagem, eventos, competicoes, voluntariado e beneficios;
 - agenda publica com data, modalidade e link de inscricao;
-- formulario bilingue de recrutamento e voluntariado, preparado para contato pelo e-mail institucional;
+- formulario bilingue de recrutamento e voluntariado, exibido sob demanda pelo card de entrada no IEEE UFJF e preparado para contato pelo e-mail institucional;
 - alternancia de tema claro/escuro;
 - alternancia de idioma portugues/ingles;
 - navbar responsiva, com menu expansivel em telas menores;
@@ -136,7 +136,7 @@ Secoes principais:
 - **O IEEE**: texto institucional sobre IEEE e Ramo, com blocos de missao, visao e valores.
 - **Historia**: resumo historico do Ramo, botao para a pagina completa e carrossel de logos do Ramo.
 - **Eventos**: agenda com datas, modalidade, disponibilidade de inscricao e chamadas de recrutamento.
-- **Recrutamento e voluntariado**: formulario bilingue que prepara o contato com a diretoria.
+- **Recrutamento e voluntariado**: formulario bilingue revelado pelo card `Entrar no IEEE UFJF` que prepara o contato com a diretoria.
 - **Capitulos**: grade com logos dos capitulos e grupos de afinidade.
 - **Diretoria**: membros da diretoria atual.
 - **Projetos**: cards de projetos em destaque e botao para ver todos.
