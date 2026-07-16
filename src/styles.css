@@ -1466,6 +1466,14 @@ html[data-theme="dark"] .mini-nav__links a.mini-nav__link--active {
   grid-column: 1 / -1;
 }
 
+.volunteer-form__honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .volunteer-form input,
 .volunteer-form select,
 .volunteer-form textarea {
@@ -1540,11 +1548,58 @@ html[data-theme="dark"] .mini-nav__links a.mini-nav__link--active {
   background: #004f7d;
 }
 
+.volunteer-form__footer button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+}
+
+.volunteer-form__spinner {
+  animation: volunteer-form-spin 0.8s linear infinite;
+}
+
+@keyframes volunteer-form-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .volunteer-form__footer small {
   max-width: 360px;
   color: var(--muted);
   font-size: 0.78rem;
   line-height: 1.45;
+}
+
+.volunteer-form__status {
+  margin: 1rem 0 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.volunteer-form__status svg {
+  margin-top: 0.08rem;
+  flex: 0 0 auto;
+}
+
+.volunteer-form__status--success {
+  color: #19723b;
+}
+
+.volunteer-form__status--error {
+  color: #b42318;
+}
+
+html[data-theme="dark"] .volunteer-form__status--success {
+  color: #75d69b;
+}
+
+html[data-theme="dark"] .volunteer-form__status--error {
+  color: #ff9b8f;
 }
 
 @media (max-width: 720px) {

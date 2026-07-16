@@ -25,7 +25,7 @@ Funciona hoje:
 - rotas internas para historia, todos os projetos e paginas individuais de capitulos;
 - pagina de oportunidades em portugues e ingles, com bolsas, auxilios de viagem, eventos, competicoes, voluntariado e beneficios;
 - agenda publica com data, modalidade e link de inscricao;
-- formulario bilingue de recrutamento e voluntariado, exibido sob demanda pelo card de entrada no IEEE UFJF e preparado para contato pelo e-mail institucional;
+- formulario bilingue de recrutamento e voluntariado, exibido sob demanda pelo card de entrada no IEEE UFJF e enviado pela API do Sistema Interno;
 - alternancia de tema claro/escuro;
 - alternancia de idioma portugues/ingles;
 - navbar responsiva, com menu expansivel em telas menores;
@@ -136,7 +136,7 @@ Secoes principais:
 - **O IEEE**: texto institucional sobre IEEE e Ramo, com blocos de missao, visao e valores.
 - **Historia**: resumo historico do Ramo, botao para a pagina completa e carrossel de logos do Ramo.
 - **Eventos**: agenda com datas, modalidade, disponibilidade de inscricao e chamadas de recrutamento.
-- **Recrutamento e voluntariado**: formulario bilingue revelado pelo card `Entrar no IEEE UFJF` que prepara o contato com a diretoria.
+- **Recrutamento e voluntariado**: formulario bilingue revelado pelo card `Entrar no IEEE UFJF` e enviado ao e-mail institucional pela API do Sistema Interno.
 - **Capitulos**: grade com logos dos capitulos e grupos de afinidade.
 - **Diretoria**: membros da diretoria atual.
 - **Projetos**: cards de projetos em destaque e botao para ver todos.
@@ -350,7 +350,14 @@ Retorna:
 - posicao e zoom;
 - ordem de exibicao.
 
-## 8.4 `/api/ieee-opportunities`
+## 8.4 `/api/atas-site-interest`
+
+Proxy `POST` do formulario de recrutamento para `/api/site-interest` no Sistema Interno.
+O proxy preserva as credenciais do Resend no servidor, limita o payload e pode usar
+`ATAS_SITE_INTEREST_TOKEN` como token compartilhado com `SITE_INTEREST_API_TOKEN`
+do Sistema Interno.
+
+## 8.5 `/api/ieee-opportunities`
 
 Agregador publico de oportunidades vindas de fontes oficiais do IEEE.
 
@@ -541,6 +548,7 @@ O resultado detalhado da rodada de 14 de julho de 2026 esta em [`docs/public-sit
 - [`api/atas-site-members.js`](./api/atas-site-members.js): proxy de membros.
 - [`api/atas-site-projects.js`](./api/atas-site-projects.js): proxy de projetos.
 - [`api/atas-site-history-photos.js`](./api/atas-site-history-photos.js): proxy de fotos historicas.
+- [`api/atas-site-interest.js`](./api/atas-site-interest.js): proxy de envio do formulario de recrutamento.
 - [`api/ieee-opportunities.js`](./api/ieee-opportunities.js): agregador de oportunidades oficiais do IEEE.
 - [`public/assets`](./public/assets): imagens e logos.
 - [`public/@font`](./public/@font): fontes Formata.

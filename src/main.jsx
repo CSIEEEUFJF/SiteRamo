@@ -5,16 +5,20 @@ import {
   ArrowLeft,
   Bell,
   CalendarDays,
+  CheckCircle2,
+  CircleAlert,
   ExternalLink,
   Github,
   Instagram,
   Languages,
+  LoaderCircle,
   Mail,
   MapPin,
   Menu,
   Monitor,
   Moon,
   RefreshCw,
+  Send,
   UserPlus,
   X,
 } from 'lucide-react';
@@ -1197,8 +1201,11 @@ const copy = {
         messageLabel: 'Mensagem',
         messagePlaceholder: 'Conte quais temas, experiências ou atividades despertam seu interesse.',
         consent: 'Autorizo o uso destes dados apenas para retorno sobre participação no IEEE UFJF.',
-        submit: 'Preparar contato',
-        privacy: 'O contato é preparado para envio direto ao e-mail institucional do Ramo.',
+        submit: 'Enviar interesse',
+        submitting: 'Enviando...',
+        success: 'Interesse enviado. A diretoria entrará em contato pelo e-mail informado.',
+        error: 'Não foi possível enviar seu interesse agora. Tente novamente em alguns instantes.',
+        privacy: 'Seus dados serão usados apenas para retorno sobre participação no IEEE UFJF.',
       },
     },
     board: {
@@ -1521,8 +1528,11 @@ const copy = {
         messageLabel: 'Message',
         messagePlaceholder: 'Share the topics, experiences, or activities that interest you.',
         consent: 'I authorize these details to be used only for a reply about joining IEEE UFJF.',
-        submit: 'Prepare contact',
-        privacy: 'The contact is prepared for direct delivery to the Student Branch institutional email.',
+        submit: 'Send interest',
+        submitting: 'Sending...',
+        success: 'Interest sent. The board will contact you at the email address provided.',
+        error: 'We could not send your interest right now. Please try again in a few moments.',
+        privacy: 'Your data will only be used to respond about participating in IEEE UFJF.',
       },
     },
     board: {
@@ -3459,35 +3469,51 @@ function formatOpportunityDateTime(value, language) {
 }
 
 function VolunteerForm({ containerRef, language, t }) {
-  function handleSubmit(event) {
+  const [submission, setSubmission] = useState({ message: '', status: 'idle' });
+  const isSubmitting = submission.status === 'submitting';
+
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    const values = Object.fromEntries(new FormData(event.currentTarget).entries());
-    const name = String(values.name || '').trim();
-    const email = String(values.email || '').trim();
-    const interest = String(values.interest || '').trim();
-    const message = String(values.message || '').trim();
-    const subject = language === 'pt'
-      ? `Interesse em participar do IEEE UFJF - ${name}`
-      : `Interest in joining IEEE UFJF - ${name}`;
-    const body = language === 'pt'
-      ? [
-          `Nome: ${name}`,
-          `E-mail: ${email}`,
-          `Área de interesse: ${interest}`,
-          '',
-          message || 'Gostaria de receber mais informações sobre como participar.',
-        ].join('\n')
-      : [
-          `Name: ${name}`,
-          `Email: ${email}`,
-          `Area of interest: ${interest}`,
-          '',
-          message || 'I would like more information about how to participate.',
-        ].join('\n');
-    const query = new URLSearchParams({ subject, body });
+    const form = event.currentTarget;
+    const values = Object.fromEntries(new FormData(form).entries());
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 15000);
 
-    window.location.href = `mailto:ramo.ieeeufjf@gmail.com?${query.toString()}`;
+    setSubmission({ message: '', status: 'submitting' });
+
+    try {
+      const response = await fetch('/api/atas-site-interest', {
+        body: JSON.stringify({
+          consent: values.consent === 'on',
+          email: String(values.email || '').trim(),
+          interest: String(values.interest || '').trim(),
+          language,
+          message: String(values.message || '').trim(),
+          name: String(values.name || '').trim(),
+          website: String(values.website || '').trim(),
+        }),
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+        signal: controller.signal,
+      });
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        const detail = language === 'pt' ? payload.detail : '';
+        throw new Error(detail || t.error);
+      }
+
+      form.reset();
+      setSubmission({ message: t.success, status: 'success' });
+    } catch (error) {
+      setSubmission({
+        message: error.name === 'AbortError' ? t.error : error.message || t.error,
+        status: 'error',
+      });
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
   }
 
   return (
@@ -3503,15 +3529,19 @@ function VolunteerForm({ containerRef, language, t }) {
         <p>{t.description}</p>
       </div>
 
-      <form onSubmit={handleSubmit} aria-describedby="volunteer-form-note">
+      <form
+        onSubmit={handleSubmit}
+        aria-busy={isSubmitting}
+        aria-describedby={`volunteer-form-note${submission.status !== 'idle' ? ' volunteer-form-status' : ''}`}
+      >
         <div className="volunteer-form__fields">
           <label htmlFor="volunteer-name">
             <span>{t.nameLabel}</span>
-            <input id="volunteer-name" name="name" type="text" autoComplete="name" required />
+            <input id="volunteer-name" name="name" type="text" autoComplete="name" maxLength={120} required />
           </label>
           <label htmlFor="volunteer-email">
             <span>{t.emailLabel}</span>
-            <input id="volunteer-email" name="email" type="email" autoComplete="email" required />
+            <input id="volunteer-email" name="email" type="email" autoComplete="email" maxLength={254} required />
           </label>
           <label htmlFor="volunteer-interest" className="volunteer-form__field--wide">
             <span>{t.interestLabel}</span>
@@ -3524,7 +3554,17 @@ function VolunteerForm({ containerRef, language, t }) {
           </label>
           <label htmlFor="volunteer-message" className="volunteer-form__field--wide">
             <span>{t.messageLabel}</span>
-            <textarea id="volunteer-message" name="message" rows="4" placeholder={t.messagePlaceholder} />
+            <textarea
+              id="volunteer-message"
+              name="message"
+              rows="4"
+              maxLength={2500}
+              placeholder={t.messagePlaceholder}
+            />
+          </label>
+          <label className="volunteer-form__honeypot" aria-hidden="true">
+            <span>Website</span>
+            <input name="website" type="text" autoComplete="off" maxLength={200} tabIndex={-1} />
           </label>
         </div>
 
@@ -3534,12 +3574,31 @@ function VolunteerForm({ containerRef, language, t }) {
         </label>
 
         <div className="volunteer-form__footer">
-          <button type="submit">
-            <Mail aria-hidden="true" size={18} />
-            {t.submit}
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <LoaderCircle className="volunteer-form__spinner" aria-hidden="true" size={18} />
+            ) : (
+              <Send aria-hidden="true" size={18} />
+            )}
+            {isSubmitting ? t.submitting : t.submit}
           </button>
           <small id="volunteer-form-note">{t.privacy}</small>
         </div>
+
+        {submission.status === 'success' || submission.status === 'error' ? (
+          <p
+            className={`volunteer-form__status volunteer-form__status--${submission.status}`}
+            id="volunteer-form-status"
+            role={submission.status === 'error' ? 'alert' : 'status'}
+          >
+            {submission.status === 'success' ? (
+              <CheckCircle2 aria-hidden="true" size={18} />
+            ) : (
+              <CircleAlert aria-hidden="true" size={18} />
+            )}
+            <span>{submission.message}</span>
+          </p>
+        ) : null}
       </form>
     </div>
   );

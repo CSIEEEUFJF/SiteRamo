@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import { loadIeeeOpportunities } from './api/ieee-opportunities.js';
 
 const ATAS_ORIGIN = process.env.ATAS_API_ORIGIN || 'https://interno.ieeeufjf.com.br';
+const ATAS_SITE_INTEREST_TOKEN = process.env.ATAS_SITE_INTEREST_TOKEN || '';
 const SESSION_COOKIE = 'atas_ieee_session';
 const MAX_JSON_BODY_BYTES = 64 * 1024;
 
@@ -139,6 +140,42 @@ function atasAdminProxy() {
         } catch (error) {
           return sendJson(response, error.statusCode || 502, {
             detail: error.message || 'Nao foi possivel conectar ao sistema de atas.',
+          });
+        }
+      });
+
+      server.middlewares.use('/api/atas-site-interest', async (request, response) => {
+        try {
+          if (request.method !== 'POST') {
+            response.setHeader('Allow', 'POST');
+            return sendJson(response, 405, { detail: 'Metodo nao permitido.' });
+          }
+
+          if (!isSameOriginRequest(request)) {
+            return sendJson(response, 403, { detail: 'Origem invalida.' });
+          }
+
+          const body = await readBody(request);
+          const headers = {
+            'Content-Type': request.headers['content-type'] || 'application/json',
+          };
+          if (ATAS_SITE_INTEREST_TOKEN) {
+            headers.Authorization = `Bearer ${ATAS_SITE_INTEREST_TOKEN}`;
+          }
+          if (request.headers['x-forwarded-for']) {
+            headers['X-Forwarded-For'] = request.headers['x-forwarded-for'];
+          }
+
+          return proxyJson(
+            request,
+            response,
+            '/api/site-interest',
+            { body, headers, method: 'POST' },
+            { local: true },
+          );
+        } catch (error) {
+          return sendJson(response, error.statusCode || 502, {
+            detail: error.message || 'Nao foi possivel enviar o interesse ao Sistema Interno.',
           });
         }
       });
