@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import {
   ArrowDown,
   ArrowLeft,
-  Bell,
   CalendarDays,
   CheckCircle2,
   CircleAlert,
@@ -1172,10 +1171,6 @@ const copy = {
           label: 'Fale conosco',
           text: 'Envie dúvidas, propostas ou parcerias.',
         },
-        volunteer: {
-          label: 'Ser voluntário',
-          text: 'Participe da organização das atividades.',
-        },
         follow: {
           label: 'Siga nossos eventos',
           text: 'Acompanhe chamadas e registros no Instagram.',
@@ -1521,10 +1516,6 @@ const copy = {
           label: 'Talk to us',
           text: 'Send questions, proposals, or partnerships.',
         },
-        volunteer: {
-          label: 'Become a volunteer',
-          text: 'Help organize activities and initiatives.',
-        },
         follow: {
           label: 'Follow our events',
           text: 'Track calls and highlights on Instagram.',
@@ -1744,7 +1735,6 @@ const mapsEmbedUrl =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4558.946106024073!2d-43.37522762383733!3d-21.778392998521973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x989ba3d97601f7%3A0xcf9f2fb389a7f742!2sRamo%20Estudantil%20IEEE%20UFJF!5e1!3m2!1sen!2sbr!4v1779591238371!5m2!1sen!2sbr';
 
 const ieeeJoinUrl = 'https://www.ieee.org/membership/join/';
-const branchVolunteerMailto = 'mailto:ramo.ieeeufjf@gmail.com?subject=Quero%20ser%20voluntario%20do%20IEEE%20UFJF';
 const branchContactMailto = 'mailto:ramo.ieeeufjf@gmail.com';
 const branchInstagramUrl = 'https://www.instagram.com/ieeeufjf/';
 
@@ -2730,13 +2720,6 @@ function App() {
             <span>
               <strong>{t.events.ctas.talk.label}</strong>
               <small>{t.events.ctas.talk.text}</small>
-            </span>
-          </a>
-          <a className="event-action" href={branchVolunteerMailto}>
-            <Bell aria-hidden="true" size={22} />
-            <span>
-              <strong>{t.events.ctas.volunteer.label}</strong>
-              <small>{t.events.ctas.volunteer.text}</small>
             </span>
           </a>
           <a className="event-action" href={branchInstagramUrl} target="_blank" rel="noreferrer">
