@@ -1267,8 +1267,8 @@ const copy = {
       back: 'Voltar ao site',
       externalCta: 'Acessar portal IEEE Students',
       live: {
-        eyebrow: 'Atualizado em',
-        title: 'Oportunidades em destaque',
+        updatedLabel: 'Atualizado em',
+        title: 'OPORTUNIDADES EM DESTAQUE',
         fundingTitle: 'Bolsas, auxílios e premiações',
         fundingDescription:
           'Oportunidades publicadas pelo IEEE Students, atualizadas diretamente da fonte oficial.',
@@ -1591,8 +1591,8 @@ const copy = {
       back: 'Back to site',
       externalCta: 'Open IEEE Students portal',
       live: {
-        eyebrow: 'Updated',
-        title: 'Featured opportunities',
+        updatedLabel: 'Updated on',
+        title: 'FEATURED OPPORTUNITIES',
         fundingTitle: 'Grants, scholarships, and awards',
         fundingDescription:
           'Opportunities published by IEEE Students and updated directly from the official source.',
@@ -3287,14 +3287,13 @@ function OpportunitiesPage({
             aria-busy={liveOpportunities.status === 'loading'}
           >
             <div className="opportunities-live__heading">
-              <div>
-                <span>{live.eyebrow}</span>
-                <h2 id="oportunidades-destaques-title">{live.title}</h2>
-              </div>
+              <h2 id="oportunidades-destaques-title">{live.title}</h2>
               {updatedAt && liveOpportunities.status === 'ready' ? (
                 <p className="opportunities-live__updated">
                   <RefreshCw aria-hidden="true" size={16} />
-                  <span>{updatedAt} · {live.sourceLabel}</span>
+                  <span>
+                    <strong>{live.updatedLabel}</strong> {updatedAt} · {live.sourceLabel}
+                  </span>
                 </p>
               ) : null}
             </div>
