@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { loadIeeeOpportunities } from './api/ieee-opportunities.js';
+import { seoRoutes } from './scripts/seo-routes.mjs';
 
 const ATAS_ORIGIN = process.env.ATAS_API_ORIGIN || 'https://interno.ieeeufjf.com.br';
 const ATAS_SITE_INTEREST_TOKEN = process.env.ATAS_SITE_INTEREST_TOKEN || '';
@@ -14,6 +15,12 @@ export default defineConfig({
       input: {
         main: 'index.html',
         en: 'en.html',
+        ...Object.fromEntries(
+          seoRoutes.map((route) => [
+            route.slice(1).replaceAll('/', '-'),
+            `${route.slice(1)}/index.html`,
+          ]),
+        ),
       },
     },
   },

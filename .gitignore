@@ -3,3 +3,9 @@ dist/
 .playwright-mcp/
 *.log
 ieee-ufjf-home-*.png
+# Generated SEO route HTML shells
+/historia/
+/projetos/
+/oportunidades/
+/capitulos/
+/en/

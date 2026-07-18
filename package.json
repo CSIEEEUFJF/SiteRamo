@@ -7,7 +7,8 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "test:site": "node scripts/verify-public-site.mjs"
+    "test:site": "node scripts/verify-public-site.mjs",
+    "prebuild": "node scripts/generate-seo-pages.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.1.1",

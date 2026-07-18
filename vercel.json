@@ -59,36 +59,136 @@
       "destination": "/en.html"
     },
     {
-      "source": "/en/capitulos/(.*)",
-      "destination": "/en.html"
-    },
-    {
-      "source": "/en/historia",
-      "destination": "/en.html"
-    },
-    {
-      "source": "/en/projetos",
-      "destination": "/en.html"
-    },
-    {
-      "source": "/en/oportunidades",
-      "destination": "/en.html"
-    },
-    {
-      "source": "/capitulos/(.*)",
-      "destination": "/index.html"
-    },
-    {
       "source": "/historia",
-      "destination": "/index.html"
+      "destination": "/historia/index.html"
     },
     {
       "source": "/projetos",
-      "destination": "/index.html"
+      "destination": "/projetos/index.html"
     },
     {
       "source": "/oportunidades",
-      "destination": "/index.html"
+      "destination": "/oportunidades/index.html"
+    },
+    {
+      "source": "/capitulos/aess",
+      "destination": "/capitulos/aess/index.html"
+    },
+    {
+      "source": "/capitulos/aps",
+      "destination": "/capitulos/aps/index.html"
+    },
+    {
+      "source": "/capitulos/comsoc",
+      "destination": "/capitulos/comsoc/index.html"
+    },
+    {
+      "source": "/capitulos/cs",
+      "destination": "/capitulos/cs/index.html"
+    },
+    {
+      "source": "/capitulos/cas",
+      "destination": "/capitulos/cas/index.html"
+    },
+    {
+      "source": "/capitulos/edsoc",
+      "destination": "/capitulos/edsoc/index.html"
+    },
+    {
+      "source": "/capitulos/ias",
+      "destination": "/capitulos/ias/index.html"
+    },
+    {
+      "source": "/capitulos/pes",
+      "destination": "/capitulos/pes/index.html"
+    },
+    {
+      "source": "/capitulos/ras",
+      "destination": "/capitulos/ras/index.html"
+    },
+    {
+      "source": "/capitulos/sight",
+      "destination": "/capitulos/sight/index.html"
+    },
+    {
+      "source": "/capitulos/vts",
+      "destination": "/capitulos/vts/index.html"
+    },
+    {
+      "source": "/capitulos/wie",
+      "destination": "/capitulos/wie/index.html"
+    },
+    {
+      "source": "/en/historia",
+      "destination": "/en/historia/index.html"
+    },
+    {
+      "source": "/en/projetos",
+      "destination": "/en/projetos/index.html"
+    },
+    {
+      "source": "/en/oportunidades",
+      "destination": "/en/oportunidades/index.html"
+    },
+    {
+      "source": "/en/capitulos/aess",
+      "destination": "/en/capitulos/aess/index.html"
+    },
+    {
+      "source": "/en/capitulos/aps",
+      "destination": "/en/capitulos/aps/index.html"
+    },
+    {
+      "source": "/en/capitulos/comsoc",
+      "destination": "/en/capitulos/comsoc/index.html"
+    },
+    {
+      "source": "/en/capitulos/cs",
+      "destination": "/en/capitulos/cs/index.html"
+    },
+    {
+      "source": "/en/capitulos/cas",
+      "destination": "/en/capitulos/cas/index.html"
+    },
+    {
+      "source": "/en/capitulos/edsoc",
+      "destination": "/en/capitulos/edsoc/index.html"
+    },
+    {
+      "source": "/en/capitulos/ias",
+      "destination": "/en/capitulos/ias/index.html"
+    },
+    {
+      "source": "/en/capitulos/pes",
+      "destination": "/en/capitulos/pes/index.html"
+    },
+    {
+      "source": "/en/capitulos/ras",
+      "destination": "/en/capitulos/ras/index.html"
+    },
+    {
+      "source": "/en/capitulos/sight",
+      "destination": "/en/capitulos/sight/index.html"
+    },
+    {
+      "source": "/en/capitulos/vts",
+      "destination": "/en/capitulos/vts/index.html"
+    },
+    {
+      "source": "/en/capitulos/wie",
+      "destination": "/en/capitulos/wie/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en.html",
+      "destination": "/en",
+      "permanent": true
     }
   ]
 }
