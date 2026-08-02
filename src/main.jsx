@@ -762,7 +762,8 @@ const boardMembers = [
       pt: 'Webmaster',
       en: 'Webmaster',
     },
-    name: 'Thalita Mello',
+    name: 'Rafael Lago',
+    photo: '/assets/presidents/rafael-lago.png',
   },
 ];
 
@@ -922,12 +923,12 @@ const ramoMembers = [
   {
     id: 'endhel-andrade',
     name: 'Endhel Andrade',
-    role: { pt: 'Webmaster e Presidente RAS', en: 'Webmaster and RAS Chair' },
-    chapters: ['Ramo', 'RAS'],
+    role: { pt: 'Presidente RAS', en: 'RAS Chair' },
+    chapters: ['RAS'],
     photoUrl: '/assets/presidents/endhel-andrade.jpg',
     bio: {
-      pt: 'Cuida da presença digital do Ramo e lidera projetos de robótica, automação e sistemas embarcados com foco em prototipagem prática.',
-      en: 'Maintains the Branch digital presence and leads robotics, automation, and embedded systems projects with a hands-on prototyping focus.',
+      pt: 'Lidera projetos de robótica, automação e sistemas embarcados com foco em prototipagem prática.',
+      en: 'Leads robotics, automation, and embedded systems projects with a hands-on prototyping focus.',
     },
   },
   {
@@ -966,12 +967,12 @@ const ramoMembers = [
   {
     id: 'rafael-lago',
     name: 'Rafael Lago',
-    role: { pt: 'Presidente CS', en: 'CS Chair' },
-    chapters: ['CS'],
+    role: { pt: 'Webmaster e Presidente CS', en: 'Webmaster and CS Chair' },
+    chapters: ['Ramo', 'CS'],
     photoUrl: '/assets/presidents/rafael-lago.png',
     bio: {
-      pt: 'Coordena iniciativas de computação, software, inteligência artificial e formação técnica para estudantes interessados em tecnologia.',
-      en: 'Coordinates computing, software, artificial intelligence, and technical training initiatives for students interested in technology.',
+      pt: 'Cuida da presença digital do Ramo e coordena iniciativas de computação, software, inteligência artificial e formação técnica.',
+      en: 'Maintains the Branch digital presence and coordinates computing, software, artificial intelligence, and technical training initiatives.',
     },
   },
   {
@@ -1019,11 +1020,11 @@ const ramoMembers = [
   {
     id: 'thalita',
     name: 'Thalita Mello',
-    role: { pt: 'Webmaster', en: 'Webmaster' },
-    chapters: ['Ramo'],
+    role: { pt: 'Secretária WIE e Tesoureira PES', en: 'WIE Secretary and PES Treasurer' },
+    chapters: ['WIE', 'PES'],
     bio: {
-      pt: 'Cuida da presença digital do Ramo e apoia a atualização das informações públicas do site.',
-      en: 'Maintains the Branch digital presence and supports updates to public website information.',
+      pt: 'Apoia as rotinas administrativas do WIE e a gestão financeira das atividades do PES.',
+      en: 'Supports WIE administrative routines and the financial management of PES activities.',
     },
   },
   {
