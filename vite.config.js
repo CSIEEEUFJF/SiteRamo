@@ -7,6 +7,9 @@ const ATAS_ORIGIN = process.env.ATAS_API_ORIGIN || 'https://interno.ieeeufjf.com
 const ATAS_SITE_INTEREST_TOKEN = process.env.ATAS_SITE_INTEREST_TOKEN || '';
 const SESSION_COOKIE = 'atas_ieee_session';
 const MAX_JSON_BODY_BYTES = 64 * 1024;
+const DRIVE_IMAGE_CACHE_TTL_MS = 1000 * 60 * 60 * 24;
+const DRIVE_IMAGE_CACHE_MAX_ITEMS = 120;
+const driveImageCache = new Map();
 
 export default defineConfig({
   plugins: [react(), atasAdminProxy()],
@@ -236,9 +239,17 @@ function atasAdminProxy() {
             return sendJson(response, 400, { detail: 'Imagem invalida.' });
           }
 
+          const cacheKey = getDriveImageCacheKey(request, fileId);
+          const cachedImage = getCachedDriveImage(cacheKey);
+          if (cachedImage) {
+            response.statusCode = 200;
+            response.setHeader('X-Image-Cache', 'HIT');
+            return sendDriveImage(request, response, cachedImage);
+          }
+
           const upstream = await fetch(
             `https://drive.usercontent.google.com/download?id=${encodeURIComponent(fileId)}&export=view`,
-            { cache: 'no-store' },
+            { cache: 'force-cache' },
           );
 
           if (!upstream.ok) {
@@ -250,21 +261,19 @@ function atasAdminProxy() {
             return sendJson(response, 502, { detail: 'Arquivo nao e uma imagem publica.' });
           }
 
-          response.statusCode = 200;
-          response.setHeader('Cache-Control', 'no-store, max-age=0');
-          response.setHeader('Content-Type', contentType);
-          response.setHeader('X-Content-Type-Options', 'nosniff');
           const contentLength = upstream.headers.get('content-length');
-          if (contentLength) {
-            response.setHeader('Content-Length', contentLength);
-          }
-
-          if (request.method === 'HEAD') {
-            return response.end();
-          }
-
           const buffer = Buffer.from(await upstream.arrayBuffer());
-          return response.end(buffer);
+          const image = {
+            buffer,
+            contentLength: contentLength || String(buffer.length),
+            contentType,
+            expiresAt: Date.now() + DRIVE_IMAGE_CACHE_TTL_MS,
+          };
+          setCachedDriveImage(cacheKey, image);
+
+          response.statusCode = 200;
+          response.setHeader('X-Image-Cache', 'MISS');
+          return sendDriveImage(request, response, image);
         } catch (error) {
           return sendJson(response, 502, {
             detail: error.message || 'Nao foi possivel carregar a imagem.',
@@ -315,6 +324,49 @@ function getDriveImageId(request) {
   const url = new URL(request.url || '', 'http://localhost');
   const fileId = String(url.searchParams.get('id') || '').trim();
   return /^[A-Za-z0-9_-]{10,}$/.test(fileId) ? fileId : '';
+}
+
+function getDriveImageCacheKey(request, fileId) {
+  const url = new URL(request.url || '', 'http://localhost');
+  return `${fileId}:${url.searchParams.get('v') || 'unversioned'}`;
+}
+
+function getCachedDriveImage(cacheKey) {
+  const cachedImage = driveImageCache.get(cacheKey);
+  if (!cachedImage) {
+    return null;
+  }
+
+  if (cachedImage.expiresAt <= Date.now()) {
+    driveImageCache.delete(cacheKey);
+    return null;
+  }
+
+  driveImageCache.delete(cacheKey);
+  driveImageCache.set(cacheKey, cachedImage);
+  return cachedImage;
+}
+
+function setCachedDriveImage(cacheKey, image) {
+  driveImageCache.set(cacheKey, image);
+
+  while (driveImageCache.size > DRIVE_IMAGE_CACHE_MAX_ITEMS) {
+    const oldestKey = driveImageCache.keys().next().value;
+    driveImageCache.delete(oldestKey);
+  }
+}
+
+function sendDriveImage(request, response, image) {
+  response.setHeader('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800');
+  response.setHeader('Content-Type', image.contentType);
+  response.setHeader('Content-Length', image.contentLength);
+  response.setHeader('X-Content-Type-Options', 'nosniff');
+
+  if (request.method === 'HEAD') {
+    return response.end();
+  }
+
+  return response.end(image.buffer);
 }
 
 function sendJson(response, status, payload) {
